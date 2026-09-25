@@ -88,7 +88,6 @@
             gap: 10px;
         }
 
-        /* Filter Controls */
         .filter-container {
             display: flex;
             gap: 10px;
@@ -182,6 +181,13 @@
 
         .price.money { color: var(--accent-green); }
 
+        /* Mission & Action Buttons */
+        .mission-link {
+            display: block;
+            text-decoration: none;
+            width: 100%;
+        }
+
         button {
             background: #27ae60;
             color: white;
@@ -196,7 +202,7 @@
 
         button:active { transform: scale(0.98); }
         button:hover { background: #2ecc71; }
-        button:disabled { background: #34495e; color: #7f8c8d; cursor: not-allowed; }
+        button:disabled { background: #34495e; color: #7f8c8d; cursor: not-allowed; pointer-events: none; }
 
         .buy-btn { background: #2980b9; }
         .buy-btn:hover { background: #3498db; }
@@ -204,7 +210,6 @@
         .download-btn { background: #8e44ad; }
         .download-btn:hover { background: #9b59b6; }
 
-        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -260,7 +265,7 @@
     </header>
 
     <div class="notice-banner">
-        <strong>ℹ️ ინფორმაცია:</strong> შეასრულე მისიები (გადადი ლინკზე, დაელოდე 10 წამს) და მიიღე უფასო ქოინები!
+        <strong>ℹ️ ინფორმაცია:</strong> დააჭირე ღილაკს, გადადი Steam-ის გვერდზე და დაელოდე 10 წამს უფასო ქოინების მისაღებად!
     </div>
 
     <!-- 1. MISSIONS -->
@@ -270,21 +275,27 @@
             <h3>Join Steam Group</h3>
             <p>გადადი ჯგუფის გვერდზე და დაელოდე 10 წამს.</p>
             <div class="price">+20 COINS</div>
-            <button id="btn-group" onclick="doMission('group', links.group, 20)">GO TO GROUP (+20)</button>
+            <a id="link-group" class="mission-link" target="_blank" onclick="startMission('group', 20)">
+                <button id="btn-group">GO TO GROUP (+20)</button>
+            </a>
         </div>
 
         <div class="card">
             <h3>Follow Profile</h3>
             <p>გადადი პროფილზე, დააფოლოვე და დაელოდე 10 წამს.</p>
             <div class="price">+20 COINS</div>
-            <button id="btn-profile" onclick="doMission('profile', links.profile, 20)">GO TO PROFILE (+20)</button>
+            <a id="link-profile" class="mission-link" target="_blank" onclick="startMission('profile', 20)">
+                <button id="btn-profile">GO TO PROFILE (+20)</button>
+            </a>
         </div>
 
         <div class="card">
             <h3>Add Friend</h3>
             <p>გადადი პროფილზე, გააგზავნე მეგობრობა და დაელოდე 10 წამს.</p>
             <div class="price">+20 COINS</div>
-            <button id="btn-friend" onclick="doMission('friend', links.friend, 20)">ADD FRIEND (+20)</button>
+            <a id="link-friend" class="mission-link" target="_blank" onclick="startMission('friend', 20)">
+                <button id="btn-friend">ADD FRIEND (+20)</button>
+            </a>
         </div>
     </div>
 
@@ -345,7 +356,12 @@
 </div>
 
 <script>
-    // --- AUDIO SYSTEM (Web Audio API - არ სჭირდება გარე ფაილები) ---
+    // ჩავსვათ ლინკები პირდაპირ HTML <a> ტეგებში
+    document.getElementById("link-group").href = links.group;
+    document.getElementById("link-profile").href = links.profile;
+    document.getElementById("link-friend").href = links.friend;
+
+    // --- AUDIO SYSTEM ---
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     
     function playAudio(type) {
@@ -377,9 +393,9 @@
             osc.stop(now + 0.25);
         } else if (type === 'buy') {
             osc.type = 'sine';
-            osc.frequency.setValueAtTime(523.25, now); // C5
-            osc.frequency.setValueAtTime(659.25, now + 0.08); // E5
-            osc.frequency.setValueAtTime(783.99, now + 0.16); // G5
+            osc.frequency.setValueAtTime(523.25, now);
+            osc.frequency.setValueAtTime(659.25, now + 0.08);
+            osc.frequency.setValueAtTime(783.99, now + 0.16);
             gain.gain.setValueAtTime(0.3, now);
             gain.gain.linearRampToValueAtTime(0.01, now + 0.3);
             osc.start(now);
@@ -512,27 +528,26 @@
         ["group", "profile", "friend"].forEach(id => {
             if (localStorage.getItem("m_" + id) === "done") {
                 const btn = document.getElementById("btn-" + id);
-                if (btn) { btn.innerText = "COMPLETED ✓"; btn.disabled = true; }
+                if (btn) { 
+                    btn.innerText = "COMPLETED ✓"; 
+                    btn.disabled = true; 
+                }
             }
         });
 
         renderShop();
     }
 
-    // --- MISSION LOGIC WITH GUARANTEED LINK OPEN & TIMER ---
-    function doMission(id, url, amount) {
+    // --- MISSION LOGIC ---
+    function startMission(id, amount) {
         if (localStorage.getItem("m_" + id) === "done") return;
 
         playAudio('click');
-
-        // 1. გადავიყვანოთ მომხმარებელი Steam-ის გვერდზე
-        window.open(url, "_blank");
 
         const btn = document.getElementById("btn-" + id);
         let sec = 10;
         btn.disabled = true;
 
-        // 2. დავიწყოთ 10 წამიანი ტაიმერი
         const timer = setInterval(() => {
             sec--;
             if (sec > 0) {
