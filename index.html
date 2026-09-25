@@ -69,7 +69,6 @@
             user-select: none;
         }
 
-        /* მხოლოდ შენთვის განკუთვნილი ულევი ქოინების ღილაკი */
         .admin-coin-btn {
             background: #8e44ad;
             color: #fff;
@@ -325,7 +324,6 @@
                 <p>Earn Free Coins • Aesthetic Designs • VIP Membership</p>
             </div>
             <div class="header-right">
-                <!-- მხოლოდ შენთვის: ულევი ქოინების ღილაკი -->
                 <button class="admin-coin-btn" onclick="addInfiniteCoins()">+1000 COINS ⚡</button>
                 <div class="balance">🪙 <span id="coin-count">0</span> COINS</div>
             </div>
@@ -364,7 +362,7 @@
             </div>
         </div>
 
-        <!-- 2. DIGITAL STORE & SHOWCASE (ბევრი არტვორკი, ბიო და ბანერი) -->
+        <!-- 2. DIGITAL STORE & SHOWCASE -->
         <div class="section-title">🛒 2. Digital Store & Aesthetics Showcase</div>
 
         <div class="filter-container">
@@ -492,43 +490,117 @@
         } catch(e){}
     }
 
-    // --- MEGA STORE CATALOG (ბევრი ხარისხიანი ნივთი) ---
+    // --- MEGA STORE CATALOG (შენ მიერ მოწოდებული ყველა ახალი Bio + Artworks + Banners) ---
     const products = [
-        // --- DARK BIOS ---
+        // --- DARK BIOS (შენ მიერ გამოგზავნილი 3) ---
         {
-            id: "dark_bio_gothic", cat: "dark_bio", tier: "dark", tierLabel: "Dark Gothic",
-            title: "𝕲𝖔𝖙𝖍𝖎𝖈 𝕾𝖔𝖚𝖑 𝕭𝖎𝖔", price: 25,
+            id: "dark_bio_custom_1", cat: "dark_bio", tier: "dark", tierLabel: "Dark Bio",
+            title: "𝕯𝖆𝖗𝖐 𝖒𝖎𝖓𝖉 // 𝖈𝖔𝖑𝖉 𝖘𝖔𝖚𝖑", price: 25,
             image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500&q=80",
-            desc: "პრემიუმ გოთიკური და ბნელი ესთეტიკის ბიო შენი Steam პროფილისთვის.",
+            desc: "Dark mind, cold soul. Silence is all i need.",
             type: "text",
-            content: "𝕎𝕖𝕝𝕔𝕠𝕞𝕖 𝕥𝕠 𝕥𝕙𝕖 𝔸𝕓𝕪𝕤𝕤\n\n† 𝕴𝖓 𝖙𝖍𝖊 𝖘𝖍𝖆𝖉𝖔𝖜𝖘 𝖜𝖊 𝖗𝖎𝖘𝖊\n† 𝕮𝕾𝟤 / 𝕱𝖆𝖈𝖊𝖎𝖙 𝕲𝖗𝖎𝖓𝖉𝖊𝖗\n† 𝕯𝖔 𝖓𝖔𝖙 𝖆𝖉𝖉 𝖜𝖎𝖙𝖍𝖔𝖚𝖙 𝖗𝖊𝖆𝖘𝖔𝖓\n\n𝕾𝖎𝖑𝖊𝖓𝖈𝖊 𝖎𝖘 𝖙𝖍𝖊 𝖑𝖔𝖚𝖉𝖊𝖘 𝖛𝖔𝖎𝖈𝖊."
+            content: "╔══════════════════════════════╗\n𝕯𝖆𝖗𝖐 𝖒𝖎𝖓𝖉\n𝖈𝖔𝖑𝖉 𝖘𝖔𝖚𝖑\n╚══════════════════════════════╝\n    𝖘𝖎𝖑𝖊𝖓𝖈𝖊 𝖎𝖘\n    𝖆𝖑𝖑 𝖎 𝖓𝖊𝖊𝖉.\n\n          †"
         },
         {
-            id: "dark_bio_vampire", cat: "dark_bio", tier: "dark", tierLabel: "Vampire Vibe",
-            title: "𖤐 𝔙𝔞𝔪𝔭𝔦𝔯𝔢 𝔄𝔢𝔰𝔱𝔥𝔢𝔱𝔦𝔠 𖤐", price: 30,
+            id: "dark_bio_custom_2", cat: "dark_bio", tier: "dark", tierLabel: "Dark Bio",
+            title: "𝕿𝖍𝖊 𝖓𝖎𝖌𝖍𝖙 𝖐𝖓𝖔𝖜𝖘 𝖜𝖍𝖆𝖙 𝕴 𝖍𝖎𝖉𝖊", price: 30,
             image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=500&q=80",
-            desc: "ბნელი, ვამპირული დიზაინის ტექსტი ლამაზი სიმბოლოებით.",
+            desc: "The night knows what I hide. No words, no explanation.",
             type: "text",
-            content: "𖤐 𝔏𝔬𝔯𝔡 𝔬𝔣 𝔱𝔥𝔢 𝔑𝔦𝔤𝔥𝔱 𖤐\n────────────────────\n🩸 𝔅𝔩𝔬𝔬𝔡, 𝔖𝔴𝔢𝔞𝔱 & ℌ𝔢𝔞𝔡𝔰𝔥𝔬𝔱𝔰\n🩸 𝔇𝔬𝔫'𝔱 𝔱𝔬𝔲𝔠𝔥 𝔪𝔶 𝔠𝔦𝔯𝔠𝔩𝔢\n────────────────────\n𝔈𝔱𝔢𝔯𝔫𝔞𝔩 𝔇𝔞𝔯𝔴𝔫𝔢𝔰𝔰."
+            content: "┏━━━━━━━━━━━━━━━━━━━━━━┓\n𝕿𝖍𝖊 𝖓𝖎𝖌𝖍𝖙 𝖐𝖓𝖔𝖜𝖘\n𝖜𝖍𝖆𝖙 𝕴 𝖍𝖎𝖉𝖊.\n┗━━━━━━━━━━━━━━━━━━━━━━┛\n    𝖓𝖔 𝖜𝖔𝖗𝖉𝖘\n    𝖓𝖔 𝖊𝖝𝖕𝖑𝖆𝖓𝖆𝖙𝖎𝖔𝖓\n\n         𖤐"
         },
         {
-            id: "dark_bio_cyber", cat: "dark_bio", tier: "dark", tierLabel: "Cyber Demon",
-            title: "☠ ℂ𝕪𝕓𝕖𝕣 𝔻𝕖𝕞𝕠𝕟 𝔹𝕚𝕠 ☠", price: 35,
+            id: "dark_bio_custom_3", cat: "dark_bio", tier: "dark", tierLabel: "Dark Bio",
+            title: "𖤐 𝕯𝕬𝕽𝕶 𝕸𝕴𝕹𝕯 𖤐", price: 35,
             image: "https://images.unsplash.com/photo-1563089145-599997674d42?w=500&q=80",
-            desc: "აგრესიული და ბნელი კიბერ-პანკ ბიო პროფილისთვის.",
+            desc: "I walk alone, think alone, play alone.",
             type: "text",
-            content: "☠ 𝕎𝔼𝕃ℂ𝕆𝕄𝔼 𝕋𝕆 ℍ𝔼𝕃𝕃 ☠\n► 𝕮𝕾𝟤: 𝕲𝖑𝖔𝖇𝖆𝖑 𝕰𝖑𝖎𝖙𝖊\n► 𝕱𝖆𝖈𝖊𝖎𝖙: 𝕷𝖛𝖑 𝟙𝟘\n► 𝕯𝖔𝖓'𝖙 𝖂𝖆𝖘𝖙𝖊 𝕸𝖞 𝕿𝖎𝖒𝖊."
-        },
-        {
-            id: "dark_bio_void", cat: "dark_bio", tier: "dark", tierLabel: "Void Soul",
-            title: "𝕍𝕆𝕀𝔻 // 𝕊𝕆𝕌𝕃 𝔹𝕀𝕆", price: 28,
-            image: "https://images.unsplash.com/photo-1507499739999-097706ad8914?w=500&q=80",
-            desc: "მინიმალისტური, მაგრამ ძლიერი ვოიდ ბიო.",
-            type: "text",
-            content: "• [ 𝖁𝕺𝕴𝕯 𝕾𝕿𝙰𝚃𝚄𝚂: 𝙰𝙲𝚃𝙸𝚅𝙴 ]\n• 𝕹𝖔 𝕱𝖊𝖆𝖗, 𝕹𝖔 𝕸𝖊𝖗𝖈𝖞.\n• 𝕯𝖊𝖘𝖙𝖎𝖓𝖞 𝖎𝖘 𝖜𝖗𝖎𝖙𝖙𝖊𝖓 𝖎𝖓 𝖇𝖑𝖔𝖔𝖉."
+            content: "   𖤐 𝕯𝕬𝕽𝕶 𝕸𝕴𝕹𝕯 𖤐\n\n𝖎 𝖜𝖆𝖑𝖐 𝖆𝖑𝖔𝖓𝖊\n𝖎 𝖙𝖍𝖎𝖓𝖐 𝖆𝖑𝖔𝖓𝖊\n𝖎 𝖕𝖑𝖆𝖞 𝖆𝖑𝖔𝖓𝖊\n\n──────────────\n\n   𝖓𝖔 𝖙𝖗𝖚𝖘𝖙\n   𝖓𝖔 𝕱𝖊𝖆𝖗\n   𝖓𝖔 𝖗𝖊𝖌𝖗𝖊𝖙"
         },
 
-        // --- DARK ARTWORKS ---
+        // --- MINIMAL BIOS (შენ მიერ გამოგზავნილი 10) ---
+        {
+            id: "minimal_1", cat: "bio", tier: "free", tierLabel: "Minimal Bio",
+            title: "𝙈 𝙄 𝙉 𝙄 𝙈 𝘼 𝙇 (Just Me)", price: 15,
+            image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&q=80",
+            desc: "No noise. No drama. No explanation. Just me.",
+            type: "text",
+            content: "          𝙈 𝙄 𝙉 𝙄 𝙈 𝘼 𝙇\n    𝘯𝘰 𝘯𝘰𝘪𝘴𝘦.\n    𝘯𝘰 𝘥𝘳𝘢𝘮𝘢.\n    𝘯𝘰 𝘦𝘹𝘱𝘭𝘢𝘯𝘢𝘵𝘪𝘰𝘯.\n\n    ─────────────\n\n         𝘫𝘶𝘴𝘵 𝘮𝘦."
+        },
+        {
+            id: "minimal_2", cat: "bio", tier: "free", tierLabel: "Minimal Bio",
+            title: "𝘴 𝘪 𝘭 𝘦 𝘯 𝘵 (Keep it simple)", price: 15,
+            image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&q=80",
+            desc: "Keep it simple, keep it quiet.",
+            type: "text",
+            content: "    ────────\n\n         𝘴 𝘪 𝘭 𝘦 𝘯 𝘵\n\n    ────────\n\n    𝘬𝘦𝘦𝘱 𝘪𝘵 𝘴𝘪𝘮𝘱𝘭𝘦.\n    𝘬𝘦𝘦𝘱 𝘪𝘵 𝘲𝘶𝘪𝘦𝘵.\n\n    𝘯𝘰 𝘮𝘰𝘳𝘦.\n    𝘯𝘰 𝘭𝘦𝘴𝘴."
+        },
+        {
+            id: "minimal_3", cat: "bio", tier: "free", tierLabel: "Minimal Bio",
+            title: "𝙉𝙄𝙂𝙃𝙏 (Low Key)", price: 15,
+            image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&q=80",
+            desc: "Low key, low noise, high focus.",
+            type: "text",
+            content: "   ┌────────────────┐\n          𝙉𝙄𝙂𝙃𝙏\n   └────────────────┘\n\n   𝘭𝘰𝘸 𝘬𝘦𝘺.\n   𝘭𝘰𝘸 𝘯𝘰𝘪𝘴𝘦.\n   𝘩𝘪𝘨𝘩 𝘧𝘰𝘤𝘶𝘴.\n\n   𝘵𝘩𝘢𝘵'𝘴 𝘪𝘵."
+        },
+        {
+            id: "minimal_4", cat: "bio", tier: "free", tierLabel: "Minimal Bio",
+            title: "𝙅𝙐𝙎𝙏 𝙑𝙄𝘽𝙀𝙎 (Vibes & Silence)", price: 15,
+            image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&q=80",
+            desc: "No name, no title, just vibes.",
+            type: "text",
+            content: "      𝘯𝘰 𝘯𝘢𝘮𝘦\n      𝘯𝘰 𝘵𝘪𝘵𝘭𝘦\n\n   ──────────────\n\n      𝘫𝘶𝘴𝘵 𝘷𝘪𝘣𝘦𝘴\n      𝘫𝘶𝘴𝘵 𝘴𝘪𝘭𝘦𝘯𝘤𝘦\n      𝘫𝘶𝘴𝘵 𝘮𝘦"
+        },
+        {
+            id: "minimal_5", cat: "bio", tier: "free", tierLabel: "Minimal Bio",
+            title: "⋆ 𝙎 𝙏 𝙄 𝙇 𝙇 ⋆ (Stay Quiet)", price: 15,
+            image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&q=80",
+            desc: "Move slow, think deep, stay quiet.",
+            type: "text",
+            content: "      ⋆ 𝙎 𝙏 𝙄 𝙇 𝙇 ⋆\n\n   𝘮𝘰𝘷𝘦 𝘴𝘭𝘰𝘸.\n   𝘵𝘩𝘪𝘯𝘬 𝘥𝘦𝘦𝘱.\n   𝘴𝘵𝘢𝘺 𝘲𝘶𝘪𝘦𝘵.\n\n   ─────────────\n\n      𝘯𝘰 𝘯𝘦𝘦𝘥 𝘵𝘰 𝘳𝘶𝘴𝘩."
+        },
+        {
+            id: "minimal_6", cat: "bio", tier: "free", tierLabel: "Minimal Bio",
+            title: "𝙊𝙁𝙁𝙇𝙄𝙉𝙀 (No Distractions)", price: 15,
+            image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&q=80",
+            desc: "No noise, no distractions, just focus.",
+            type: "text",
+            content: "   ╭────────────────╮\n         𝙊𝙁𝙁𝙇𝙄𝙉𝙀\n   ╰────────────────╯\n\n      𝘯𝘰 𝘯𝘰𝘪𝘴𝘦\n      𝘯𝘰 𝘥𝘪𝘴𝘵𝘳𝘢𝘤𝘵𝘪𝘰𝘯𝘴\n\n      𝘫𝘶𝘴𝘵 𝘧𝘰𝘤𝘶𝘴."
+        },
+        {
+            id: "minimal_7", cat: "bio", tier: "free", tierLabel: "Minimal Bio",
+            title: "𝙇𝙀𝙎𝙎 𝙄𝙎 𝙈𝙊𝙍𝙀 (More Peace)", price: 15,
+            image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&q=80",
+            desc: "Less words, less noise, more peace.",
+            type: "text",
+            content: "      𝙇𝙀𝙎𝙎 𝙄𝙎 𝙈𝙊𝙍𝙀\n\n   𝘭𝘦𝘴𝘴 𝘸𝘰𝘳𝘥𝘴.\n   𝘭𝘦𝘴𝘴 𝘯𝘰𝘪𝘴𝘦.\n   𝘭𝘦𝘴𝘴 𝘱𝘳𝘦𝘴𝘴𝘶𝘳𝘦.\n\n   ─────────────\n\n   𝘮𝘰𝘳𝘦 𝘱𝘦𝘢𝘤𝘦."
+        },
+        {
+            id: "minimal_8", cat: "bio", tier: "free", tierLabel: "Minimal Bio",
+            title: "𝙌𝙐𝙄𝙀𝙏 𝙈𝙄𝙉𝘿 (Clear Thoughts)", price: 15,
+            image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&q=80",
+            desc: "Calm moves, clear thoughts, simple life.",
+            type: "text",
+            content: "   𝙌𝙐𝙄𝙀𝙏 𝙈𝙄𝙉𝘿\n\n   𝘤𝘢𝘭𝘮 𝘮𝘰𝘷𝘦𝘴.\n   𝘤𝘭𝘦𝘢𝘳 𝘵𝘩𝘰𝘶𝘨𝘩𝘵𝘴.\n   𝘴𝘪𝘮𝘱𝘭𝘦 𝘭𝘪𝘧𝘦.\n\n   𐄂 𝘯𝘰 𝘯𝘰𝘪𝘴𝘦\n   𐄂 𝘯𝘰 𝘥𝘳𝘢𝘮𝘢"
+        },
+        {
+            id: "minimal_9", cat: "bio", tier: "free", tierLabel: "Minimal Bio",
+            title: "── 𝙎 𝙄 𝙈 𝙋 𝙇 𝙀 ──", price: 15,
+            image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&q=80",
+            desc: "Keep your world small and quiet.",
+            type: "text",
+            content: "   ── 𝙎 𝙄 𝙈 𝙋 𝙇 𝙀 ──\n\n   𝘬𝘦𝘦𝘱 𝘺𝘰𝘶𝘳 𝘸𝘰𝘳𝘭𝘥\n   𝘴𝘮𝘢𝘭𝘭 𝘢𝘯𝘥 𝘲𝘶𝘪𝘦𝘵.\n\n   𝘯𝘰 𝘯𝘦𝘦𝘥\n   𝘧𝘰𝘳 𝘮𝘰𝘳𝘦."
+        },
+        {
+            id: "minimal_10", cat: "bio", tier: "free", tierLabel: "Minimal Bio",
+            title: "𖤐 JUST VIBES", price: 15,
+            image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&q=80",
+            desc: "Stay low, stay calm, stay you.",
+            type: "text",
+            content: "        𖤐\n\n   𝙅𝙐𝙎𝙏 𝙑𝙄𝘽𝙀𝙎\n\n   𝘯𝘰 𝘦𝘹𝘱𝘭𝘢𝘯𝘢𝘵𝘪𝘰𝘯.\n   𝘯𝘰 𝘦𝘹𝘵𝘳𝘢 𝘸𝘰𝘳𝘥𝘴.\n\n   ─────────────\n\n   𝘴𝘵𝘢𝘺 𝘭𝘰𝘸.\n   𝘴𝘵𝘢𝘺 𝘤𝘢𝘭𝘮.\n   𝘴𝘵𝘢𝘺 𝘺𝘰𝘶."
+        },
+
+        // --- DARK ARTWORKS & BANNERS (პირდაპირი გადმოწერით) ---
         {
             id: "dark_art_skull", cat: "dark_art", tier: "dark", tierLabel: "Dark Artwork",
             title: "🔮 Neon Skull Animated Showcase", price: 45,
@@ -550,18 +622,6 @@
             instruction: "ინსტრუქცია: 1. ჩამოტვირთეთ სურათი. 2. მიუთითეთ სტილში შავი ან იისფერი ფონი."
         },
         {
-            id: "dark_art_samurai", cat: "dark_art", tier: "dark", tierLabel: "Dark Artwork",
-            title: "⚔️ Shadow Samurai Art", price: 55,
-            image: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500&q=80",
-            desc: "ჩრდილოვანი სამურაის დიზაინი Artwork Showcase-ისთვის.",
-            type: "image_download",
-            imageUrl: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=1200",
-            fileName: "Shadow_Samurai_Art.jpg",
-            instruction: "ინსტრუქცია: იდეალურია მარჯვენა და მარცხენა არტვორკის გაყოფილ სლოტებში ჩასასმელად."
-        },
-
-        // --- DARK BANNERS ---
-        {
             id: "dark_banner_grim", cat: "dark_banner", tier: "dark", tierLabel: "Dark Banner",
             title: "🖤 Grim Reaper Ultra Banner", price: 40,
             image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=500&q=80",
@@ -572,26 +632,6 @@
             instruction: "ინსტრუქცია: ატვირთეთ Steam Profile Background-ის მორგებაში და მიუთითეთ Stretch."
         },
         {
-            id: "dark_banner_cyber", cat: "dark_banner", tier: "dark", tierLabel: "Dark Banner",
-            title: "🕷️ Cyber Dark Banner", price: 45,
-            image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80",
-            desc: "მაღალი ხარისხის ბნელი კიბერ-ბანერი პროფილისთვის.",
-            type: "image_download",
-            imageUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1920",
-            fileName: "Cyber_Dark_Banner.jpg",
-            instruction: "ინსტრუქცია: საუკეთესო ვიზუალი იისფერ და ნეონურ თემებთან ერთად."
-        },
-
-        // --- STANDARD BIOS & AVATARS ---
-        {
-            id: "bio_simple", cat: "bio", tier: "free", tierLabel: "Clean Bio",
-            title: "⚡ Minimalist Gamer Bio", price: 15,
-            image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&q=80",
-            desc: "სუფთა და დახვეწილი მინიმალისტური ბიო.",
-            type: "text",
-            content: "• Name: Anonymous\n• Game: Counter-Strike 2\n• Level: 100+\n• Trade: Open"
-        },
-        {
             id: "avatar_neon", cat: "avatar", tier: "free", tierLabel: "Avatar",
             title: "🔮 Neon Mask Avatar", price: 20,
             image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500&q=80",
@@ -600,19 +640,6 @@
             imageUrl: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800",
             fileName: "Neon_Mask_Avatar.jpg",
             instruction: "ინსტრუქცია: ატვირთეთ პირდაპირ Steam Avatar-ის სლოტში."
-        },
-
-        // --- VIP BUNDLE ---
-        {
-            id: "bundle_dark_god", cat: "bundle", tier: "vip", tierLabel: "VIP DARK GOD",
-            title: "👑 Dark Master Full Bundle", price: 100,
-            image: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=500&q=80",
-            desc: "სრული Dark პაკეტი: Bio + HD Banner + Artwork Showcase ერთად!",
-            type: "bundle",
-            content: "𝕯𝕬𝕽𝕶 𝕷𝕺𝕽𝕯 𝕻𝕽𝕺𝕱𝕴𝕷𝕰\n═════════════════════════\n† 𝕿𝕺𝕻 𝕮𝕺𝕷𝕷𝕰𝕮𝕿𝕺𝕽\n† 𝕮𝕾𝟤 𝕻𝕽𝕺\n═════════════════════════",
-            imageUrl: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=1920",
-            fileName: "Dark_Lord_Bundle_Banner.jpg",
-            instruction: "ინსტრუქცია: გამოიყენეთ მოწოდებული ბიო ტექსტი და ბანერი ერთად."
         }
     ];
 
@@ -679,7 +706,7 @@
         renderShop();
     }
 
-    // --- PREVIEW ITEM (ფოტოსა და არტვორკის ინსტრუქციით) ---
+    // --- PREVIEW ITEM ---
     function previewItem(id) {
         playSound('click');
         const item = products.find(p => p.id === id);
@@ -696,6 +723,28 @@
         content += `<button style="margin-top:15px;" onclick="buyProduct('${id}'); closeModal();">BUY NOW (${item.price} COINS)</button>`;
 
         showModal("Preview: " + item.title, content);
+    }
+
+    // --- DIRECT BROWSER FILE DOWNLOAD (Blob / Data URI engine) ---
+    function downloadImageDirect(url, filename) {
+        playSound('buy');
+        fetch(url)
+            .then(response => response.blob())
+            .then(blob => {
+                const blobUrl = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = blobUrl;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(blobUrl);
+                document.body.removeChild(a);
+            })
+            .catch(() => {
+                // Fallback direct open if CORS blocks fetch
+                window.open(url, '_blank');
+            });
     }
 
     function startMission(id, url, amount) {
@@ -749,14 +798,11 @@
                 <div class="bio-display" id="bio-text">${item.content}</div>
                 <button onclick="copyBio()">📋 COPY TO CLIPBOARD</button>
             `;
-        } else if (item.type === "image_download" || item.type === "bundle") {
+        } else if (item.type === "image_download") {
             content = `
-                ${item.content ? `<div class="bio-display" id="bio-text">${item.content}</div><button onclick="copyBio()" style="margin-bottom:12px;">📋 COPY BIO</button>` : ''}
-                <img src="${item.imageUrl || item.image}" style="width:100%; max-height:220px; object-fit:cover; border-radius:8px; margin:10px 0; border:1px solid #333;">
+                <img src="${item.imageUrl}" style="width:100%; max-height:220px; object-fit:cover; border-radius:8px; margin:10px 0; border:1px solid #333;">
                 ${item.instruction ? `<div class="preview-instruction"><b>📋 Steam Setup Guide:</b><br>${item.instruction}</div>` : ''}
-                <a href="${item.imageUrl || item.image}" download="${item.fileName || 'steam_item.jpg'}" target="_blank">
-                    <button class="download-btn" style="margin-top:12px;" onclick="playSound('buy')">💾 DOWNLOAD HD FILE NOW</button>
-                </a>
+                <button class="download-btn" style="margin-top:12px;" onclick="downloadImageDirect('${item.imageUrl}', '${item.fileName}')">💾 DOWNLOAD FILE DIRECTLY</button>
             `;
         }
 
