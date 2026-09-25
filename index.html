@@ -39,7 +39,7 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
         }
 
@@ -74,7 +74,7 @@
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 15px;
         }
 
@@ -86,6 +86,23 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            position: relative;
+        }
+
+        .card.popular {
+            border-color: #f1c40f;
+        }
+
+        .badge {
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            background: #f1c40f;
+            color: #000;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 10px;
         }
 
         .card h3 { margin: 0 0 10px 0; font-size: 18px; }
@@ -127,6 +144,7 @@
             background: rgba(0,0,0,0.85);
             justify-content: center;
             align-items: center;
+            z-index: 999;
         }
 
         .modal-box {
@@ -192,21 +210,44 @@
         </div>
     </div>
 
-    <!-- 2. BUY COINS -->
-    <div class="section-title">💳 2. Buy Coins (Real Money / Gift Cards)</div>
+    <!-- 2. BUY COINS PACKAGES -->
+    <div class="section-title">💳 2. Buy Coins (Steam Gift Cards)</div>
     <div class="grid">
         <div class="card">
             <h3>Starter Pack</h3>
-            <p>100 Coins via Steam Digital Gift Card.</p>
+            <p>100 Coins via Steam Gift Card.</p>
             <div class="price money">$1.00 USD</div>
             <button class="buy-btn" onclick="openGiftCardInfo('100 Coins', '$1.00')">BUY 100 COINS</button>
         </div>
 
         <div class="card">
+            <h3>Mini Pack</h3>
+            <p>500 Coins + 50 Bonus Coins.</p>
+            <div class="price money">$5.00 USD</div>
+            <button class="buy-btn" onclick="openGiftCardInfo('550 Coins', '$5.00')">BUY 550 COINS</button>
+        </div>
+
+        <div class="card popular">
+            <span class="badge">BEST VALUE</span>
+            <h3>Medium Pack</h3>
+            <p>1,000 Coins + 200 Bonus Coins.</p>
+            <div class="price money">$10.00 USD</div>
+            <button class="buy-btn" onclick="openGiftCardInfo('1,200 Coins', '$10.00')">BUY 1,200 COINS</button>
+        </div>
+
+        <div class="card">
             <h3>Pro Pack</h3>
-            <p>250 Coins via Steam Digital Gift Card.</p>
-            <div class="price money">$2.00 USD</div>
-            <button class="buy-btn" onclick="openGiftCardInfo('250 Coins', '$2.00')">BUY 250 COINS</button>
+            <p>2,500 Coins + 600 Bonus Coins.</p>
+            <div class="price money">$25.00 USD</div>
+            <button class="buy-btn" onclick="openGiftCardInfo('3,100 Coins', '$25.00')">BUY 3,100 COINS</button>
+        </div>
+
+        <div class="card popular">
+            <span class="badge">MEGA PACK</span>
+            <h3>Ultimate Pack</h3>
+            <p>5,000 Coins + 1,500 Bonus Coins.</p>
+            <div class="price money">$50.00 USD</div>
+            <button class="buy-btn" onclick="openGiftCardInfo('6,500 Coins', '$50.00')">BUY 6,500 COINS</button>
         </div>
     </div>
 
@@ -310,7 +351,7 @@
     function openGiftCardInfo(pack, price) {
         const content = `
             <p>To buy <b>${pack}</b> for <b>${price}</b>:</p>
-            <p>1. Open Steam Digital Gift Cards.<br>2. Select our Steam Profile and send ${price}.</p>
+            <p>1. Open Steam Digital Gift Cards.<br>2. Select our Steam Profile and send <b>${price}</b> Gift Card.</p>
             <a href="${links.giftCard}" target="_blank">
                 <button style="margin-top:10px; background:#66c0f4; color:#000;">GOTO STEAM GIFT CARDS</button>
             </a>
