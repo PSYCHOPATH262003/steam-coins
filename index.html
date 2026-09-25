@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steam Ultimate Dark Showcase & VIP Lounge</title>
+    <title>Steam Ultimate Dark Showcase & VIP Hub</title>
     
     <style>
         :root {
@@ -39,7 +39,7 @@
 
         header {
             background: var(--bg-card);
-            padding: 25px;
+            padding: 22px 28px;
             border-radius: 12px;
             display: flex;
             justify-content: space-between;
@@ -48,8 +48,8 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.6);
         }
 
-        .logo-area h2 { margin: 0; color: #fff; font-size: 24px; }
-        .logo-area p { margin: 5px 0 0 0; font-size: 12px; color: var(--accent-blue); }
+        .logo-area h2 { margin: 0; color: #fff; font-size: 24px; letter-spacing: 1px; }
+        .logo-area p { margin: 4px 0 0 0; font-size: 12px; color: var(--accent-blue); }
 
         .balance {
             font-size: 22px;
@@ -62,6 +62,17 @@
             box-shadow: 0 0 15px rgba(241, 196, 15, 0.2);
         }
 
+        .warning-banner {
+            background: rgba(231, 76, 60, 0.1);
+            border: 1px solid var(--accent-red);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-top: 18px;
+            font-size: 12px;
+            color: #ea9999;
+            line-height: 1.5;
+        }
+
         .section-title {
             margin-top: 35px;
             margin-bottom: 18px;
@@ -69,6 +80,42 @@
             color: #fff;
             border-bottom: 2px solid var(--border-color);
             padding-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-container {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .filter-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: #a0a0a0;
+            padding: 9px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--accent-blue);
+            color: #000;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 12px rgba(102, 192, 244, 0.4);
+        }
+
+        .filter-btn.dark-btn.active, .filter-btn.dark-btn:hover {
+            background: var(--accent-purple);
+            color: #fff;
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 12px rgba(155, 89, 182, 0.5);
         }
 
         .grid {
@@ -93,6 +140,21 @@
         .card.tier-dark { border-color: var(--accent-purple); background: linear-gradient(180deg, #131a24 0%, #170f24 100%); }
         .card.tier-vip { border-color: var(--accent-gold); background: linear-gradient(180deg, #131a24 0%, #241e0f 100%); }
 
+        .badge {
+            position: absolute;
+            top: 12px; right: 12px;
+            font-size: 9px;
+            font-weight: bold;
+            padding: 3px 7px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        .badge-free { background: var(--accent-green); color: #000; }
+        .badge-dark { background: var(--accent-purple); color: #fff; }
+        .badge-vip { background: var(--accent-gold); color: #000; }
+
         .item-preview {
             width: 100%;
             height: 140px;
@@ -103,10 +165,14 @@
             border: 1px solid var(--border-color);
         }
 
-        .card h3 { margin: 0 0 6px 0; font-size: 16px; color: #fff; }
+        .card h3 { margin: 0 0 6px 0; font-size: 15px; color: #fff; }
+        .card .cat-tag { font-size: 10px; color: var(--accent-blue); margin-bottom: 6px; font-weight: bold; }
+        .card .cat-tag.dark-tag { color: var(--accent-purple); }
         .card p { color: #9ab1c7; font-size: 12px; margin-bottom: 12px; flex-grow: 1; line-height: 1.4; }
 
         .price { font-weight: bold; color: var(--accent-gold); margin-bottom: 12px; font-size: 15px; }
+
+        .mission-link { display: block; width: 100%; text-decoration: none; }
 
         button {
             background: #27ae60;
@@ -120,8 +186,9 @@
             transition: all 0.2s ease;
         }
 
-        button:hover { background: #2ecc71; transform: scale(1.02); }
+        button:hover { background: #2ecc71; }
         button:active { transform: scale(0.98); }
+        button:disabled { background: #2c3e50; color: #7f8c8d; cursor: not-allowed; }
 
         .vip-btn { background: #d35400; }
         .vip-btn:hover { background: #e67e22; }
@@ -139,9 +206,11 @@
             border-radius: 12px;
             padding: 20px;
             box-shadow: 0 0 15px rgba(241, 196, 15, 0.1);
+            position: sticky;
+            top: 20px;
         }
 
-        .sidebar-card h3 { margin-top: 0; color: var(--accent-gold); border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+        .sidebar-card h3 { margin-top: 0; color: var(--accent-gold); border-bottom: 1px solid var(--border-color); padding-bottom: 10px; font-size: 16px; }
 
         .user-list { list-style: none; padding: 0; margin: 0; }
         .user-item {
@@ -153,12 +222,12 @@
             font-size: 13px;
         }
 
-        .user-tag { font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+        .user-tag { font-size: 9px; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
         .tag-ultimate { background: var(--accent-gold); color: #000; }
         .tag-gold { background: var(--accent-purple); color: #fff; }
         .tag-silver { background: var(--accent-blue); color: #000; }
 
-        /* MODAL STYLING */
+        /* MODAL */
         .modal {
             display: none;
             position: fixed;
@@ -224,42 +293,104 @@
         <header>
             <div class="logo-area">
                 <h2>🎮 Steam Showcase & VIP Hub</h2>
-                <p>Clean Aesthetics • Direct Image/Zip Downloads • VIP Lounge</p>
+                <p>Earn Free Coins • Aesthetic Designs • VIP Membership</p>
             </div>
             <div class="balance">🪙 <span id="coin-count">0</span> COINS</div>
         </header>
 
-        <!-- 1. VIP MEMBERSHIPS -->
-        <div class="section-title">👑 VIP Subscriptions & Perks</div>
+        <div class="warning-banner">
+            <strong>⚠️ გაფრთხილება:</strong> ქოინების მისაღებად დააჭირეთ ღილაკს, გადადით Steam-ზე და დაელოდეთ 10 წამს. <br>
+            <em>შენიშვნა: ჯგუფიდან გამოსვლის ან მეგობრებიდან წაშლის შემთხვევაში თქვენი ბალანსი და ნაყიდი ნივთები სრულად გაუქმდება!</em>
+        </div>
+
+        <!-- 1. FREE COINS MISSIONS -->
+        <div class="section-title">🎯 1. Earn Free Coins (Missions)</div>
+        <div class="grid">
+            <div class="card">
+                <span class="badge badge-free">FREE</span>
+                <h3>Join Official Group</h3>
+                <p>გადადი ჯგუფის გვერდზე, გაწევრიანდი და დაელოდე 10 წამს.</p>
+                <div class="price">+20 COINS</div>
+                <a href="https://steamcommunity.com/groups/steam" target="_blank" class="mission-link" onclick="startMission('group', 20)">
+                    <button id="btn-group">GO TO GROUP (+20)</button>
+                </a>
+            </div>
+
+            <div class="card">
+                <span class="badge badge-free">FREE</span>
+                <h3>Follow Steam Profile</h3>
+                <p>გადადი პროფილზე, დააფოლოვე და დაელოდე 10 წამს.</p>
+                <div class="price">+20 COINS</div>
+                <a href="https://steamcommunity.com/" target="_blank" class="mission-link" onclick="startMission('profile', 20)">
+                    <button id="btn-profile">GO TO PROFILE (+20)</button>
+                </a>
+            </div>
+
+            <div class="card">
+                <span class="badge badge-free">FREE</span>
+                <h3>Add Friend</h3>
+                <p>გადადი პროფილზე, გააგზავნე მეგობრობა და დაელოდე 10 წამს.</p>
+                <div class="price">+20 COINS</div>
+                <a href="https://steamcommunity.com/" target="_blank" class="mission-link" onclick="startMission('friend', 20)">
+                    <button id="btn-friend">ADD FRIEND (+20)</button>
+                </a>
+            </div>
+        </div>
+
+        <!-- 2. STORE & DESIGNS -->
+        <div class="section-title">🛒 2. Digital Store & Aesthetics Showcase</div>
+
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filterShop('all', this)">ყველა ნივთი</button>
+            <button class="filter-btn dark-btn" onclick="filterShop('dark_bio', this)">🦇 Dark Bio</button>
+            <button class="filter-btn dark-btn" onclick="filterShop('dark_art', this)">🕷️ Dark Artworks</button>
+            <button class="filter-btn dark-btn" onclick="filterShop('dark_banner', this)">🖤 Dark Banners</button>
+            <button class="filter-btn" onclick="filterShop('bio', this)">📜 Minimal Bio</button>
+            <button class="filter-btn" onclick="filterShop('avatar', this)">🖼️ Avatars</button>
+            <button class="filter-btn" onclick="filterShop('bundle', this)">👑 VIP Bundles</button>
+        </div>
+
+        <div class="grid" id="shop-grid"></div>
+
+        <!-- 3. VIP SUBSCRIPTIONS -->
+        <div class="section-title">👑 3. VIP Membership Subscriptions</div>
         <div class="grid">
             <div class="card tier-vip">
+                <span class="badge badge-vip">1 WEEK</span>
                 <h3>VIP Bronze (1 Week)</h3>
-                <p>წვდომა ექსკლუზიურ Dark Bio-ებზე 1 კვირით + 30 Weekly Bonus Coins.</p>
+                <p>წვდომა ექსკლუზიურ VIP Dark Bio-ებზე და Artwork-ებზე 1 კვირით + Weekly Coins.</p>
                 <div class="price">$3.00 USD</div>
                 <button class="vip-btn" onclick="openVipModal('1 Week VIP', '$3.00')">BUY VIP ($3.00)</button>
                 <button class="guide-btn" onclick="openGuideModal()">❓ HOW TO BUY (VIDEO GUIDE)</button>
             </div>
 
             <div class="card tier-vip">
+                <span class="badge badge-vip">2 WEEKS</span>
                 <h3>VIP Silver (2 Weeks)</h3>
-                <p>წვდომა VIP კატალოგზე + 200 Free Coins + 30 Weekly Bonus Coins.</p>
+                <p>წვდომა VIP კატალოგზე + 200 უფასო Bonus Coin + VIP Badge 2 კვირით.</p>
                 <div class="price">$6.00 USD</div>
                 <button class="vip-btn" onclick="openVipModal('2 Weeks VIP', '$6.00')">BUY VIP ($6.00)</button>
                 <button class="guide-btn" onclick="openGuideModal()">❓ HOW TO BUY (VIDEO GUIDE)</button>
             </div>
 
             <div class="card tier-vip">
+                <span class="badge badge-vip">3 WEEKS</span>
+                <h3>VIP Gold (3 Weeks)</h3>
+                <p>სრული VIP პაკეტი + 500 Bonus Coins 3 კვირით.</p>
+                <div class="price">$9.00 USD</div>
+                <button class="vip-btn" onclick="openVipModal('3 Weeks VIP', '$9.00')">BUY VIP ($9.00)</button>
+                <button class="guide-btn" onclick="openGuideModal()">❓ HOW TO BUY (VIDEO GUIDE)</button>
+            </div>
+
+            <div class="card tier-vip">
+                <span class="badge badge-vip">1 MONTH</span>
                 <h3>VIP Ultimate (1 Month)</h3>
-                <p>სრული VIP სტატუსი 1 თვით + 1000 Bonus Coins + VIP Lounge Badge!</p>
+                <p>მაქსიმალური VIP სტატუსი 1 თვით + 1000 Bonus Coins + VIP Lounge Badge!</p>
                 <div class="price">$12.00 USD</div>
                 <button class="vip-btn" onclick="openVipModal('1 Month Ultimate VIP', '$12.00')">BUY VIP ($12.00)</button>
                 <button class="guide-btn" onclick="openGuideModal()">❓ HOW TO BUY (VIDEO GUIDE)</button>
             </div>
         </div>
-
-        <!-- 2. STORE -->
-        <div class="section-title">🛒 Steam Dark Showcase Store</div>
-        <div class="grid" id="shop-grid"></div>
     </div>
 
     <!-- SIDEBAR: VIP LOUNGE -->
@@ -338,52 +469,107 @@
     const products = [
         {
             id: "dark_bio_gothic",
+            cat: "dark_bio",
+            tier: "dark",
+            tierLabel: "Dark Gothic",
             title: "𝕲𝖔𝖙𝖍𝖎𝖈 𝕾𝖔𝖚𝖑 𝕭𝖎𝖔",
             price: 25,
             image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500&q=80",
-            desc: "დახვეწილი გოთიკური ბიო შენი Steam პროფილისთვის.",
+            desc: "გოთიკური და ბნელი ესთეტიკის ბიო შენი Steam პროფილისთვის.",
             type: "text",
             content: "𝕎𝕖𝕝𝕔𝕠𝕞𝕖 𝕥𝕠 𝕥𝕙𝕖 𝔸𝕓𝕪𝕤𝕤\n\n† 𝕴𝖓 𝖙𝖍𝖊 𝖘𝖍𝖆𝖉𝖔𝖜𝖘 𝖜𝖊 𝖗𝖎𝖘𝖊\n† 𝕮𝕾𝟤 / 𝕱𝖆𝖈𝖊𝖎𝖙 𝕲𝖗𝖎𝖓𝖉𝖊𝖗\n† 𝕯𝖔 𝖓𝖔𝖙 𝖆𝖉𝖉 𝖜𝖎𝖙𝖍𝖔𝖚𝖙 𝖗𝖊𝖆𝖘𝖔𝖓\n\n𝕾𝖎𝖑𝖊𝖓𝖈𝖊 𝖎𝖘 𝖙𝖍𝖊 𝖑𝖔𝖚𝖉𝖊𝖘 𝖛𝖔𝖎𝖈𝖊."
         },
         {
+            id: "dark_bio_vampire",
+            cat: "dark_bio",
+            tier: "dark",
+            tierLabel: "Vampire Vibe",
+            title: "𖤐 𝔙𝔞𝔪𝔭𝔦𝔯𝔢 𝔄𝔢𝔰𝔱𝔥𝔢𝔱𝔦𝔠 𖤐",
+            price: 30,
+            image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=500&q=80",
+            desc: "ბნელი, ვამპირული დიზაინის ტექსტი.",
+            type: "text",
+            content: "𖤐 𝔏𝔬𝔰𝔱 𝔦𝔫 𝔱𝔥𝔢 𝔇𝔞𝔯𝔨𝔫𝔢𝔰𝔰 𖤐\n───▄█▀█▄───\n──▐█████▌──\n───▀███▀───\n• 𝕬𝖈𝖙𝖎𝖛𝖊 𝕿𝖗𝖆𝖉𝖊𝖗 & 𝕮𝖔𝖑𝖑𝖊𝖈𝖙𝖔𝖗\n• 𝕹𝖔 𝕽𝖆𝖓𝖉𝖔𝖒 𝕴𝖓𝖛𝖎𝖙𝖊𝖘"
+        },
+        {
             id: "dark_banner_grim",
+            cat: "dark_banner",
+            tier: "dark",
+            tierLabel: "Ultra Banner",
             title: "Grim Reaper Ultra Banner",
             price: 50,
             image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=500&q=80",
-            desc: "Grim Reaper Ultra Banner - HD ფოტოს პირდაპირი ჩამოტვირთვა.",
+            desc: "Grim Reaper-ის ბნელი ულტრა HD ბანერის პირდაპირი გადმოწერა.",
             type: "image_download",
             imageUrl: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=1920",
             fileName: "Grim_Reaper_Ultra_Banner.jpg"
         },
         {
             id: "dark_art_skull",
-            title: "Neon Skull Artwork Showcase",
+            cat: "dark_art",
+            tier: "dark",
+            tierLabel: "Dark Art Showcase",
+            title: "Neon Skull Animated Showcase",
             price: 80,
             image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500&q=80",
-            desc: "ნეონის ჩონჩხის Artwork - მზა HD სურათი პირდაპირი გადმოწერით.",
+            desc: "ბნელი ჩონჩხის HD სურათის პირდაპირი გადმოწერა.",
             type: "image_download",
             imageUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200",
             fileName: "Neon_Skull_Artwork.jpg"
+        },
+        {
+            id: "bio_simple",
+            cat: "bio",
+            tier: "free",
+            tierLabel: "Clean Bio",
+            title: "Minimalist Gamer Bio",
+            price: 15,
+            image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80",
+            desc: "სუფთა და დახვეწილი მინიმალისტური ბიო.",
+            type: "text",
+            content: "✦ WELCOME ✦\n• Main Game: CS2\n• Trade Status: Active\n• Feel free to add!"
+        },
+        {
+            id: "bundle_dark_god",
+            cat: "bundle",
+            tier: "vip",
+            tierLabel: "VIP DARK GOD",
+            title: "🖤 DARK LORD VIP BUNDLE 🖤",
+            price: 150,
+            image: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=500&q=80",
+            desc: "სრული Dark პაკეტი: Bio + HD Banner + Artwork Showcase!",
+            type: "bundle",
+            content: "𝕯𝕬𝕽𝕶 𝕷𝕺𝕽𝕯 𝕻𝕽𝕺𝕱𝕴𝕷𝕰\n═════════════════════════\n† 𝕿𝕺𝕻 𝕮𝕺𝕷𝕷𝕰𝕮𝕿𝕺𝕽\n† 𝕮𝕾𝟤 𝕻𝕽𝕺\n═════════════════════════",
+            imageUrl: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=1920",
+            fileName: "Dark_Lord_Bundle_Banner.jpg"
         }
     ];
 
-    let coins = parseInt(localStorage.getItem("coins")) || 50;
+    let currentCategory = "all";
+    let coins = parseInt(localStorage.getItem("coins")) || 0;
 
     function renderShop() {
         const grid = document.getElementById("shop-grid");
+        if (!grid) return;
         grid.innerHTML = "";
 
-        products.forEach(p => {
+        const filtered = products.filter(p => currentCategory === "all" || p.cat === currentCategory);
+
+        filtered.forEach(p => {
             const isBought = localStorage.getItem("buy_" + p.id) === "true";
             const card = document.createElement("div");
-            card.className = "card tier-dark";
+            card.className = `card tier-${p.tier}`;
             
             let btnHtml = isBought 
                 ? `<button class="download-btn" onclick="openReward('${p.id}')">GET ITEM ✓</button>`
                 : `<button onclick="buyProduct('${p.id}')">BUY (${p.price} COINS)</button>`;
 
+            let isDarkTag = p.cat.startsWith("dark") ? "dark-tag" : "";
+
             card.innerHTML = `
+                <span class="badge badge-${p.tier}">${p.tierLabel}</span>
                 <div class="item-preview" style="background-image: url('${p.image}');"></div>
+                <div class="cat-tag ${isDarkTag}">${p.cat.toUpperCase()}</div>
                 <h3>${p.title}</h3>
                 <p>${p.desc}</p>
                 <div class="price">🪙 ${p.price} COINS</div>
@@ -393,19 +579,51 @@
         });
     }
 
+    function filterShop(cat, btn) {
+        playSound('click');
+        currentCategory = cat;
+        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderShop();
+    }
+
+    function startMission(id, amount) {
+        if (localStorage.getItem("m_" + id) === "done") return;
+
+        playSound('click');
+        const btn = document.getElementById("btn-" + id);
+        let sec = 10;
+        btn.disabled = true;
+
+        const timer = setInterval(() => {
+            sec--;
+            if (sec > 0) {
+                btn.innerText = `WAIT (${sec}s)...`;
+            } else {
+                clearInterval(timer);
+                coins += amount;
+                localStorage.setItem("m_" + id, "done");
+                playSound('buy');
+                update();
+            }
+        }, 1000);
+    }
+
     function buyProduct(id) {
         playSound('click');
         const item = products.find(p => p.id === id);
         if (coins < item.price) {
-            alert(`❌ არ გაქვს საკმარისი ქოინები! გჭირდება ${item.price} COINS.`);
+            alert(`❌ არ გაქვს საკმარისი ქოინები! გჭირდება ${item.price} COINS. შენ გაქვს: ${coins} COINS.`);
             return;
         }
 
-        coins -= item.price;
-        localStorage.setItem("buy_" + id, "true");
-        playSound('buy');
-        update();
-        openReward(id);
+        if (confirm(`ნამდვილად გსურს "${item.title}"-ის ყიდვა ${item.price} ქოინად?`)) {
+            coins -= item.price;
+            localStorage.setItem("buy_" + id, "true");
+            playSound('buy');
+            update();
+            openReward(id);
+        }
     }
 
     function openReward(id) {
@@ -422,7 +640,16 @@
             content = `
                 <img src="${item.imageUrl}" style="width:100%; border-radius:8px; margin:10px 0; border:1px solid #333;">
                 <a href="${item.imageUrl}" download="${item.fileName}" target="_blank">
-                    <button class="download-btn" onclick="playSound('buy')">💾 DOWNLOAD HD IMAGE / BANNER</button>
+                    <button class="download-btn" onclick="playSound('buy')">💾 DOWNLOAD HD IMAGE / BANNER NOW</button>
+                </a>
+            `;
+        } else if (item.type === "bundle") {
+            content = `
+                <div class="bio-display" id="bio-text">${item.content}</div>
+                <button onclick="copyBio()" style="margin-bottom:12px;">📋 COPY BIO TO CLIPBOARD</button>
+                <img src="${item.imageUrl}" style="width:100%; border-radius:8px; margin:10px 0; border:1px solid #333;">
+                <a href="${item.imageUrl}" download="${item.fileName}" target="_blank">
+                    <button class="download-btn" onclick="playSound('buy')">💾 DOWNLOAD BUNDLE BANNER</button>
                 </a>
             `;
         }
@@ -493,6 +720,17 @@
     function update() {
         document.getElementById("coin-count").innerText = coins;
         localStorage.setItem("coins", coins);
+
+        ["group", "profile", "friend"].forEach(id => {
+            if (localStorage.getItem("m_" + id) === "done") {
+                const btn = document.getElementById("btn-" + id);
+                if (btn) { 
+                    btn.innerText = "COMPLETED ✓"; 
+                    btn.disabled = true; 
+                }
+            }
+        });
+
         renderShop();
     }
 
