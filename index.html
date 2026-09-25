@@ -248,4 +248,22 @@
 </footer>
 
 </body>
+    <script>
+let coins = Number(localStorage.getItem("coins")) || 0;
+
+function updateCoins() {
+    document.querySelector(".coin-count").textContent = coins;
+    localStorage.setItem("coins", coins);
+}
+
+function completeMission(id) {
+    if (localStorage.getItem(id)) return;
+
+    coins += 20;
+    localStorage.setItem(id, "done");
+    updateCoins();
+}
+
+updateCoins();
+</script>
 </html>
