@@ -1789,3 +1789,1808 @@ updateVip();
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Steam Store</title>
+
+<style>
+
+:root{
+  --bg:#080b10;
+  --panel:#111822;
+  --panel2:#17212d;
+  --line:#263548;
+  --text:#edf2f7;
+  --muted:#8d9aaa;
+  --blue:#66c0f4;
+  --gold:#f1c40f;
+  --green:#2ecc71;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 15% 0%,#15283a 0,transparent 30%),
+    radial-gradient(circle at 90% 0%,#24192b 0,transparent 25%),
+    var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+.wrapper{
+  width:min(1250px,94%);
+  margin:auto;
+  padding:22px 0 45px;
+}
+
+.header{
+  padding:27px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:linear-gradient(145deg,var(--panel),#0d131b);
+  box-shadow:0 15px 45px #0006;
+}
+
+.header h1{
+  margin:0 0 7px;
+  font-size:40px;
+}
+
+.header p{
+  margin:0;
+  color:var(--muted);
+}
+
+.nav{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:18px;
+}
+
+.nav a{
+  color:var(--muted);
+  text-decoration:none;
+  padding:9px 12px;
+  border:1px solid transparent;
+  border-radius:9px;
+  background:#090e14;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.nav a:hover{
+  color:white;
+  border-color:var(--line);
+}
+
+.balance{
+  margin-top:18px;
+  display:inline-block;
+  padding:10px 14px;
+  border:1px solid var(--line);
+  border-radius:9px;
+  background:#090e14;
+  font-weight:bold;
+}
+
+.filters{
+  margin:22px 0 15px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+button,
+.btn{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.filter,
+.buy{
+  border:1px solid var(--line);
+  background:var(--panel2);
+  color:var(--text);
+  border-radius:9px;
+  padding:10px 13px;
+}
+
+.filter.active{
+  color:var(--blue);
+  border-color:var(--blue);
+  background:#66c0f40f;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.card{
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:19px;
+  background:linear-gradient(145deg,var(--panel),#0e141c);
+  box-shadow:0 10px 28px #0004;
+}
+
+.icon{
+  font-size:33px;
+}
+
+.card h2{
+  margin:10px 0 6px;
+}
+
+.card p{
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
+  min-height:62px;
+}
+
+.footer{
+  margin-top:30px;
+  text-align:center;
+  color:#687483;
+  font-size:12px;
+}
+
+@media(max-width:900px){
+  .products{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:650px){
+  .products{
+    grid-template-columns:1fr;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<header class="header">
+
+<h1>🛒 Steam Coin Store</h1>
+
+<p>
+Buy premium Bio, Artwork, Avatar and Bundle items.
+</p>
+
+<nav class="nav">
+
+<a href="index.html">🏠 Home</a>
+<a href="store.html">🛒 Store</a>
+<a href="vip.html">💎 VIP</a>
+
+</nav>
+
+<div class="balance">
+🪙 <span id="coins">0</span> Coins
+</div>
+
+</header>
+
+
+<div class="filters">
+
+<button class="filter active" data-filter="All">
+All
+</button>
+
+<button class="filter" data-filter="Bio">
+Dark Bio
+</button>
+
+<button class="filter" data-filter="Artwork">
+Dark Art
+</button>
+
+<button class="filter" data-filter="Avatar">
+Avatar
+</button>
+
+<button class="filter" data-filter="Bundle">
+Bundle
+</button>
+
+</div>
+
+
+<div class="products" id="products"></div>
+
+
+<footer class="footer">
+Steam Store • Front-end version
+</footer>
+
+</div>
+
+
+<script>
+
+const paidKey="steam_paid_coins";
+const missionKey="steam_mission_coins";
+const trialKey="steam_trial_coins";
+
+function n(key){
+  return Number(localStorage.getItem(key)||0);
+}
+
+function setN(key,value){
+  localStorage.setItem(
+    key,
+    String(Math.max(0,Math.floor(value)))
+  );
+}
+
+function totalCoins(){
+  return (
+    n(paidKey)+
+    n(missionKey)+
+    n(trialKey)
+  );
+}
+
+function updateCoins(){
+
+  document.getElementById("coins")
+    .textContent=
+    totalCoins().toLocaleString();
+
+}
+
+
+/*
+  იგივე პრინციპი:
+  Trial → Mission → Paid
+*/
+function spendCoins(amount){
+
+  let left=amount;
+
+  const trial=n(trialKey);
+
+  const t=Math.min(
+    trial,
+    left
+  );
+
+  setN(
+    trialKey,
+    trial-t
+  );
+
+  left-=t;
+
+  if(left<=0){
+    updateCoins();
+    return true;
+  }
+
+  const mission=n(missionKey);
+
+  const m=Math.min(
+    mission,
+    left
+  );
+
+  setN(
+    missionKey,
+    mission-m
+  );
+
+  left-=m;
+
+  if(left<=0){
+    updateCoins();
+    return true;
+  }
+
+  const paid=n(paidKey);
+
+  if(paid<left){
+
+    setN(trialKey,trial);
+    setN(missionKey,mission);
+
+    updateCoins();
+
+    return false;
+  }
+
+  setN(
+    paidKey,
+    paid-left
+  );
+
+  updateCoins();
+
+  return true;
+}
+
+
+const products=[
+
+{
+ id:"bio_gothic",
+ type:"Bio",
+ icon:"🖤",
+ title:"Gothic Soul Bio",
+ desc:"Premium dark Steam Bio.",
+ price:25
+},
+
+{
+ id:"bio_shadow",
+ type:"Bio",
+ icon:"🌑",
+ title:"Shadow Mind Bio",
+ desc:"Dark minimalist profile Bio.",
+ price:25
+},
+
+{
+ id:"art_grim",
+ type:"Artwork",
+ icon:"☠️",
+ title:"Grim Reaper Banner",
+ desc:"Dark profile banner artwork.",
+ price:40
+},
+
+{
+ id:"art_void",
+ type:"Artwork",
+ icon:"🌌",
+ title:"Void Galaxy Artwork",
+ desc:"Deep-space artwork.",
+ price:40
+},
+
+{
+ id:"avatar_neon",
+ type:"Avatar",
+ icon:"🔮",
+ title:"Neon Mask Avatar",
+ desc:"Dark neon avatar concept.",
+ price:20
+},
+
+{
+ id:"bundle_dark",
+ type:"Bundle",
+ icon:"🔥",
+ title:"Dark Starter Bundle",
+ desc:"Bio + Artwork + Avatar.",
+ price:70
+}
+
+];
+
+
+let filter="All";
+
+
+const ownedKey=
+"steam_owned_products";
+
+
+function owned(){
+
+  return JSON.parse(
+    localStorage.getItem(
+      ownedKey
+    )||"[]"
+  );
+
+}
+
+function render(){
+
+  const data=
+    filter==="All"
+    ?
+    products
+    :
+    products.filter(
+      p=>p.type===filter
+    );
+
+  document.getElementById(
+    "products"
+  ).innerHTML=
+  data.map(p=>{
+
+    const have=
+      owned().includes(p.id);
+
+    return `
+
+    <div class="card">
+
+      <div class="icon">
+        ${p.icon}
+      </div>
+
+      <h2>${p.title}</h2>
+
+      <p>${p.desc}</p>
+
+      <div style="
+        margin-top:15px;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:10px;
+      ">
+
+        <b style="color:#f1c40f">
+          🪙 ${p.price}
+        </b>
+
+        ${
+          have
+          ?
+          `<button class="buy" disabled>
+             ✓ Purchased
+           </button>`
+          :
+          `<button
+            class="buy"
+            data-buy="${p.id}">
+            🛒 Buy
+           </button>`
+        }
+
+      </div>
+
+    </div>
+
+    `;
+
+  }).join("");
+
+}
+
+
+function buy(id){
+
+  const p=
+    products.find(
+      x=>x.id===id
+    );
+
+  if(!p)return;
+
+  if(owned().includes(id)){
+    return;
+  }
+
+  if(!spendCoins(p.price)){
+
+    alert(
+      "არ გაქვს საკმარისი Coins."
+    );
+
+    return;
+  }
+
+  const list=owned();
+
+  list.push(id);
+
+  localStorage.setItem(
+    ownedKey,
+    JSON.stringify(list)
+  );
+
+  render();
+  updateCoins();
+
+  alert(
+    "შეძენა წარმატებულია!"
+  );
+
+}
+
+
+document.addEventListener(
+  "click",
+  e=>{
+
+    if(e.target.dataset.filter){
+
+      filter=
+        e.target.dataset.filter;
+
+      document
+        .querySelectorAll(".filter")
+        .forEach(x=>
+          x.classList.remove("active")
+        );
+
+      e.target.classList.add(
+        "active"
+      );
+
+      render();
+    }
+
+    if(e.target.dataset.buy){
+
+      buy(
+        e.target.dataset.buy
+      );
+
+    }
+
+  }
+);
+
+
+/*
+  48 საათიანი Trial-ის ვადის გასვლისას
+  Trial Coins იშლება.
+*/
+const vipUntil=
+Number(
+  localStorage.getItem(
+    "steam_vip_until"
+  )||0
+);
+
+if(
+  vipUntil &&
+  Date.now()>=vipUntil
+){
+
+  localStorage.removeItem(
+    "steam_vip_until"
+  );
+
+  localStorage.removeItem(
+    "steam_vip_plan"
+  );
+
+  setN(
+    trialKey,
+    0
+  );
+}
+
+
+updateCoins();
+render();
+
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<meta name="theme-color" content="#080b10">
+
+<title>VIP Center</title>
+
+<style>
+
+:root{
+  --bg:#080b10;
+  --panel:#111822;
+  --panel2:#17212d;
+  --line:#263548;
+  --text:#edf2f7;
+  --muted:#8d9aaa;
+  --blue:#66c0f4;
+  --gold:#f1c40f;
+  --green:#2ecc71;
+  --red:#e74c3c;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+
+  background:
+    radial-gradient(circle at 20% 0%,#182b3d 0,transparent 32%),
+    radial-gradient(circle at 90% 0%,#281a30 0,transparent 27%),
+    var(--bg);
+}
+
+.wrapper{
+  width:min(1200px,94%);
+  margin:auto;
+  padding:22px 0 45px;
+}
+
+.header{
+  padding:28px;
+  border:1px solid var(--line);
+  border-radius:17px;
+  background:linear-gradient(145deg,var(--panel),#0d131b);
+  box-shadow:0 16px 50px #0007;
+}
+
+.header h1{
+  margin:0 0 8px;
+  font-size:clamp(30px,5vw,46px);
+}
+
+.header p{
+  margin:0;
+  color:var(--muted);
+}
+
+.nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:18px;
+}
+
+.nav a{
+  color:var(--muted);
+  background:#090e14;
+  border:1px solid transparent;
+  border-radius:9px;
+  text-decoration:none;
+  padding:9px 12px;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.nav a:hover{
+  color:white;
+  border-color:var(--line);
+}
+
+.vip-grid{
+  margin-top:20px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:13px;
+}
+
+.card{
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:linear-gradient(145deg,var(--panel),#0e141c);
+  padding:19px;
+  box-shadow:0 10px 30px #0004;
+}
+
+.card h2{
+  margin:0 0 7px;
+}
+
+.card p{
+  color:var(--muted);
+  line-height:1.5;
+  font-size:13px;
+  min-height:62px;
+}
+
+.price{
+  font-size:26px;
+  color:var(--gold);
+  font-weight:900;
+  margin:13px 0;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid var(--line);
+  color:var(--text);
+  background:var(--panel2);
+  border-radius:9px;
+  padding:10px 13px;
+  font:inherit;
+  cursor:pointer;
+  text-decoration:none;
+}
+
+.btn:hover{
+  border-color:#49627a;
+}
+
+.gold{
+  background:#604d08;
+  border-color:#92730a;
+}
+
+.primary{
+  background:#174f73;
+  border-color:#327da9;
+}
+
+.success{
+  background:#123b28;
+  border-color:#296b4a;
+}
+
+.warning{
+  margin-top:18px;
+  padding:15px;
+  border-radius:12px;
+  border:1px solid #705c12;
+  background:#171409;
+  line-height:1.65;
+}
+
+.danger{
+  margin-top:15px;
+  padding:15px;
+  border-radius:12px;
+  border:1px solid #733038;
+  background:#1a0e11;
+  line-height:1.65;
+}
+
+.security{
+  margin-top:15px;
+  padding:15px;
+  border-radius:12px;
+  border:1px solid #2c6e4d;
+  background:#0c1a13;
+  line-height:1.65;
+}
+
+.status-card{
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.status{
+  padding:17px;
+}
+
+.status-value{
+  margin-top:10px;
+  font-size:18px;
+  font-weight:bold;
+  color:var(--gold);
+}
+
+.countdown{
+  color:var(--blue);
+}
+
+.instructions{
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.instructions ol{
+  line-height:1.8;
+  padding-left:20px;
+}
+
+.email-box{
+  margin-top:18px;
+}
+
+.email-box input{
+  width:100%;
+  padding:12px;
+  border-radius:9px;
+  border:1px solid var(--line);
+  background:#090e14;
+  color:white;
+  outline:none;
+  margin-top:7px;
+}
+
+.codes{
+  margin-top:14px;
+  padding:13px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#090e14;
+  white-space:pre-wrap;
+  font-family:Consolas,monospace;
+  color:#dce2e9;
+}
+
+.footer{
+  margin-top:28px;
+  text-align:center;
+  color:#687483;
+  font-size:12px;
+}
+
+@media(max-width:950px){
+  .vip-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .status-card{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:650px){
+  .vip-grid,
+  .instructions{
+    grid-template-columns:1fr;
+  }
+
+  .header{
+    padding:22px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<header class="header">
+
+<h1>💎 VIP Center</h1>
+
+<p>
+48-Hour VIP Trial • Premium Features • Account Verification
+</p>
+
+<nav class="nav">
+
+<a href="index.html">🏠 Home</a>
+<a href="store.html">🛒 Store</a>
+<a href="vip.html">💎 VIP</a>
+
+</nav>
+
+</header>
+
+
+<div class="warning">
+
+⚠️ <b>VIP Trial გაფრთხილება</b><br><br>
+
+🇬🇪 ახალი მომხმარებელი იღებს
+<b>30 უფასო Coins-ს მხოლოდ 48 საათით.</b>
+Trial-ის დასრულების შემდეგ დარჩენილი Trial Coins ავტომატურად გაუქმდება.
+
+<br><br>
+
+🇬🇧 New users receive
+<b>30 free Coins for 48 hours only.</b>
+When the trial expires, remaining Trial Coins are automatically removed.
+
+</div>
+
+
+<div class="vip-grid">
+
+
+<div class="card">
+
+<h2>Bronze VIP</h2>
+
+<p>
+48-hour access, VIP status and weekly-style reward system.
+</p>
+
+<div class="price">
+$5
+</div>
+
+<button
+class="btn gold"
+data-vip="Bronze">
+💎 Choose Bronze
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h2>Silver VIP</h2>
+
+<p>
+Premium profile status and extra showcase features.
+</p>
+
+<div class="price">
+$10
+</div>
+
+<button
+class="btn gold"
+data-vip="Silver">
+💎 Choose Silver
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h2>Gold VIP</h2>
+
+<p>
+Gold profile status and premium profile features.
+</p>
+
+<div class="price">
+$20
+</div>
+
+<button
+class="btn gold"
+data-vip="Gold">
+💎 Choose Gold
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h2>Ultimate VIP</h2>
+
+<p>
+Full VIP profile experience with all enabled features.
+</p>
+
+<div class="price">
+$30
+</div>
+
+<button
+class="btn gold"
+data-vip="Ultimate">
+💎 Choose Ultimate
+</button>
+
+</div>
+
+</div>
+
+
+<div class="status-card">
+
+<div class="card status">
+
+<h2>💎 Current VIP</h2>
+
+<div
+class="status-value"
+id="vipStatus">
+Checking...
+</div>
+
+</div>
+
+
+<div class="card status">
+
+<h2>🪙 Coins</h2>
+
+<div
+class="status-value"
+id="coins">
+0
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card" style="margin-top:18px">
+
+<h2>✨ VIP Features</h2>
+
+<ul style="line-height:1.8;color:#cfd6dd">
+
+<li>💎 VIP profile status</li>
+
+<li>🎨 Premium profile design access</li>
+
+<li>📜 Premium Bio collection access</li>
+
+<li>🖼️ Premium Artwork access</li>
+
+<li>🪙 30 free Trial Coins for 48 hours</li>
+
+<li>🔐 Email verification / recovery codes</li>
+
+<li>🛡️ Account membership verification</li>
+
+</ul>
+
+</div>
+
+
+<div class="instructions">
+
+<div class="card">
+
+<h2>🇬🇪 როგორ ვიყიდო VIP</h2>
+
+<ol>
+
+<li>აირჩიე Bronze, Silver, Gold ან Ultimate.</li>
+
+<li>გახსენით Steam-ის ოფიციალური Gift Card / Payment გვერდი.</li>
+
+<li>დაასრულე გადახდა Steam-ის ოფიციალურ სისტემაში.</li>
+
+<li>შეინახე შეძენის დადასტურება.</li>
+
+<li>
+თუ აქტივაცია manual არის,
+გაუგზავნე ადმინისტრატორს
+შენი Steam პროფილი და შეძენის დადასტურება.
+</li>
+
+<li>
+შემოწმების შემდეგ VIP გააქტიურდება.
+</li>
+
+</ol>
+
+</div>
+
+
+<div class="card">
+
+<h2>🇬🇧 How to buy VIP</h2>
+
+<ol>
+
+<li>Choose Bronze, Silver, Gold or Ultimate.</li>
+
+<li>Open the official Steam Gift Card / Payment page.</li>
+
+<li>Complete the payment through Steam's official system.</li>
+
+<li>Keep your purchase confirmation.</li>
+
+<li>
+If activation is manual,
+send the administrator your Steam profile
+and proof of purchase.
+</li>
+
+<li>
+After verification,
+VIP will be activated.
+</li>
+
+</ol>
+
+</div>
+
+</div>
+
+
+<div class="security">
+
+<b>🔒 Security / უსაფრთხოება</b><br><br>
+
+🇬🇪 არ შეიყვანო საბანკო ბარათის ნომერი,
+CVV, პაროლი ან Steam Guard კოდი
+ამ საიტის კოდში ან ჩატში.
+
+<br><br>
+
+🇬🇧 Never enter your bank card number,
+CVV, password or Steam Guard code
+into this website or chat.
+
+</div>
+
+
+<div class="danger">
+
+<b>⚠️ Account Reset Rule</b><br><br>
+
+🇬🇪 თუ ანგარიშის შემოწმებით დადასტურდა,
+რომ მომხმარებელი აღარ არის საჭირო Steam ჯგუფში
+ან აღარ არის მეგობარი შესაბამის ანგარიშთან,
+VIP Trial, უფასო Coins, Missions და Coins-ით
+ნაყიდი ნივთები გაუქმდება.
+
+<b>Paid Coins არ გაუქმდება.</b>
+
+<br><br>
+
+🇬🇧 If account verification confirms that the user
+is no longer in the required Steam group
+or is no longer friends with the required account,
+VIP Trial, free Coins, Missions and items bought
+with Coins will be reset.
+
+<b>Paid Coins will remain.</b>
+
+</div>
+
+
+<div class="card email-box">
+
+<h2>📧 Email Verification</h2>
+
+<p style="color:#8d9aaa;line-height:1.55;font-size:13px">
+
+🇬🇪 უსაფრთხოების კოდები უნდა გაიგზავნოს
+მომხმარებლის მიერ დადასტურებულ email-ზე.
+
+🇬🇧 Verification codes should be sent to
+the user's verified email address.
+
+<br><br>
+
+ეს ფუნქცია რეალურად გასაგზავნად backend/email service-ს მოითხოვს.
+GitHub Pages მარტო ვერ აგზავნის უსაფრთხო verification email-ს.
+
+</p>
+
+
+<label>
+Verified Email
+</label>
+
+<input
+type="email"
+id="email"
+placeholder="your@email.com"
+autocomplete="email"
+>
+
+
+<div style="margin-top:10px">
+
+<button
+class="btn primary"
+id="sendCodes">
+📧 Request 3 Verification Codes
+</button>
+
+</div>
+
+
+<div
+class="codes"
+id="codeStatus">
+კოდების სტატუსი: ჯერ არ გაგზავნილა.
+</div>
+
+</div>
+
+
+<div class="card" style="margin-top:18px">
+
+<h2>🛡️ Account Status Check</h2>
+
+<p style="color:#8d9aaa;line-height:1.6;font-size:13px">
+
+საიტის backend-ს შეუძლია შეამოწმოს:
+
+<br><br>
+
+• Steam Group Membership<br>
+• Required Friend Status<br>
+• VIP expiry<br>
+• Trial expiry<br>
+• Verification status
+
+<br><br>
+
+თუ status check უარყოფითია,
+free balance და VIP შეიძლება reset-დეს,
+ხოლო Paid Coins ცალკე დარჩება.
+
+</p>
+
+
+<button
+class="btn primary"
+id="checkAccount">
+🔄 Check Account Status
+</button>
+
+</div>
+
+
+<footer class="footer">
+Steam Showcase & VIP Hub • VIP Center
+</footer>
+
+</div>
+
+
+<script>
+
+"use strict";
+
+
+/* ====================================
+   BACKEND CONFIG
+==================================== */
+
+/*
+  როცა backend გექნება,
+  აქ ჩაწერე მისი მისამართი.
+
+  მაგალითად:
+
+  const API_BASE =
+  "https://your-backend.com";
+*/
+
+const API_BASE="";
+
+
+/* ====================================
+   STORAGE
+==================================== */
+
+const paidKey="steam_paid_coins";
+const missionKey="steam_mission_coins";
+const trialKey="steam_trial_coins";
+const vipUntilKey="steam_vip_until";
+const vipPlanKey="steam_vip_plan";
+const trialStartedKey="steam_trial_started";
+const trialUsedKey="steam_trial_used";
+
+const ownedBiosKey="steam_owned_bios";
+const ownedProductsKey="steam_owned_products";
+
+
+function n(key){
+
+  return Number(
+    localStorage.getItem(key)||0
+  );
+
+}
+
+function setN(key,value){
+
+  localStorage.setItem(
+    key,
+    String(
+      Math.max(
+        0,
+        Math.floor(value)
+      )
+    )
+  );
+
+}
+
+function totalCoins(){
+
+  return (
+    n(paidKey)+
+    n(missionKey)+
+    n(trialKey)
+  );
+
+}
+
+function updateCoins(){
+
+  document.getElementById(
+    "coins"
+  ).textContent=
+    totalCoins().toLocaleString();
+
+}
+
+
+/* ====================================
+   TRIAL EXPIRATION
+==================================== */
+
+function checkTrialExpiration(){
+
+  const until=
+    n(vipUntilKey);
+
+  if(!until){
+    return;
+  }
+
+  if(Date.now()>=until){
+
+    localStorage.removeItem(
+      vipUntilKey
+    );
+
+    localStorage.removeItem(
+      vipPlanKey
+    );
+
+    /*
+      მხოლოდ Trial Coins.
+      Paid Coins არ იშლება.
+    */
+
+    setN(
+      trialKey,
+      0
+    );
+
+  }
+
+}
+
+
+/* ====================================
+   CURRENT VIP
+==================================== */
+
+function isVip(){
+
+  checkTrialExpiration();
+
+  return (
+    n(vipUntilKey)>
+    Date.now()
+  );
+
+}
+
+
+function renderVipStatus(){
+
+  const el=
+    document.getElementById(
+      "vipStatus"
+    );
+
+  if(!isVip()){
+
+    el.innerHTML=
+      "🔒 Inactive";
+
+    return;
+  }
+
+  const plan=
+    localStorage.getItem(
+      vipPlanKey
+    )||"VIP";
+
+  const until=
+    n(vipUntilKey);
+
+  const date=
+    new Date(until);
+
+  el.innerHTML=
+    "💎 "+plan+
+    "<br><span class='countdown'>"+
+    date.toLocaleString()+
+    "</span>";
+
+}
+
+
+/* ====================================
+   START 48-HOUR TRIAL
+==================================== */
+
+function startTrial(plan){
+
+  /*
+    Trial მხოლოდ ერთხელ.
+  */
+
+  if(
+    localStorage.getItem(
+      trialUsedKey
+    )==="true"
+  ){
+
+    alert(
+      "VIP Trial უკვე გამოყენებულია."
+    );
+
+    return;
+  }
+
+
+  const start=
+    Date.now();
+
+  const until=
+    start+
+    (48*60*60*1000);
+
+
+  localStorage.setItem(
+    trialStartedKey,
+    String(start)
+  );
+
+  localStorage.setItem(
+    trialUsedKey,
+    "true"
+  );
+
+  localStorage.setItem(
+    vipUntilKey,
+    String(until)
+  );
+
+  localStorage.setItem(
+    vipPlanKey,
+    plan+" Trial"
+  );
+
+
+  /*
+    ზუსტად 30 Trial Coins.
+  */
+
+  setN(
+    trialKey,
+    30
+  );
+
+
+  updateCoins();
+  renderVipStatus();
+
+
+  alert(
+    "VIP Trial გააქტიურდა!\n\n"+
+    "Duration: 48 hours\n"+
+    "Free Coins: 30"
+  );
+
+}
+
+
+/* ====================================
+   VIP BUTTONS
+==================================== */
+
+document.addEventListener(
+  "click",
+  e=>{
+
+    const button=
+      e.target.closest(
+        "[data-vip]"
+      );
+
+    if(button){
+
+      const plan=
+        button.dataset.vip;
+
+      const confirmed=
+        confirm(
+          plan+
+          " VIP-ის 48-საათიანი Trial-ის დაწყება?\n\n"+
+          "მიიღებ 30 უფასო Coins-ს."
+        );
+
+      if(confirmed){
+
+        startTrial(plan);
+
+      }
+
+    }
+
+  }
+);
+
+
+/* ====================================
+   EMAIL CODES
+==================================== */
+
+document
+  .getElementById("sendCodes")
+  .onclick=async()=>{
+
+    const email=
+      document
+      .getElementById("email")
+      .value
+      .trim();
+
+    if(!email){
+
+      alert(
+        "შეიყვანე დადასტურებული email."
+      );
+
+      return;
+    }
+
+
+    const status=
+      document.getElementById(
+        "codeStatus"
+      );
+
+
+    /*
+      Backend-ის გარეშე მხოლოდ UI ვერსიაა.
+    */
+
+    if(!API_BASE){
+
+      status.textContent=
+        "⚠️ Email გაგზავნა ჯერ არ არის დაკავშირებული backend-თან.\n\n"+
+        "საჭიროა email API / backend, რომელიც უსაფრთხოდ გაგზავნის 3 verification code-ს.";
+
+      return;
+    }
+
+
+    try{
+
+      const response=
+        await fetch(
+          API_BASE+
+          "/api/vip/request-codes",
+          {
+            method:"POST",
+
+            headers:{
+              "Content-Type":
+                "application/json"
+            },
+
+            body:JSON.stringify({
+              email:email
+            })
+          }
+        );
+
+
+      if(!response.ok){
+        throw new Error(
+          "Request failed"
+        );
+      }
+
+
+      status.textContent=
+        "✅ 3 verification code მოთხოვნილია.\n"+
+        "შეამოწმე დადასტურებული email.";
+
+
+    }catch(error){
+
+      status.textContent=
+        "❌ Verification email-ის გაგზავნა ვერ მოხერხდა.";
+
+    }
+
+  };
+
+
+/* ====================================
+   ACCOUNT STATUS CHECK
+==================================== */
+
+document
+  .getElementById("checkAccount")
+  .onclick=async()=>{
+
+    /*
+      Backend-ის გარეშე Steam membership-ის
+      ავტომატური შემოწმება შეუძლებელია.
+    */
+
+    if(!API_BASE){
+
+      alert(
+        "Account Status Check-ის ავტომატურად მუშაობისთვის საჭიროა backend.\n\n"+
+        "GitHub Pages ვერ ამოწმებს Steam Group/Friend სტატუსს უსაფრთხოდ."
+      );
+
+      return;
+    }
+
+
+    try{
+
+      const response=
+        await fetch(
+          API_BASE+
+          "/api/account/status",
+          {
+            credentials:"include"
+          }
+        );
+
+
+      if(!response.ok){
+        throw new Error(
+          "Status check failed"
+        );
+      }
+
+
+      const data=
+        await response.json();
+
+
+      /*
+        მაგალითი:
+        {
+          groupMember:true,
+          friend:true
+        }
+      */
+
+      if(
+        data.groupMember===false ||
+        data.friend===false
+      ){
+
+        resetFreeAccount();
+
+        alert(
+          "Account status no longer valid.\n"+
+          "Free benefits have been reset.\n\n"+
+          "Paid Coins remain."
+        );
+
+      }else{
+
+        alert(
+          "Account status verified."
+        );
+
+      }
+
+
+    }catch(error){
+
+      alert(
+        "Account Status Check failed."
+      );
+
+    }
+
+  };
+
+
+/* ====================================
+   RESET EVERYTHING EXCEPT PAID COINS
+==================================== */
+
+function resetFreeAccount(){
+
+  /*
+    PAID COINS არ იშლება.
+  */
+
+  setN(
+    missionKey,
+    0
+  );
+
+  setN(
+    trialKey,
+    0
+  );
+
+
+  localStorage.removeItem(
+    vipUntilKey
+  );
+
+  localStorage.removeItem(
+    vipPlanKey
+  );
+
+  localStorage.removeItem(
+    trialStartedKey
+  );
+
+  localStorage.removeItem(
+    trialUsedKey
+  );
+
+
+  /*
+    Bio/Artwork/Bundle შეძენები
+    Coins სისტემის ნაწილია და ამიტომ resetდება.
+  */
+
+  localStorage.removeItem(
+    ownedBiosKey
+  );
+
+  localStorage.removeItem(
+    ownedProductsKey
+  );
+
+
+  /*
+    მისიების სტატუსებიც resetდება.
+  */
+
+  Object.keys(
+    localStorage
+  ).forEach(key=>{
+
+    if(
+      key.startsWith(
+        "steam_mission_done_"
+      )
+    ){
+
+      localStorage.removeItem(
+        key
+      );
+
+    }
+
+  });
+
+
+  updateCoins();
+  renderVipStatus();
+
+}
+
+
+/* ====================================
+   INIT
+==================================== */
+
+checkTrialExpiration();
+updateCoins();
+renderVipStatus();
+
+</script>
+
+</body>
+</html>
