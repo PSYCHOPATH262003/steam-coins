@@ -1,110 +1,3596 @@
 <!DOCTYPE html>
 <html lang="ka">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steam Coins & Showcase Store</title>
-    <style>
-        :root {
-            --bg-color: #0d1117;
-            --panel-bg: #161b22;
-            --border-color: #30363d;
-            --text-color: #c9d1d9;
-            --accent-color: #58a6ff;
-            --success-color: #238636;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px;
-        }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-        }
-        h1 { margin: 0; font-size: 24px; color: #fff; }
-        .nav-links a {
-            color: var(--accent-color);
-            text-decoration: none;
-            margin-left: 15px;
-            font-weight: bold;
-        }
-        .nav-links a:hover { text-decoration: underline; }
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        .card {
-            background-color: var(--panel-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        .price {
-            color: #3fb950;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        button {
-            background-color: var(--success-color);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        button:hover { opacity: 0.9; }
-        
-        /* არტვორკის ფოტოების დაცვა გადმოწერისგან და გადათრევისგან */
-        .artwork-img {
-            max-width: 100%;
-            border-radius: 4px;
-            -webkit-user-drag: none;
-            user-select: none;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b10">
+<title>Steam Showcase & VIP Hub</title>
+
+<style>
+:root{
+  --bg:#080b10;
+  --panel:#111822;
+  --panel2:#17212d;
+  --line:#263548;
+  --text:#edf2f7;
+  --muted:#8d9aaa;
+  --blue:#66c0f4;
+  --gold:#f1c40f;
+  --green:#2ecc71;
+  --red:#e74c3c;
+  --purple:#a86bd8;
+}
+
+*{box-sizing:border-box}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 15% 0%,#14283a 0,transparent 30%),
+    radial-gradient(circle at 90% 0%,#24192c 0,transparent 25%),
+    var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+a,button{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.wrapper{
+  width:min(1400px,94%);
+  margin:auto;
+  padding:20px 0 45px;
+}
+
+.hero{
+  border:1px solid var(--line);
+  border-radius:17px;
+  padding:27px;
+  background:linear-gradient(145deg,var(--panel),#0c1219);
+  box-shadow:0 15px 45px #0006;
+}
+
+.hero h1{
+  margin:0 0 8px;
+  font-size:clamp(28px,4vw,43px);
+}
+
+.hero p{
+  margin:0;
+  color:var(--muted);
+}
+
+.nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:18px;
+}
+
+.nav a{
+  text-decoration:none;
+  color:var(--muted);
+  border:1px solid transparent;
+  background:#0a0f15;
+  padding:9px 12px;
+  border-radius:9px;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.nav a:hover{
+  color:#fff;
+  border-color:var(--line);
+}
+
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:10px;
+  margin-top:18px;
+}
+
+.balance{
+  background:#090e14;
+  border:1px solid var(--line);
+  padding:10px 14px;
+  border-radius:9px;
+  font-weight:bold;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  border:1px solid var(--line);
+  background:var(--panel2);
+  color:var(--text);
+  padding:10px 13px;
+  border-radius:9px;
+  text-decoration:none;
+  transition:.18s;
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+  border-color:#49627a;
+}
+
+.primary{
+  background:#174f73;
+  border-color:#327da9;
+}
+
+.gold{
+  background:#604d08;
+  border-color:#92730a;
+}
+
+.danger{
+  background:#511a20;
+  border-color:#80343d;
+}
+
+.locked{
+  opacity:.85;
+  border-color:#303b48;
+}
+
+.notice{
+  margin:17px 0;
+  padding:15px;
+  border:1px solid #6b5a12;
+  background:#171409;
+  border-radius:12px;
+  line-height:1.6;
+}
+
+.layout{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 305px;
+  gap:20px;
+}
+
+.section{
+  margin-top:24px;
+}
+
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:11px;
+  font-size:22px;
+  font-weight:900;
+}
+
+.sub{
+  color:var(--muted);
+  font-size:12px;
+  font-weight:normal;
+}
+
+.grid3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.grid2{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.card,
+.side{
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:linear-gradient(145deg,var(--panel),#0d131b);
+  box-shadow:0 10px 30px #0004;
+}
+
+.mission{
+  padding:16px;
+}
+
+.mission h3{
+  margin:0 0 7px;
+}
+
+.mission p{
+  margin:0 0 12px;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.45;
+}
+
+.bio{
+  overflow:hidden;
+}
+
+.bio-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  padding:13px 14px;
+  border-bottom:1px solid var(--line);
+  font-weight:800;
+}
+
+.tag{
+  color:var(--blue);
+  border:1px solid #66c0f435;
+  background:#66c0f40d;
+  border-radius:20px;
+  padding:4px 8px;
+  font-size:11px;
+}
+
+.bio-text{
+  min-height:195px;
+  padding:16px;
+  white-space:pre-wrap;
+  word-break:break-word;
+  font-family:"Segoe UI Symbol","Noto Sans Symbols 2",monospace;
+  font-size:14px;
+  line-height:1.55;
+}
+
+.bio-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  padding:12px 14px;
+  border-top:1px solid var(--line);
+}
+
+.lock-note{
+  color:#798592;
+  font-size:12px;
+  display:flex;
+  align-items:center;
+}
+
+.art{
+  overflow:hidden;
+}
+
+.art-img{
+  aspect-ratio:16/9;
+  overflow:hidden;
+  background:#04070b;
+}
+
+.art-img img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:.3s;
+}
+
+.art:hover img{
+  transform:scale(1.04);
+}
+
+.art-body{
+  padding:14px;
+}
+
+.art-title{
+  font-weight:800;
+}
+
+.art-desc{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.45;
+  margin-top:6px;
+}
+
+.art-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+}
+
+.feature{
+  padding:18px;
+}
+
+.feature p{
+  color:var(--muted);
+  line-height:1.5;
+  font-size:13px;
+}
+
+.side{
+  padding:17px;
+  position:sticky;
+  top:20px;
+  align-self:start;
+}
+
+.side h2{
+  margin:0 0 12px;
+}
+
+.status{
+  padding:12px;
+  background:#090e14;
+  border:1px solid var(--line);
+  border-radius:10px;
+  line-height:1.55;
+  font-size:13px;
+}
+
+.status .vip{
+  color:#ffd84a;
+}
+
+.member{
+  display:flex;
+  gap:9px;
+  align-items:center;
+  padding:10px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.member:last-child{
+  border-bottom:0;
+}
+
+.ava{
+  width:37px;
+  height:37px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:#1b2938;
+  border:1px solid #3b526a;
+}
+
+.member small{
+  display:block;
+  color:var(--muted);
+  margin-top:2px;
+}
+
+.footer{
+  text-align:center;
+  color:#687483;
+  font-size:12px;
+  margin-top:30px;
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  z-index:1000;
+  background:#000d;
+  backdrop-filter:blur(7px);
+}
+
+.modal.open{
+  display:flex;
+}
+
+.modalbox{
+  width:min(900px,100%);
+  max-height:90vh;
+  overflow:auto;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:#0d131c;
+  box-shadow:0 25px 90px #000b;
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 17px;
+  border-bottom:1px solid var(--line);
+}
+
+.modal-head h2{
+  margin:0;
+  font-size:19px;
+}
+
+.close{
+  width:36px;
+  height:36px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:#151e29;
+  color:white;
+}
+
+.modal-body{
+  padding:18px;
+}
+
+.guide{
+  white-space:pre-wrap;
+  line-height:1.65;
+  color:#dbe2e9;
+}
+
+.preview{
+  width:100%;
+  max-height:60vh;
+  object-fit:contain;
+  display:block;
+  border-radius:9px;
+  background:#05080c;
+}
+
+.modal-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:14px;
+}
+
+.toast{
+  position:fixed;
+  bottom:18px;
+  right:18px;
+  max-width:360px;
+  z-index:2000;
+  padding:13px 15px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:#101721;
+  opacity:0;
+  transform:translateY(18px);
+  pointer-events:none;
+  transition:.2s;
+}
+
+.toast.show{
+  opacity:1;
+  transform:none;
+}
+
+.toast.success{
+  border-color:#2ecc7155;
+}
+
+.toast.error{
+  border-color:#e74c3c66;
+}
+
+@media(max-width:1050px){
+  .layout{
+    grid-template-columns:1fr;
+  }
+
+  .side{
+    position:static;
+  }
+
+  .grid3{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:760px){
+  .grid3,
+  .grid2{
+    grid-template-columns:1fr;
+  }
+
+  .hero{
+    padding:22px;
+  }
+}
+
+@media(max-width:520px){
+  .wrapper{
+    width:96%;
+  }
+
+  .hero h1{
+    font-size:28px;
+  }
+
+  .hero-actions .btn,
+  .hero-actions .balance{
+    width:100%;
+  }
+}
+</style>
 </head>
+
 <body>
 
-    <div class="container">
-        <header>
-            <h1>Steam Coins & Artworks</h1>
-            <div class="nav-links">
-                <a href="index.html">მთავარი</a>
-                <a href="vip.html">VIP ლოჟა</a>
-            </div>
-        </header>
+<div class="wrapper">
 
-        <div class="card">
-            <h2>მოგესალმებით Steam Store-ში!</h2>
-            <p>აქ შეგიძლია შეიძინო საუკეთესო არტვორკები და ქოინები შენი პროფილის გასაფორმებლად.</p>
-        </div>
+<header class="hero">
 
-        <div class="card">
-            <h2>არტვორკის ვიტრინა</h2>
-            <p>დიზაინი #1</p>
-            <p class="price">ფასი: 500 ქოინი</p>
-            <!-- დაცული სურათი -->
-            <img src="https://placehold.co/600x200/1f242c/FFF.png?text=Steam+Artwork+Showcase" alt="Artwork" class="artwork-img">
-            <br><br>
-            <button>შეძენა</button>
-        </div>
+  <h1>🎮 Steam Showcase & VIP Hub</h1>
+
+  <p>
+    Earn Coins • Premium Bios • Artworks • VIP Membership
+  </p>
+
+  <nav class="nav">
+    <a href="index.html">🏠 Home</a>
+    <a href="#bios">📜 Bios</a>
+    <a href="#artworks">🖼️ Artworks</a>
+    <a href="store.html">🛒 Store</a>
+    <a href="vip.html">💎 VIP</a>
+  </nav>
+
+  <div class="hero-actions">
+
+    <div class="balance">
+      🪙 <span id="coins">0</span> Coins
     </div>
 
-    <script>
-        // სრულად ბლოკავს მარჯვენა კლიკს და დრაგ-დროპს სურათებზე
-        document.querySelectorAll('img').forEach(img => {
-            img.addEventListener('contextmenu', e => e.preventDefault());
-            img.addEventListener('dragstart', e => e.preventDefault());
-        });
-    </script>
+    <a href="store.html" class="btn primary">
+      🛒 Open Store
+    </a>
+
+    <a href="vip.html" class="btn gold">
+      💎 VIP Center
+    </a>
+
+    <button class="btn" id="testCoins">
+      TEST +1000
+    </button>
+
+  </div>
+
+</header>
+
+<div class="notice">
+
+⚠️ <b>VIP Trial:</b> ახალი მომხმარებელი იღებს
+<b>30 უფასო Coins-ს მხოლოდ 48 საათით.</b>
+
+<br>
+
+🇬🇧 <b>VIP Trial:</b> New users receive
+<b>30 free Coins for 48 hours only.</b>
+
+<br><br>
+
+⚠️ <b>Important:</b> თუ მომხმარებელი დაკარგავს ჯგუფის წევრობას
+ან მეგობრობის სტატუსს, უფასო ბალანსი, VIP Trial და
+Coins-ით მიღებული ნივთები გაუქმდება.
+ნამდვილ ფულში ნაყიდი Coins ცალკე ინახება.
+
+<br>
+
+🇬🇧 If the user loses group membership or friendship status,
+free balance, VIP Trial and items bought with Coins are reset.
+Real-money purchased Coins are stored separately.
+
+</div>
+
+<div class="layout">
+
+<main>
+
+<section class="section">
+
+<div class="section-title">
+🎯 Free Missions
+</div>
+
+<div class="grid3" id="missions"></div>
+
+</section>
+
+<section class="section" id="bios">
+
+<div class="section-title">
+📜 Steam Bios Collection
+<span class="sub">Buy first → Copy unlocks</span>
+</div>
+
+<div class="grid2" id="biosGrid"></div>
+
+</section>
+
+<section class="section" id="artworks">
+
+<div class="section-title">
+🖼️ Steam Artwork Showcase
+</div>
+
+<div class="grid2" id="artworksGrid"></div>
+
+</section>
+
+<section class="section">
+
+<div class="card feature">
+
+<h2>💎 VIP Center</h2>
+
+<p>
+Get a 48-hour VIP Trial with 30 free Coins,
+premium access, VIP status and additional profile features.
+</p>
+
+<a href="vip.html" class="btn gold">
+Open VIP Center →
+</a>
+
+</div>
+
+</section>
+
+</main>
+
+<aside class="side">
+
+<h2>💎 VIP Lounge</h2>
+
+<div class="status" id="vipStatus"></div>
+
+<div style="margin-top:13px">
+
+<div class="member">
+<div class="ava">🧊</div>
+<div>
+Penguin
+<small>Ultimate VIP</small>
+</div>
+</div>
+
+<div class="member">
+<div class="ava">🌑</div>
+<div>
+Shadow
+<small>Gold VIP</small>
+</div>
+</div>
+
+<div class="member">
+<div class="ava">⚡</div>
+<div>
+Neon
+<small>Silver VIP</small>
+</div>
+</div>
+
+</div>
+
+<a href="vip.html"
+class="btn gold"
+style="width:100%;margin-top:14px">
+💎 Manage VIP
+</a>
+
+</aside>
+
+</div>
+
+<footer class="footer">
+Steam Showcase & VIP Hub • Front-end version
+</footer>
+
+</div>
+
+<div class="modal" id="modal">
+
+<div class="modalbox">
+
+<div class="modal-head">
+
+<h2 id="modalTitle">Preview</h2>
+
+<button class="close" id="closeModal">
+×
+</button>
+
+</div>
+
+<div class="modal-body" id="modalBody"></div>
+
+</div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+
+/* ============================
+   SETTINGS
+============================ */
+
+const STEAM_PROFILE =
+"https://steamcommunity.com/profiles/76561198708164928/";
+
+const STEAM_GROUP =
+"https://steamcommunity.com/groups/3DumbPenguins";
+
+/*
+  Backend-ის URL.
+  GitHub Pages-ზე თუ backend არ გაქვს, დატოვე ცარიელი.
+*/
+const API_BASE = "";
+
+
+/* ============================
+   STORAGE
+============================ */
+
+const STORE_KEYS = {
+  paidCoins:"steam_paid_coins",
+  missionCoins:"steam_mission_coins",
+  trialCoins:"steam_trial_coins",
+  trialStarted:"steam_trial_started",
+  trialUsed:"steam_trial_used",
+  vipUntil:"steam_vip_until",
+  vipPlan:"steam_vip_plan",
+  ownedBios:"steam_owned_bios",
+  ownedProducts:"steam_owned_products",
+  missionDone:"steam_mission_done",
+  lastStatus:"steam_last_status"
+};
+
+
+/* ============================
+   HELPERS
+============================ */
+
+function num(key){
+  return Number(localStorage.getItem(key) || 0);
+}
+
+function setNum(key,value){
+  localStorage.setItem(
+    key,
+    String(Math.max(0,Math.floor(value)))
+  );
+}
+
+function totalCoins(){
+  return (
+    num(STORE_KEYS.paidCoins) +
+    num(STORE_KEYS.missionCoins) +
+    num(STORE_KEYS.trialCoins)
+  );
+}
+
+function ownedBios(){
+  return JSON.parse(
+    localStorage.getItem(STORE_KEYS.ownedBios) || "[]"
+  );
+}
+
+function saveOwnedBios(list){
+  localStorage.setItem(
+    STORE_KEYS.ownedBios,
+    JSON.stringify(list)
+  );
+}
+
+function ownedProducts(){
+  return JSON.parse(
+    localStorage.getItem(STORE_KEYS.ownedProducts) || "[]"
+  );
+}
+
+function saveOwnedProducts(list){
+  localStorage.setItem(
+    STORE_KEYS.ownedProducts,
+    JSON.stringify(list)
+  );
+}
+
+function toast(message,type=""){
+  const el=document.getElementById("toast");
+
+  el.textContent=message;
+  el.className="toast show "+type;
+
+  clearTimeout(window.__toastTimer);
+
+  window.__toastTimer=setTimeout(()=>{
+    el.className="toast";
+  },2800);
+}
+
+function updateCoins(){
+  document.getElementById("coins").textContent =
+    totalCoins().toLocaleString();
+}
+
+
+/*
+  Coins ხარჯვისას ჯერ Trial Coins,
+  შემდეგ Mission Coins,
+  ბოლოს Paid Coins იხარჯება.
+*/
+function spendCoins(amount){
+
+  let left=amount;
+
+  const trial=num(STORE_KEYS.trialCoins);
+  const takeTrial=Math.min(trial,left);
+
+  setNum(
+    STORE_KEYS.trialCoins,
+    trial-takeTrial
+  );
+
+  left-=takeTrial;
+
+  if(left<=0){
+    updateCoins();
+    return true;
+  }
+
+  const missions=num(STORE_KEYS.missionCoins);
+  const takeMission=Math.min(missions,left);
+
+  setNum(
+    STORE_KEYS.missionCoins,
+    missions-takeMission
+  );
+
+  left-=takeMission;
+
+  if(left<=0){
+    updateCoins();
+    return true;
+  }
+
+  const paid=num(STORE_KEYS.paidCoins);
+
+  if(paid<left){
+
+    /* უკან ვაბრუნებთ */
+    setNum(
+      STORE_KEYS.trialCoins,
+      trial
+    );
+
+    setNum(
+      STORE_KEYS.missionCoins,
+      missions
+    );
+
+    updateCoins();
+
+    return false;
+  }
+
+  setNum(
+    STORE_KEYS.paidCoins,
+    paid-left
+  );
+
+  updateCoins();
+
+  return true;
+}
+
+
+/* ============================
+   VIP EXPIRATION
+============================ */
+
+function expireTrialIfNeeded(){
+
+  const until=num(STORE_KEYS.vipUntil);
+
+  if(!until)return;
+
+  if(Date.now()>=until){
+
+    localStorage.removeItem(
+      STORE_KEYS.vipUntil
+    );
+
+    localStorage.removeItem(
+      STORE_KEYS.vipPlan
+    );
+
+    /*
+      Trial-ის დარჩენილი Coins იშლება.
+      Paid Coins-ს არ ვეხებით.
+    */
+
+    setNum(
+      STORE_KEYS.trialCoins,
+      0
+    );
+
+    updateCoins();
+  }
+}
+
+function isVip(){
+
+  expireTrialIfNeeded();
+
+  return (
+    num(STORE_KEYS.vipUntil)>Date.now()
+  );
+}
+
+
+/* ============================
+   VIP STATUS
+============================ */
+
+function updateVip(){
+
+  const el=document.getElementById("vipStatus");
+
+  if(isVip()){
+
+    const until=
+      new Date(
+        num(STORE_KEYS.vipUntil)
+      );
+
+    const plan=
+      localStorage.getItem(
+        STORE_KEYS.vipPlan
+      ) || "VIP";
+
+    el.innerHTML=
+    "💎 <span class='vip'><b>"+plan+
+    " VIP Active</b></span><br>"+
+    "<small>Expires: "+
+    until.toLocaleString()+
+    "</small>";
+
+  }else{
+
+    el.innerHTML=
+    "🔒 <b>VIP inactive</b><br>"+
+    "<small style='color:#8d9aaa'>"+
+    "Open VIP Center to activate the 48-hour trial."+
+    "</small>";
+  }
+}
+
+
+/* ============================
+   BIOS
+============================ */
+
+const bios=[
+{
+ id:"dark_01",
+ type:"Dark",
+ title:"Dark Mind",
+ price:15,
+ content:`╔══════════════════════════════╗
+        𝕯𝖆𝖗𝖐 𝕸𝖎𝖓𝖉
+╚══════════════════════════════╝
+
+☾ 𝕴 𝖜𝖆𝖙𝖈𝖍 𝖙𝖍𝖊 𝖘𝖎𝖑𝖊𝖓𝖈𝖊
+☾ 𝕴 𝖙𝖗𝖚𝖘𝖙 𝖙𝖍𝖊 𝖓𝖎𝖌𝖍𝖙
+☾ 𝕴 𝖕𝖑𝖆𝖞 𝖜𝖍𝖊𝖓 𝖙𝖍𝖊 𝖜𝖔𝖗𝖑𝖉 𝖘𝖑𝖊𝖊𝖕𝖘
+
+† 𝕹𝖔 𝖓𝖔𝖎𝖘𝖊. 𝕹𝖔 𝖊𝖝𝖈𝖚𝖘𝖊𝖘. †`
+},
+{
+ id:"dark_02",
+ type:"Dark",
+ title:"Night Knows",
+ price:15,
+ content:`┏━━━━━━━━━━━━━━━━━━━━━━┓
+       𝕿𝖍𝖊 𝖓𝖎𝖌𝖍𝖙 𝖐𝖓𝖔𝖜𝖘
+┗━━━━━━━━━━━━━━━━━━━━━━┛
+
+𖤐 𝕾𝖎𝖑𝖊𝖓𝖙 𝖘𝖙𝖊𝖕𝖘
+𖤐 𝕮𝖔𝖑𝖉 𝖒𝖎𝖓𝖉
+𖤐 𝕾𝖍𝖆𝖉𝖔𝖜 𝖕𝖑𝖆𝖞𝖊𝖗
+
+𝕾𝖙𝖆𝖞 𝖉𝖆𝖗𝖐.`
+},
+{
+ id:"dark_03",
+ type:"Dark",
+ title:"Shadow Player",
+ price:15,
+ content:`𖤐 𝕯𝕬𝕽𝕶 𝕸𝕴𝕹𝕯 𖤐
+
+☾ 𝕹𝖔 𝖉𝖗𝖆𝖒𝖆
+☾ 𝕹𝖔 𝖋𝖊𝖆𝖗
+☾ 𝕵𝖚𝖘𝖙 𝖕𝖑𝖆𝖞
+
+⚔ 𝕴 𝖕𝖑𝖆𝖞 𝖎𝖓 𝖙𝖍𝖊 𝖘𝖍𝖆𝖉𝖔𝖜𝖘
+⚔ 𝕴 𝖑𝖊𝖙 𝖙𝖍𝖊 𝖌𝖆𝖒𝖊 𝖘𝖕𝖊𝖆𝖐`
+},
+{
+ id:"dark_04",
+ type:"Dark",
+ title:"Black Signal",
+ price:15,
+ content:`╔══════════════════════╗
+        𝕭𝖑𝖆𝖈𝖐 𝕾𝖎𝖌𝖓𝖆𝖑
+╚══════════════════════╝
+
+☠ 𝕽𝖊𝖆𝖉 𝖙𝖍𝖊 𝖘𝖍𝖆𝖉𝖔𝖜𝖘
+☠ 𝕴𝖌𝖓𝖔𝖗𝖊 𝖙𝖍𝖊 𝖓𝖔𝖎𝖘𝖊
+☠ 𝕷𝖊𝖙 𝖙𝖍𝖊 𝖗𝖊𝖘𝖚𝖑𝖙 𝖘𝖕𝖊𝖆𝖐`
+},
+{
+ id:"dark_05",
+ type:"Dark",
+ title:"No Mercy",
+ price:15,
+ content:`⚔ 𝕹𝖔 𝕸𝖊𝖗𝖈𝖞 ⚔
+
+𝕹𝖔 𝖊𝖝𝖈𝖚𝖘𝖊𝖘
+𝕹𝖔 𝖗𝖆𝖓𝖉𝖔𝖒 𝖓𝖔𝖎𝖘𝖊
+𝕹𝖔 𝖚𝖓𝖓𝖊𝖈𝖊𝖘𝖘𝖆𝖗𝖞 𝖜𝖔𝖗𝖉𝖘
+
+☾ 𝕻𝖑𝖆𝖞 𝖈𝖆𝖑𝖒.
+☾ 𝕻𝖑𝖆𝖞 𝖈𝖑𝖊𝖆𝖓.`
+},
+{
+ id:"dark_06",
+ type:"Dark",
+ title:"Void Walker",
+ price:15,
+ content:`𖤐 𝖁𝖔𝖎𝖉 𝖂𝖆𝖑𝖐𝖊𝖗 𖤐
+
+☾ 𝕿𝖍𝖊 𝖉𝖆𝖗𝖐 𝖎𝖘 𝖖𝖚𝖎𝖊𝖙
+☾ 𝕿𝖍𝖊 𝖒𝖎𝖓𝖉 𝖎𝖘 𝖈𝖑𝖊𝖆𝖗
+☾ 𝕿𝖍𝖊 𝖆𝖎𝖒 𝖎𝖘 𝖗𝖊𝖆𝖉𝖞`
+},
+{
+ id:"dark_07",
+ type:"Dark",
+ title:"After Midnight",
+ price:15,
+ content:`        ☾ 𝕬𝖋𝖙𝖊𝖗 𝕸𝖎𝖉𝖓𝖎𝖌𝖍𝖙 ☾
+
+𝕿𝖍𝖊 𝖈𝖎𝖙𝖞 𝖘𝖑𝖊𝖊𝖕𝖘.
+𝕿𝖍𝖊 𝖘𝖈𝖗𝖊𝖊𝖓 𝖘𝖙𝖆𝖞𝖘 𝖔𝖓.
+𝕿𝖍𝖊 𝖌𝖆𝖒𝖊 𝖇𝖊𝖌𝖎𝖓𝖘.`
+},
+{
+ id:"dark_08",
+ type:"Dark",
+ title:"Dead Silence",
+ price:15,
+ content:`╭────────────────────╮
+      𝕯𝖊𝖆𝖉 𝕾𝖎𝖑𝖊𝖓𝖈𝖊
+╰────────────────────╯
+
+𝕮𝖔𝖑𝖉 𝖊𝖞𝖊𝖘.
+𝕾𝖙𝖊𝖆𝖉𝖞 𝖍𝖆𝖓𝖉𝖘.
+𝕼𝖚𝖎𝖊𝖙 𝖕𝖑𝖆𝖞.`
+},
+
+{
+ id:"min_01",
+ type:"Minimal",
+ title:"Silent",
+ price:15,
+ content:`──────────────
+𝘴𝘪𝘭𝘦𝘯𝘵 𝘮𝘪𝘯𝘥
+𝘤𝘰𝘭𝘥 𝘴𝘰𝘶𝘭
+𝘤𝘭𝘦𝘢𝘯 𝘢𝘪𝘮
+──────────────`
+},
+{
+ id:"min_02",
+ type:"Minimal",
+ title:"No Noise",
+ price:15,
+ content:`╭────────────╮
+  𝘯𝘰 𝘯𝘰𝘪𝘴𝘦
+  𝘯𝘰 𝘥𝘳𝘢𝘮𝘢
+  𝘫𝘶𝘴𝘵 𝘨𝘢𝘮𝘦
+╰────────────╯`
+},
+{
+ id:"min_03",
+ type:"Minimal",
+ title:"Focus",
+ price:15,
+ content:`𝘧𝘰𝘤𝘶𝘴.
+𝘢𝘪𝘮.
+𝘸𝘪𝘯.
+
+𝘳𝘦𝘱𝘦𝘢𝘵.`
+},
+{
+ id:"min_04",
+ type:"Minimal",
+ title:"Offline",
+ price:15,
+ content:`[ 𝘰𝘧𝘧𝘭𝘪𝘯𝘦 ]
+
+𝘯𝘰 𝘯𝘰𝘵𝘪𝘧𝘪𝘤𝘢𝘵𝘪𝘰𝘯𝘴
+𝘯𝘰 𝘥𝘪𝘴𝘵𝘳𝘢𝘤𝘵𝘪𝘰𝘯𝘴
+𝘰𝘯𝘭𝘺 𝘨𝘢𝘮𝘦𝘴`
+},
+{
+ id:"min_05",
+ type:"Minimal",
+ title:"Zero",
+ price:15,
+ content:`0 𝘦𝘹𝘤𝘶𝘴𝘦𝘴
+0 𝘯𝘰𝘪𝘴𝘦
+1 𝘵𝘢𝘳𝘨𝘦𝘵
+
+𝘻𝘦𝘳𝘰 𝘥𝘳𝘢𝘮𝘢.`
+},
+{
+ id:"min_06",
+ type:"Minimal",
+ title:"Cold",
+ price:15,
+ content:`𝘤𝘰𝘭𝘥 𝘮𝘪𝘯𝘥
+𝘴𝘵𝘦𝘢𝘥𝘺 𝘩𝘢𝘯𝘥
+𝘤𝘭𝘦𝘢𝘯 𝘢𝘪𝘮
+
+— 𝘴𝘵𝘢𝘺 𝘤𝘢𝘭𝘮 —`
+},
+{
+ id:"min_07",
+ type:"Minimal",
+ title:"Void",
+ price:15,
+ content:`𝘵𝘩𝘦 𝘷𝘰𝘪𝘥 𝘪𝘴 𝘲𝘶𝘪𝘦𝘵.
+
+𝘢𝘯𝘥 𝘐 𝘭𝘪𝘬𝘦 𝘪𝘵.`
+},
+{
+ id:"min_08",
+ type:"Minimal",
+ title:"Control",
+ price:15,
+ content:`𝘤𝘰𝘯𝘵𝘳𝘰𝘭.
+𝘧𝘰𝘤𝘶𝘴.
+𝘱𝘭𝘢𝘺.
+
+𝘳𝘦𝘱𝘦𝘢𝘵.`
+}
+];
+
+
+/* ============================
+   ARTWORKS
+============================ */
+
+const artworks=[
+{
+ id:"art01",
+ title:"Neon Skull Cyberpunk",
+ image:"https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1400&q=85",
+ desc:"Dark neon cyberpunk artwork.",
+ price:40
+},
+{
+ id:"art02",
+ title:"Void Galaxy",
+ image:"https://images.unsplash.com/photo-1507499739999-097706ad8914?w=1400&q=85",
+ desc:"Deep-space dark artwork.",
+ price:40
+},
+{
+ id:"art03",
+ title:"Shadow Samurai",
+ image:"https://images.unsplash.com/photo-1578632767115-351597cf2477?w=1400&q=85",
+ desc:"Dark warrior style artwork.",
+ price:40
+},
+{
+ id:"art04",
+ title:"Midnight City",
+ image:"https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=1400&q=85",
+ desc:"Minimal night-city artwork.",
+ price:40
+}
+];
+
+
+/* ============================
+   RENDER MISSIONS
+============================ */
+
+const missionData=[
+{
+ id:"group",
+ title:"Join Official Group",
+ desc:"Join 3DumbPenguins Steam group.",
+ url:STEAM_GROUP,
+ coins:20
+},
+{
+ id:"follow",
+ title:"Follow Steam Profile",
+ desc:"Open the official Steam profile.",
+ url:STEAM_PROFILE,
+ coins:20
+},
+{
+ id:"friend",
+ title:"Add Friend",
+ desc:"Open the profile and send request.",
+ url:STEAM_PROFILE,
+ coins:20
+}
+];
+
+function renderMissions(){
+
+  document.getElementById("missions").innerHTML=
+  missionData.map(m=>{
+
+    const done=
+      localStorage.getItem(
+        STORE_KEYS.missionDone+"_"+m.id
+      )==="true";
+
+    return `
+    <div class="card mission">
+
+      <h3>🎯 ${m.title}</h3>
+
+      <p>${m.desc}</p>
+
+      ${
+        done
+        ?
+        `<button class="btn locked" disabled>
+          ✓ Completed
+        </button>`
+        :
+        `<button class="btn primary"
+          data-mission="${m.id}">
+          Open Mission +${m.coins}
+        </button>`
+      }
+
+    </div>
+    `;
+  }).join("");
+}
+
+
+/* ============================
+   MISSIONS ACTION
+============================ */
+
+function startMission(id){
+
+  const m=
+    missionData.find(x=>x.id===id);
+
+  if(!m)return;
+
+  window.open(
+    m.url,
+    "_blank",
+    "noopener,noreferrer"
+  );
+
+  if(
+    localStorage.getItem(
+      STORE_KEYS.missionDone+"_"+id
+    )==="true"
+  ){
+    return;
+  }
+
+  toast(
+    "დაელოდე 10 წამს...",
+    ""
+  );
+
+  setTimeout(()=>{
+
+    localStorage.setItem(
+      STORE_KEYS.missionDone+"_"+id,
+      "true"
+    );
+
+    setNum(
+      STORE_KEYS.missionCoins,
+      num(STORE_KEYS.missionCoins)+m.coins
+    );
+
+    updateCoins();
+    renderMissions();
+
+    toast(
+      "+"+m.coins+" Coins",
+      "success"
+    );
+
+  },10000);
+}
+
+
+/* ============================
+   RENDER BIOS
+============================ */
+
+function renderBios(){
+
+  const owned=ownedBios();
+
+  document.getElementById("biosGrid").innerHTML=
+  bios.map(b=>{
+
+    const purchased=
+      owned.includes(b.id);
+
+    return `
+    <article class="card bio">
+
+      <div class="bio-head">
+
+        <span>${b.title}</span>
+
+        <span class="tag">
+          ${b.type}
+        </span>
+
+      </div>
+
+      <div class="bio-text">
+${b.content}
+      </div>
+
+      <div class="bio-actions">
+
+        ${
+          purchased
+          ?
+          `<button class="btn primary"
+            data-copy="${b.id}">
+            📋 Copy Bio
+          </button>`
+          :
+          `<span class="lock-note">
+            🔒 Buy this Bio to unlock Copy
+          </span>`
+        }
+
+        ${
+          purchased
+          ?
+          `<button class="btn success" disabled>
+            ✓ Purchased
+          </button>`
+          :
+          `<button class="btn gold"
+            data-buy-bio="${b.id}">
+            🛒 Buy • ${b.price} Coins
+          </button>`
+        }
+
+      </div>
+
+    </article>
+    `;
+
+  }).join("");
+}
+
+
+/* ============================
+   COPY BIO
+============================ */
+
+async function copyBio(id){
+
+  const b=
+    bios.find(x=>x.id===id);
+
+  if(!b)return;
+
+  if(!ownedBios().includes(id)){
+    toast(
+      "ჯერ უნდა იყიდო ეს Bio.",
+      "error"
+    );
+    return;
+  }
+
+  try{
+
+    await navigator.clipboard.writeText(
+      b.content
+    );
+
+    toast(
+      "Bio დაკოპირდა!",
+      "success"
+    );
+
+  }catch{
+
+    const textarea=
+      document.createElement("textarea");
+
+    textarea.value=b.content;
+
+    document.body.appendChild(
+      textarea
+    );
+
+    textarea.select();
+
+    document.execCommand("copy");
+
+    textarea.remove();
+
+    toast(
+      "Bio დაკოპირდა!",
+      "success"
+    );
+  }
+}
+
+
+/* ============================
+   BUY BIO
+============================ */
+
+function buyBio(id){
+
+  const b=
+    bios.find(x=>x.id===id);
+
+  if(!b)return;
+
+  if(ownedBios().includes(id)){
+
+    toast(
+      "ეს Bio უკვე ნაყიდია.",
+      ""
+    );
+
+    return;
+  }
+
+  if(!spendCoins(b.price)){
+
+    toast(
+      "არ გაქვს საკმარისი Coins.",
+      "error"
+    );
+
+    return;
+  }
+
+  const list=
+    ownedBios();
+
+  list.push(id);
+
+  saveOwnedBios(list);
+
+  renderBios();
+
+  toast(
+    "Bio ნაყიდია! Copy გაიხსნა.",
+    "success"
+  );
+}
+
+
+/* ============================
+   ARTWORKS
+============================ */
+
+function renderArtworks(){
+
+  document.getElementById("artworksGrid").innerHTML=
+  artworks.map(a=>`
+
+  <article class="card art">
+
+    <div class="art-img">
+
+      <img
+        src="${a.image}"
+        alt="${a.title}"
+        loading="lazy"
+        referrerpolicy="no-referrer"
+      >
+
+    </div>
+
+    <div class="art-body">
+
+      <div class="art-title">
+        ${a.title}
+      </div>
+
+      <div class="art-desc">
+        ${a.desc}
+      </div>
+
+      <div class="art-actions">
+
+        <button
+          class="btn primary"
+          data-preview-art="${a.id}">
+          🔎 Preview
+        </button>
+
+        <button
+          class="btn gold"
+          data-buy-art="${a.id}">
+          🛒 Buy • ${a.price}
+        </button>
+
+      </div>
+
+    </div>
+
+  </article>
+
+  `).join("");
+}
+
+
+/* ============================
+   ART PREVIEW
+============================ */
+
+function previewArt(id){
+
+  const a=
+    artworks.find(x=>x.id===id);
+
+  if(!a)return;
+
+  document.getElementById(
+    "modalTitle"
+  ).textContent=a.title;
+
+  document.getElementById(
+    "modalBody"
+  ).innerHTML=`
+
+  <img
+    class="preview"
+    src="${a.image}"
+    alt="${a.title}"
+    referrerpolicy="no-referrer"
+  >
+
+  <div class="modal-actions">
+
+    <a
+      href="${a.image}"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn primary">
+      ↗ Open Original
+    </a>
+
+  </div>
+
+  `;
+
+  document
+    .getElementById("modal")
+    .classList.add("open");
+}
+
+
+/* ============================
+   BUY ART
+============================ */
+
+function buyArtwork(id){
+
+  const a=
+    artworks.find(x=>x.id===id);
+
+  if(!a)return;
+
+  const owned=
+    ownedProducts();
+
+  const key=
+    "art_"+id;
+
+  if(owned.includes(key)){
+
+    toast(
+      "ეს artwork უკვე ნაყიდია.",
+      ""
+    );
+
+    return;
+  }
+
+  if(!spendCoins(a.price)){
+
+    toast(
+      "არ გაქვს საკმარისი Coins.",
+      "error"
+    );
+
+    return;
+  }
+
+  owned.push(key);
+
+  saveOwnedProducts(owned);
+
+  toast(
+    "Artwork ნაყიდია!",
+    "success"
+  );
+}
+
+
+/* ============================
+   TEST ONLY
+============================ */
+
+document
+  .getElementById("testCoins")
+  .onclick=()=>{
+
+    setNum(
+      STORE_KEYS.paidCoins,
+      num(STORE_KEYS.paidCoins)+1000
+    );
+
+    updateCoins();
+
+    toast(
+      "TEST: +1000 Paid Coins",
+      "success"
+    );
+  };
+
+
+/* ============================
+   GLOBAL EVENTS
+============================ */
+
+document.addEventListener(
+  "click",
+  e=>{
+
+    const button=
+      e.target.closest("button");
+
+    if(!button)return;
+
+    if(button.dataset.mission){
+
+      startMission(
+        button.dataset.mission
+      );
+
+      return;
+    }
+
+    if(button.dataset.copy){
+
+      copyBio(
+        button.dataset.copy
+      );
+
+      return;
+    }
+
+    if(button.dataset.buyBio){
+
+      buyBio(
+        button.dataset.buyBio
+      );
+
+      return;
+    }
+
+    if(button.dataset.previewArt){
+
+      previewArt(
+        button.dataset.previewArt
+      );
+
+      return;
+    }
+
+    if(button.dataset.buyArt){
+
+      buyArtwork(
+        button.dataset.buyArt
+      );
+
+      return;
+    }
+
+  }
+);
+
+
+/* ============================
+   MODAL
+============================ */
+
+function closeModal(){
+
+  document
+    .getElementById("modal")
+    .classList.remove("open");
+}
+
+document
+  .getElementById("closeModal")
+  .onclick=closeModal;
+
+document
+  .getElementById("modal")
+  .addEventListener(
+    "click",
+    e=>{
+      if(e.target.id==="modal"){
+        closeModal();
+      }
+    }
+  );
+
+document.addEventListener(
+  "keydown",
+  e=>{
+    if(e.key==="Escape"){
+      closeModal();
+    }
+  }
+);
+
+
+/* ============================
+   INIT
+============================ */
+
+expireTrialIfNeeded();
+
+renderMissions();
+renderBios();
+renderArtworks();
+updateCoins();
+updateVip();
+
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Steam Store</title>
+
+<style>
+
+:root{
+  --bg:#080b10;
+  --panel:#111822;
+  --panel2:#17212d;
+  --line:#263548;
+  --text:#edf2f7;
+  --muted:#8d9aaa;
+  --blue:#66c0f4;
+  --gold:#f1c40f;
+  --green:#2ecc71;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 15% 0%,#15283a 0,transparent 30%),
+    radial-gradient(circle at 90% 0%,#24192b 0,transparent 25%),
+    var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+.wrapper{
+  width:min(1250px,94%);
+  margin:auto;
+  padding:22px 0 45px;
+}
+
+.header{
+  padding:27px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:linear-gradient(145deg,var(--panel),#0d131b);
+  box-shadow:0 15px 45px #0006;
+}
+
+.header h1{
+  margin:0 0 7px;
+  font-size:40px;
+}
+
+.header p{
+  margin:0;
+  color:var(--muted);
+}
+
+.nav{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:18px;
+}
+
+.nav a{
+  color:var(--muted);
+  text-decoration:none;
+  padding:9px 12px;
+  border:1px solid transparent;
+  border-radius:9px;
+  background:#090e14;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.nav a:hover{
+  color:white;
+  border-color:var(--line);
+}
+
+.balance{
+  margin-top:18px;
+  display:inline-block;
+  padding:10px 14px;
+  border:1px solid var(--line);
+  border-radius:9px;
+  background:#090e14;
+  font-weight:bold;
+}
+
+.filters{
+  margin:22px 0 15px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+button,
+.btn{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.filter,
+.buy{
+  border:1px solid var(--line);
+  background:var(--panel2);
+  color:var(--text);
+  border-radius:9px;
+  padding:10px 13px;
+}
+
+.filter.active{
+  color:var(--blue);
+  border-color:var(--blue);
+  background:#66c0f40f;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.card{
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:19px;
+  background:linear-gradient(145deg,var(--panel),#0e141c);
+  box-shadow:0 10px 28px #0004;
+}
+
+.icon{
+  font-size:33px;
+}
+
+.card h2{
+  margin:10px 0 6px;
+}
+
+.card p{
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
+  min-height:62px;
+}
+
+.footer{
+  margin-top:30px;
+  text-align:center;
+  color:#687483;
+  font-size:12px;
+}
+
+@media(max-width:900px){
+  .products{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:650px){
+  .products{
+    grid-template-columns:1fr;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<header class="header">
+
+<h1>🛒 Steam Coin Store</h1>
+
+<p>
+Buy premium Bio, Artwork, Avatar and Bundle items.
+</p>
+
+<nav class="nav">
+
+<a href="index.html">🏠 Home</a>
+<a href="store.html">🛒 Store</a>
+<a href="vip.html">💎 VIP</a>
+
+</nav>
+
+<div class="balance">
+🪙 <span id="coins">0</span> Coins
+</div>
+
+</header>
+
+
+<div class="filters">
+
+<button class="filter active" data-filter="All">
+All
+</button>
+
+<button class="filter" data-filter="Bio">
+Dark Bio
+</button>
+
+<button class="filter" data-filter="Artwork">
+Dark Art
+</button>
+
+<button class="filter" data-filter="Avatar">
+Avatar
+</button>
+
+<button class="filter" data-filter="Bundle">
+Bundle
+</button>
+
+</div>
+
+
+<div class="products" id="products"></div>
+
+
+<footer class="footer">
+Steam Store • Front-end version
+</footer>
+
+</div>
+
+
+<script>
+
+const paidKey="steam_paid_coins";
+const missionKey="steam_mission_coins";
+const trialKey="steam_trial_coins";
+
+function n(key){
+  return Number(localStorage.getItem(key)||0);
+}
+
+function setN(key,value){
+  localStorage.setItem(
+    key,
+    String(Math.max(0,Math.floor(value)))
+  );
+}
+
+function totalCoins(){
+  return (
+    n(paidKey)+
+    n(missionKey)+
+    n(trialKey)
+  );
+}
+
+function updateCoins(){
+
+  document.getElementById("coins")
+    .textContent=
+    totalCoins().toLocaleString();
+
+}
+
+
+/*
+  იგივე პრინციპი:
+  Trial → Mission → Paid
+*/
+function spendCoins(amount){
+
+  let left=amount;
+
+  const trial=n(trialKey);
+
+  const t=Math.min(
+    trial,
+    left
+  );
+
+  setN(
+    trialKey,
+    trial-t
+  );
+
+  left-=t;
+
+  if(left<=0){
+    updateCoins();
+    return true;
+  }
+
+  const mission=n(missionKey);
+
+  const m=Math.min(
+    mission,
+    left
+  );
+
+  setN(
+    missionKey,
+    mission-m
+  );
+
+  left-=m;
+
+  if(left<=0){
+    updateCoins();
+    return true;
+  }
+
+  const paid=n(paidKey);
+
+  if(paid<left){
+
+    setN(trialKey,trial);
+    setN(missionKey,mission);
+
+    updateCoins();
+
+    return false;
+  }
+
+  setN(
+    paidKey,
+    paid-left
+  );
+
+  updateCoins();
+
+  return true;
+}
+
+
+const products=[
+
+{
+ id:"bio_gothic",
+ type:"Bio",
+ icon:"🖤",
+ title:"Gothic Soul Bio",
+ desc:"Premium dark Steam Bio.",
+ price:25
+},
+
+{
+ id:"bio_shadow",
+ type:"Bio",
+ icon:"🌑",
+ title:"Shadow Mind Bio",
+ desc:"Dark minimalist profile Bio.",
+ price:25
+},
+
+{
+ id:"art_grim",
+ type:"Artwork",
+ icon:"☠️",
+ title:"Grim Reaper Banner",
+ desc:"Dark profile banner artwork.",
+ price:40
+},
+
+{
+ id:"art_void",
+ type:"Artwork",
+ icon:"🌌",
+ title:"Void Galaxy Artwork",
+ desc:"Deep-space artwork.",
+ price:40
+},
+
+{
+ id:"avatar_neon",
+ type:"Avatar",
+ icon:"🔮",
+ title:"Neon Mask Avatar",
+ desc:"Dark neon avatar concept.",
+ price:20
+},
+
+{
+ id:"bundle_dark",
+ type:"Bundle",
+ icon:"🔥",
+ title:"Dark Starter Bundle",
+ desc:"Bio + Artwork + Avatar.",
+ price:70
+}
+
+];
+
+
+let filter="All";
+
+
+const ownedKey=
+"steam_owned_products";
+
+
+function owned(){
+
+  return JSON.parse(
+    localStorage.getItem(
+      ownedKey
+    )||"[]"
+  );
+
+}
+
+function render(){
+
+  const data=
+    filter==="All"
+    ?
+    products
+    :
+    products.filter(
+      p=>p.type===filter
+    );
+
+  document.getElementById(
+    "products"
+  ).innerHTML=
+  data.map(p=>{
+
+    const have=
+      owned().includes(p.id);
+
+    return `
+
+    <div class="card">
+
+      <div class="icon">
+        ${p.icon}
+      </div>
+
+      <h2>${p.title}</h2>
+
+      <p>${p.desc}</p>
+
+      <div style="
+        margin-top:15px;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:10px;
+      ">
+
+        <b style="color:#f1c40f">
+          🪙 ${p.price}
+        </b>
+
+        ${
+          have
+          ?
+          `<button class="buy" disabled>
+             ✓ Purchased
+           </button>`
+          :
+          `<button
+            class="buy"
+            data-buy="${p.id}">
+            🛒 Buy
+           </button>`
+        }
+
+      </div>
+
+    </div>
+
+    `;
+
+  }).join("");
+
+}
+
+
+function buy(id){
+
+  const p=
+    products.find(
+      x=>x.id===id
+    );
+
+  if(!p)return;
+
+  if(owned().includes(id)){
+    return;
+  }
+
+  if(!spendCoins(p.price)){
+
+    alert(
+      "არ გაქვს საკმარისი Coins."
+    );
+
+    return;
+  }
+
+  const list=owned();
+
+  list.push(id);
+
+  localStorage.setItem(
+    ownedKey,
+    JSON.stringify(list)
+  );
+
+  render();
+  updateCoins();
+
+  alert(
+    "შეძენა წარმატებულია!"
+  );
+
+}
+
+
+document.addEventListener(
+  "click",
+  e=>{
+
+    if(e.target.dataset.filter){
+
+      filter=
+        e.target.dataset.filter;
+
+      document
+        .querySelectorAll(".filter")
+        .forEach(x=>
+          x.classList.remove("active")
+        );
+
+      e.target.classList.add(
+        "active"
+      );
+
+      render();
+    }
+
+    if(e.target.dataset.buy){
+
+      buy(
+        e.target.dataset.buy
+      );
+
+    }
+
+  }
+);
+
+
+/*
+  48 საათიანი Trial-ის ვადის გასვლისას
+  Trial Coins იშლება.
+*/
+const vipUntil=
+Number(
+  localStorage.getItem(
+    "steam_vip_until"
+  )||0
+);
+
+if(
+  vipUntil &&
+  Date.now()>=vipUntil
+){
+
+  localStorage.removeItem(
+    "steam_vip_until"
+  );
+
+  localStorage.removeItem(
+    "steam_vip_plan"
+  );
+
+  setN(
+    trialKey,
+    0
+  );
+}
+
+
+updateCoins();
+render();
+
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<meta name="theme-color" content="#080b10">
+
+<title>VIP Center</title>
+
+<style>
+
+:root{
+  --bg:#080b10;
+  --panel:#111822;
+  --panel2:#17212d;
+  --line:#263548;
+  --text:#edf2f7;
+  --muted:#8d9aaa;
+  --blue:#66c0f4;
+  --gold:#f1c40f;
+  --green:#2ecc71;
+  --red:#e74c3c;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+
+  background:
+    radial-gradient(circle at 20% 0%,#182b3d 0,transparent 32%),
+    radial-gradient(circle at 90% 0%,#281a30 0,transparent 27%),
+    var(--bg);
+}
+
+.wrapper{
+  width:min(1200px,94%);
+  margin:auto;
+  padding:22px 0 45px;
+}
+
+.header{
+  padding:28px;
+  border:1px solid var(--line);
+  border-radius:17px;
+  background:linear-gradient(145deg,var(--panel),#0d131b);
+  box-shadow:0 16px 50px #0007;
+}
+
+.header h1{
+  margin:0 0 8px;
+  font-size:clamp(30px,5vw,46px);
+}
+
+.header p{
+  margin:0;
+  color:var(--muted);
+}
+
+.nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:18px;
+}
+
+.nav a{
+  color:var(--muted);
+  background:#090e14;
+  border:1px solid transparent;
+  border-radius:9px;
+  text-decoration:none;
+  padding:9px 12px;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.nav a:hover{
+  color:white;
+  border-color:var(--line);
+}
+
+.vip-grid{
+  margin-top:20px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:13px;
+}
+
+.card{
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:linear-gradient(145deg,var(--panel),#0e141c);
+  padding:19px;
+  box-shadow:0 10px 30px #0004;
+}
+
+.card h2{
+  margin:0 0 7px;
+}
+
+.card p{
+  color:var(--muted);
+  line-height:1.5;
+  font-size:13px;
+  min-height:62px;
+}
+
+.price{
+  font-size:26px;
+  color:var(--gold);
+  font-weight:900;
+  margin:13px 0;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid var(--line);
+  color:var(--text);
+  background:var(--panel2);
+  border-radius:9px;
+  padding:10px 13px;
+  font:inherit;
+  cursor:pointer;
+  text-decoration:none;
+}
+
+.btn:hover{
+  border-color:#49627a;
+}
+
+.gold{
+  background:#604d08;
+  border-color:#92730a;
+}
+
+.primary{
+  background:#174f73;
+  border-color:#327da9;
+}
+
+.success{
+  background:#123b28;
+  border-color:#296b4a;
+}
+
+.warning{
+  margin-top:18px;
+  padding:15px;
+  border-radius:12px;
+  border:1px solid #705c12;
+  background:#171409;
+  line-height:1.65;
+}
+
+.danger{
+  margin-top:15px;
+  padding:15px;
+  border-radius:12px;
+  border:1px solid #733038;
+  background:#1a0e11;
+  line-height:1.65;
+}
+
+.security{
+  margin-top:15px;
+  padding:15px;
+  border-radius:12px;
+  border:1px solid #2c6e4d;
+  background:#0c1a13;
+  line-height:1.65;
+}
+
+.status-card{
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.status{
+  padding:17px;
+}
+
+.status-value{
+  margin-top:10px;
+  font-size:18px;
+  font-weight:bold;
+  color:var(--gold);
+}
+
+.countdown{
+  color:var(--blue);
+}
+
+.instructions{
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.instructions ol{
+  line-height:1.8;
+  padding-left:20px;
+}
+
+.email-box{
+  margin-top:18px;
+}
+
+.email-box input{
+  width:100%;
+  padding:12px;
+  border-radius:9px;
+  border:1px solid var(--line);
+  background:#090e14;
+  color:white;
+  outline:none;
+  margin-top:7px;
+}
+
+.codes{
+  margin-top:14px;
+  padding:13px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#090e14;
+  white-space:pre-wrap;
+  font-family:Consolas,monospace;
+  color:#dce2e9;
+}
+
+.footer{
+  margin-top:28px;
+  text-align:center;
+  color:#687483;
+  font-size:12px;
+}
+
+@media(max-width:950px){
+  .vip-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .status-card{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:650px){
+  .vip-grid,
+  .instructions{
+    grid-template-columns:1fr;
+  }
+
+  .header{
+    padding:22px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<header class="header">
+
+<h1>💎 VIP Center</h1>
+
+<p>
+48-Hour VIP Trial • Premium Features • Account Verification
+</p>
+
+<nav class="nav">
+
+<a href="index.html">🏠 Home</a>
+<a href="store.html">🛒 Store</a>
+<a href="vip.html">💎 VIP</a>
+
+</nav>
+
+</header>
+
+
+<div class="warning">
+
+⚠️ <b>VIP Trial გაფრთხილება</b><br><br>
+
+🇬🇪 ახალი მომხმარებელი იღებს
+<b>30 უფასო Coins-ს მხოლოდ 48 საათით.</b>
+Trial-ის დასრულების შემდეგ დარჩენილი Trial Coins ავტომატურად გაუქმდება.
+
+<br><br>
+
+🇬🇧 New users receive
+<b>30 free Coins for 48 hours only.</b>
+When the trial expires, remaining Trial Coins are automatically removed.
+
+</div>
+
+
+<div class="vip-grid">
+
+
+<div class="card">
+
+<h2>Bronze VIP</h2>
+
+<p>
+48-hour access, VIP status and weekly-style reward system.
+</p>
+
+<div class="price">
+$5
+</div>
+
+<button
+class="btn gold"
+data-vip="Bronze">
+💎 Choose Bronze
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h2>Silver VIP</h2>
+
+<p>
+Premium profile status and extra showcase features.
+</p>
+
+<div class="price">
+$10
+</div>
+
+<button
+class="btn gold"
+data-vip="Silver">
+💎 Choose Silver
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h2>Gold VIP</h2>
+
+<p>
+Gold profile status and premium profile features.
+</p>
+
+<div class="price">
+$20
+</div>
+
+<button
+class="btn gold"
+data-vip="Gold">
+💎 Choose Gold
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h2>Ultimate VIP</h2>
+
+<p>
+Full VIP profile experience with all enabled features.
+</p>
+
+<div class="price">
+$30
+</div>
+
+<button
+class="btn gold"
+data-vip="Ultimate">
+💎 Choose Ultimate
+</button>
+
+</div>
+
+</div>
+
+
+<div class="status-card">
+
+<div class="card status">
+
+<h2>💎 Current VIP</h2>
+
+<div
+class="status-value"
+id="vipStatus">
+Checking...
+</div>
+
+</div>
+
+
+<div class="card status">
+
+<h2>🪙 Coins</h2>
+
+<div
+class="status-value"
+id="coins">
+0
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card" style="margin-top:18px">
+
+<h2>✨ VIP Features</h2>
+
+<ul style="line-height:1.8;color:#cfd6dd">
+
+<li>💎 VIP profile status</li>
+
+<li>🎨 Premium profile design access</li>
+
+<li>📜 Premium Bio collection access</li>
+
+<li>🖼️ Premium Artwork access</li>
+
+<li>🪙 30 free Trial Coins for 48 hours</li>
+
+<li>🔐 Email verification / recovery codes</li>
+
+<li>🛡️ Account membership verification</li>
+
+</ul>
+
+</div>
+
+
+<div class="instructions">
+
+<div class="card">
+
+<h2>🇬🇪 როგორ ვიყიდო VIP</h2>
+
+<ol>
+
+<li>აირჩიე Bronze, Silver, Gold ან Ultimate.</li>
+
+<li>გახსენით Steam-ის ოფიციალური Gift Card / Payment გვერდი.</li>
+
+<li>დაასრულე გადახდა Steam-ის ოფიციალურ სისტემაში.</li>
+
+<li>შეინახე შეძენის დადასტურება.</li>
+
+<li>
+თუ აქტივაცია manual არის,
+გაუგზავნე ადმინისტრატორს
+შენი Steam პროფილი და შეძენის დადასტურება.
+</li>
+
+<li>
+შემოწმების შემდეგ VIP გააქტიურდება.
+</li>
+
+</ol>
+
+</div>
+
+
+<div class="card">
+
+<h2>🇬🇧 How to buy VIP</h2>
+
+<ol>
+
+<li>Choose Bronze, Silver, Gold or Ultimate.</li>
+
+<li>Open the official Steam Gift Card / Payment page.</li>
+
+<li>Complete the payment through Steam's official system.</li>
+
+<li>Keep your purchase confirmation.</li>
+
+<li>
+If activation is manual,
+send the administrator your Steam profile
+and proof of purchase.
+</li>
+
+<li>
+After verification,
+VIP will be activated.
+</li>
+
+</ol>
+
+</div>
+
+</div>
+
+
+<div class="security">
+
+<b>🔒 Security / უსაფრთხოება</b><br><br>
+
+🇬🇪 არ შეიყვანო საბანკო ბარათის ნომერი,
+CVV, პაროლი ან Steam Guard კოდი
+ამ საიტის კოდში ან ჩატში.
+
+<br><br>
+
+🇬🇧 Never enter your bank card number,
+CVV, password or Steam Guard code
+into this website or chat.
+
+</div>
+
+
+<div class="danger">
+
+<b>⚠️ Account Reset Rule</b><br><br>
+
+🇬🇪 თუ ანგარიშის შემოწმებით დადასტურდა,
+რომ მომხმარებელი აღარ არის საჭირო Steam ჯგუფში
+ან აღარ არის მეგობარი შესაბამის ანგარიშთან,
+VIP Trial, უფასო Coins, Missions და Coins-ით
+ნაყიდი ნივთები გაუქმდება.
+
+<b>Paid Coins არ გაუქმდება.</b>
+
+<br><br>
+
+🇬🇧 If account verification confirms that the user
+is no longer in the required Steam group
+or is no longer friends with the required account,
+VIP Trial, free Coins, Missions and items bought
+with Coins will be reset.
+
+<b>Paid Coins will remain.</b>
+
+</div>
+
+
+<div class="card email-box">
+
+<h2>📧 Email Verification</h2>
+
+<p style="color:#8d9aaa;line-height:1.55;font-size:13px">
+
+🇬🇪 უსაფრთხოების კოდები უნდა გაიგზავნოს
+მომხმარებლის მიერ დადასტურებულ email-ზე.
+
+🇬🇧 Verification codes should be sent to
+the user's verified email address.
+
+<br><br>
+
+ეს ფუნქცია რეალურად გასაგზავნად backend/email service-ს მოითხოვს.
+GitHub Pages მარტო ვერ აგზავნის უსაფრთხო verification email-ს.
+
+</p>
+
+
+<label>
+Verified Email
+</label>
+
+<input
+type="email"
+id="email"
+placeholder="your@email.com"
+autocomplete="email"
+>
+
+
+<div style="margin-top:10px">
+
+<button
+class="btn primary"
+id="sendCodes">
+📧 Request 3 Verification Codes
+</button>
+
+</div>
+
+
+<div
+class="codes"
+id="codeStatus">
+კოდების სტატუსი: ჯერ არ გაგზავნილა.
+</div>
+
+</div>
+
+
+<div class="card" style="margin-top:18px">
+
+<h2>🛡️ Account Status Check</h2>
+
+<p style="color:#8d9aaa;line-height:1.6;font-size:13px">
+
+საიტის backend-ს შეუძლია შეამოწმოს:
+
+<br><br>
+
+• Steam Group Membership<br>
+• Required Friend Status<br>
+• VIP expiry<br>
+• Trial expiry<br>
+• Verification status
+
+<br><br>
+
+თუ status check უარყოფითია,
+free balance და VIP შეიძლება reset-დეს,
+ხოლო Paid Coins ცალკე დარჩება.
+
+</p>
+
+
+<button
+class="btn primary"
+id="checkAccount">
+🔄 Check Account Status
+</button>
+
+</div>
+
+
+<footer class="footer">
+Steam Showcase & VIP Hub • VIP Center
+</footer>
+
+</div>
+
+
+<script>
+
+"use strict";
+
+
+/* ====================================
+   BACKEND CONFIG
+==================================== */
+
+/*
+  როცა backend გექნება,
+  აქ ჩაწერე მისი მისამართი.
+
+  მაგალითად:
+
+  const API_BASE =
+  "https://your-backend.com";
+*/
+
+const API_BASE="";
+
+
+/* ====================================
+   STORAGE
+==================================== */
+
+const paidKey="steam_paid_coins";
+const missionKey="steam_mission_coins";
+const trialKey="steam_trial_coins";
+const vipUntilKey="steam_vip_until";
+const vipPlanKey="steam_vip_plan";
+const trialStartedKey="steam_trial_started";
+const trialUsedKey="steam_trial_used";
+
+const ownedBiosKey="steam_owned_bios";
+const ownedProductsKey="steam_owned_products";
+
+
+function n(key){
+
+  return Number(
+    localStorage.getItem(key)||0
+  );
+
+}
+
+function setN(key,value){
+
+  localStorage.setItem(
+    key,
+    String(
+      Math.max(
+        0,
+        Math.floor(value)
+      )
+    )
+  );
+
+}
+
+function totalCoins(){
+
+  return (
+    n(paidKey)+
+    n(missionKey)+
+    n(trialKey)
+  );
+
+}
+
+function updateCoins(){
+
+  document.getElementById(
+    "coins"
+  ).textContent=
+    totalCoins().toLocaleString();
+
+}
+
+
+/* ====================================
+   TRIAL EXPIRATION
+==================================== */
+
+function checkTrialExpiration(){
+
+  const until=
+    n(vipUntilKey);
+
+  if(!until){
+    return;
+  }
+
+  if(Date.now()>=until){
+
+    localStorage.removeItem(
+      vipUntilKey
+    );
+
+    localStorage.removeItem(
+      vipPlanKey
+    );
+
+    /*
+      მხოლოდ Trial Coins.
+      Paid Coins არ იშლება.
+    */
+
+    setN(
+      trialKey,
+      0
+    );
+
+  }
+
+}
+
+
+/* ====================================
+   CURRENT VIP
+==================================== */
+
+function isVip(){
+
+  checkTrialExpiration();
+
+  return (
+    n(vipUntilKey)>
+    Date.now()
+  );
+
+}
+
+
+function renderVipStatus(){
+
+  const el=
+    document.getElementById(
+      "vipStatus"
+    );
+
+  if(!isVip()){
+
+    el.innerHTML=
+      "🔒 Inactive";
+
+    return;
+  }
+
+  const plan=
+    localStorage.getItem(
+      vipPlanKey
+    )||"VIP";
+
+  const until=
+    n(vipUntilKey);
+
+  const date=
+    new Date(until);
+
+  el.innerHTML=
+    "💎 "+plan+
+    "<br><span class='countdown'>"+
+    date.toLocaleString()+
+    "</span>";
+
+}
+
+
+/* ====================================
+   START 48-HOUR TRIAL
+==================================== */
+
+function startTrial(plan){
+
+  /*
+    Trial მხოლოდ ერთხელ.
+  */
+
+  if(
+    localStorage.getItem(
+      trialUsedKey
+    )==="true"
+  ){
+
+    alert(
+      "VIP Trial უკვე გამოყენებულია."
+    );
+
+    return;
+  }
+
+
+  const start=
+    Date.now();
+
+  const until=
+    start+
+    (48*60*60*1000);
+
+
+  localStorage.setItem(
+    trialStartedKey,
+    String(start)
+  );
+
+  localStorage.setItem(
+    trialUsedKey,
+    "true"
+  );
+
+  localStorage.setItem(
+    vipUntilKey,
+    String(until)
+  );
+
+  localStorage.setItem(
+    vipPlanKey,
+    plan+" Trial"
+  );
+
+
+  /*
+    ზუსტად 30 Trial Coins.
+  */
+
+  setN(
+    trialKey,
+    30
+  );
+
+
+  updateCoins();
+  renderVipStatus();
+
+
+  alert(
+    "VIP Trial გააქტიურდა!\n\n"+
+    "Duration: 48 hours\n"+
+    "Free Coins: 30"
+  );
+
+}
+
+
+/* ====================================
+   VIP BUTTONS
+==================================== */
+
+document.addEventListener(
+  "click",
+  e=>{
+
+    const button=
+      e.target.closest(
+        "[data-vip]"
+      );
+
+    if(button){
+
+      const plan=
+        button.dataset.vip;
+
+      const confirmed=
+        confirm(
+          plan+
+          " VIP-ის 48-საათიანი Trial-ის დაწყება?\n\n"+
+          "მიიღებ 30 უფასო Coins-ს."
+        );
+
+      if(confirmed){
+
+        startTrial(plan);
+
+      }
+
+    }
+
+  }
+);
+
+
+/* ====================================
+   EMAIL CODES
+==================================== */
+
+document
+  .getElementById("sendCodes")
+  .onclick=async()=>{
+
+    const email=
+      document
+      .getElementById("email")
+      .value
+      .trim();
+
+    if(!email){
+
+      alert(
+        "შეიყვანე დადასტურებული email."
+      );
+
+      return;
+    }
+
+
+    const status=
+      document.getElementById(
+        "codeStatus"
+      );
+
+
+    /*
+      Backend-ის გარეშე მხოლოდ UI ვერსიაა.
+    */
+
+    if(!API_BASE){
+
+      status.textContent=
+        "⚠️ Email გაგზავნა ჯერ არ არის დაკავშირებული backend-თან.\n\n"+
+        "საჭიროა email API / backend, რომელიც უსაფრთხოდ გაგზავნის 3 verification code-ს.";
+
+      return;
+    }
+
+
+    try{
+
+      const response=
+        await fetch(
+          API_BASE+
+          "/api/vip/request-codes",
+          {
+            method:"POST",
+
+            headers:{
+              "Content-Type":
+                "application/json"
+            },
+
+            body:JSON.stringify({
+              email:email
+            })
+          }
+        );
+
+
+      if(!response.ok){
+        throw new Error(
+          "Request failed"
+        );
+      }
+
+
+      status.textContent=
+        "✅ 3 verification code მოთხოვნილია.\n"+
+        "შეამოწმე დადასტურებული email.";
+
+
+    }catch(error){
+
+      status.textContent=
+        "❌ Verification email-ის გაგზავნა ვერ მოხერხდა.";
+
+    }
+
+  };
+
+
+/* ====================================
+   ACCOUNT STATUS CHECK
+==================================== */
+
+document
+  .getElementById("checkAccount")
+  .onclick=async()=>{
+
+    /*
+      Backend-ის გარეშე Steam membership-ის
+      ავტომატური შემოწმება შეუძლებელია.
+    */
+
+    if(!API_BASE){
+
+      alert(
+        "Account Status Check-ის ავტომატურად მუშაობისთვის საჭიროა backend.\n\n"+
+        "GitHub Pages ვერ ამოწმებს Steam Group/Friend სტატუსს უსაფრთხოდ."
+      );
+
+      return;
+    }
+
+
+    try{
+
+      const response=
+        await fetch(
+          API_BASE+
+          "/api/account/status",
+          {
+            credentials:"include"
+          }
+        );
+
+
+      if(!response.ok){
+        throw new Error(
+          "Status check failed"
+        );
+      }
+
+
+      const data=
+        await response.json();
+
+
+      /*
+        მაგალითი:
+        {
+          groupMember:true,
+          friend:true
+        }
+      */
+
+      if(
+        data.groupMember===false ||
+        data.friend===false
+      ){
+
+        resetFreeAccount();
+
+        alert(
+          "Account status no longer valid.\n"+
+          "Free benefits have been reset.\n\n"+
+          "Paid Coins remain."
+        );
+
+      }else{
+
+        alert(
+          "Account status verified."
+        );
+
+      }
+
+
+    }catch(error){
+
+      alert(
+        "Account Status Check failed."
+      );
+
+    }
+
+  };
+
+
+/* ====================================
+   RESET EVERYTHING EXCEPT PAID COINS
+==================================== */
+
+function resetFreeAccount(){
+
+  /*
+    PAID COINS არ იშლება.
+  */
+
+  setN(
+    missionKey,
+    0
+  );
+
+  setN(
+    trialKey,
+    0
+  );
+
+
+  localStorage.removeItem(
+    vipUntilKey
+  );
+
+  localStorage.removeItem(
+    vipPlanKey
+  );
+
+  localStorage.removeItem(
+    trialStartedKey
+  );
+
+  localStorage.removeItem(
+    trialUsedKey
+  );
+
+
+  /*
+    Bio/Artwork/Bundle შეძენები
+    Coins სისტემის ნაწილია და ამიტომ resetდება.
+  */
+
+  localStorage.removeItem(
+    ownedBiosKey
+  );
+
+  localStorage.removeItem(
+    ownedProductsKey
+  );
+
+
+  /*
+    მისიების სტატუსებიც resetდება.
+  */
+
+  Object.keys(
+    localStorage
+  ).forEach(key=>{
+
+    if(
+      key.startsWith(
+        "steam_mission_done_"
+      )
+    ){
+
+      localStorage.removeItem(
+        key
+      );
+
+    }
+
+  });
+
+
+  updateCoins();
+  renderVipStatus();
+
+}
+
+
+/* ====================================
+   INIT
+==================================== */
+
+checkTrialExpiration();
+updateCoins();
+renderVipStatus();
+
+</script>
+
 </body>
 </html>
