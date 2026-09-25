@@ -7,7 +7,7 @@
     
     <script>
         // ==========================================
-        // 1. STEAM LINKS (შენი ლინკები უკვე ჩასმულია!)
+        // 1. STEAM LINKS
         // ==========================================
         const links = {
             group: "https://steamcommunity.com/profiles/76561198708164928/groups/",
@@ -18,9 +18,18 @@
     </script>
 
     <style>
+        :root {
+            --bg-main: #0f141d;
+            --bg-card: #17212e;
+            --accent-blue: #66c0f4;
+            --accent-gold: #f1c40f;
+            --accent-green: #2ecc71;
+            --border-color: #2a3a4e;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0f141d;
+            background: var(--bg-main);
             color: #ffffff;
             margin: 0;
             padding: 20px;
@@ -35,28 +44,30 @@
         }
 
         header {
-            background: #17212e;
+            background: var(--bg-card);
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border: 1px solid #2a3a4e;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
 
         .balance {
             font-size: 20px;
             font-weight: bold;
-            color: #f1c40f;
+            color: var(--accent-gold);
             background: #0a0e14;
-            padding: 8px 16px;
+            padding: 8px 18px;
             border-radius: 20px;
-            border: 1px solid #f1c40f;
+            border: 1px solid var(--accent-gold);
+            box-shadow: 0 0 10px rgba(241, 196, 15, 0.2);
         }
 
         .notice-banner {
-            background: rgba(102, 192, 244, 0.1);
-            border: 1px solid #66c0f4;
+            background: rgba(102, 192, 244, 0.08);
+            border: 1px solid var(--accent-blue);
             border-radius: 8px;
             padding: 15px;
             margin-top: 20px;
@@ -65,15 +76,16 @@
             line-height: 1.5;
         }
 
-        .notice-banner strong { color: #66c0f4; }
-
         .section-title {
             margin-top: 35px;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             font-size: 22px;
-            color: #66c0f4;
-            border-bottom: 2px solid #66c0f4;
-            padding-bottom: 5px;
+            color: var(--accent-blue);
+            border-bottom: 2px solid var(--accent-blue);
+            padding-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         /* Filter Controls */
@@ -85,104 +97,112 @@
         }
 
         .filter-btn {
-            background: #17212e;
-            border: 1px solid #2a3a4e;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
             color: #c6d4df;
-            padding: 8px 16px;
+            padding: 9px 18px;
             border-radius: 20px;
             cursor: pointer;
             font-size: 13px;
             font-weight: bold;
-            transition: 0.2s;
-            width: auto;
+            transition: all 0.2s ease;
         }
 
         .filter-btn.active, .filter-btn:hover {
-            background: #66c0f4;
+            background: var(--accent-blue);
             color: #000;
-            border-color: #66c0f4;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 12px rgba(102, 192, 244, 0.4);
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
         }
 
         .card {
-            background: #17212e;
+            background: var(--bg-card);
             padding: 16px;
-            border-radius: 8px;
-            border: 1px solid #2a3a4e;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             position: relative;
             overflow: hidden;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-blue);
         }
 
         .card.tier-medium { border-color: #3498db; }
         .card.tier-expensive { border-color: #e67e22; }
-        .card.tier-ultra { border-color: #f1c40f; box-shadow: 0 0 10px rgba(241, 196, 15, 0.2); }
+        .card.tier-ultra { border-color: var(--accent-gold); box-shadow: 0 0 15px rgba(241, 196, 15, 0.25); }
 
         .badge {
             position: absolute;
             top: 10px; right: 10px;
             font-size: 10px;
             font-weight: bold;
-            padding: 3px 8px;
+            padding: 4px 8px;
             border-radius: 10px;
             text-transform: uppercase;
+            z-index: 2;
         }
 
-        .badge-cheap { background: #2ecc71; color: #000; }
+        .badge-cheap { background: var(--accent-green); color: #000; }
         .badge-medium { background: #3498db; color: #fff; }
         .badge-expensive { background: #e67e22; color: #fff; }
-        .badge-ultra { background: #f1c40f; color: #000; }
+        .badge-ultra { background: var(--accent-gold); color: #000; }
 
         .item-preview {
             width: 100%;
-            height: 130px;
+            height: 140px;
             background-size: cover;
             background-position: center;
             border-radius: 6px;
-            margin-bottom: 10px;
-            border: 1px solid #2a3a4e;
+            margin-bottom: 12px;
+            border: 1px solid var(--border-color);
         }
 
-        .card h3 { margin: 0 0 4px 0; font-size: 16px; }
-        .card .cat-tag { font-size: 11px; color: #66c0f4; margin-bottom: 8px; font-weight: bold; }
-        .card p { color: #9ab1c7; font-size: 12px; margin-bottom: 12px; flex-grow: 1; }
+        .card h3 { margin: 0 0 6px 0; font-size: 16px; }
+        .card .cat-tag { font-size: 11px; color: var(--accent-blue); margin-bottom: 8px; font-weight: bold; letter-spacing: 0.5px; }
+        .card p { color: #9ab1c7; font-size: 12px; margin-bottom: 14px; flex-grow: 1; line-height: 1.4; }
 
         .price {
             font-weight: bold;
-            color: #f1c40f;
-            margin-bottom: 10px;
-            font-size: 15px;
+            color: var(--accent-gold);
+            margin-bottom: 12px;
+            font-size: 16px;
         }
 
-        .price.money { color: #2ecc71; }
+        .price.money { color: var(--accent-green); }
 
         button {
-            background: #5c7e10;
+            background: #27ae60;
             color: white;
             border: none;
-            padding: 9px;
-            border-radius: 5px;
+            padding: 10px;
+            border-radius: 6px;
             font-weight: bold;
             cursor: pointer;
             width: 100%;
-            transition: 0.2s;
+            transition: background 0.2s ease, transform 0.1s ease;
         }
 
-        button:hover { background: #7ea61a; }
-        button:disabled { background: #415568; cursor: not-allowed; }
+        button:active { transform: scale(0.98); }
+        button:hover { background: #2ecc71; }
+        button:disabled { background: #34495e; color: #7f8c8d; cursor: not-allowed; }
 
         .buy-btn { background: #2980b9; }
         .buy-btn:hover { background: #3498db; }
 
-        .download-btn { background: #27ae60; }
-        .download-btn:hover { background: #2ecc71; }
+        .download-btn { background: #8e44ad; }
+        .download-btn:hover { background: #9b59b6; }
 
         /* Modal */
         .modal {
@@ -190,20 +210,22 @@
             position: fixed;
             top:0; left:0; width:100%; height:100%;
             background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(4px);
             justify-content: center;
             align-items: center;
             z-index: 999;
         }
 
         .modal-box {
-            background: #17212e;
+            background: var(--bg-card);
             padding: 25px;
-            border-radius: 10px;
+            border-radius: 12px;
             max-width: 500px;
             width: 90%;
-            border: 1px solid #66c0f4;
+            border: 1px solid var(--accent-blue);
             text-align: center;
             position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .close-btn {
@@ -217,8 +239,8 @@
         .reward-box {
             background: #0a0e14;
             padding: 12px;
-            border-radius: 5px;
-            border: 1px dashed #66c0f4;
+            border-radius: 6px;
+            border: 1px dashed var(--accent-blue);
             margin-top: 15px;
             font-family: monospace;
             text-align: left;
@@ -238,8 +260,7 @@
     </header>
 
     <div class="notice-banner">
-        <strong>ℹ️ მნიშვნელოვანი ინფორმაცია:</strong><br>
-        Steam Profile Artwork Showcase-ის დაყენება შესაძლებელია <strong>Steam Level 10-დან</strong>. თუ ჯერ არ ხარ Level 10, შეგიძლია გამოიყენო Steam Bio და Avatar დიზაინები!
+        <strong>ℹ️ ინფორმაცია:</strong> შეასრულე მისიები (გადადი ლინკზე, დაელოდე 10 წამს) და მიიღე უფასო ქოინები!
     </div>
 
     <!-- 1. MISSIONS -->
@@ -247,23 +268,23 @@
     <div class="grid">
         <div class="card">
             <h3>Join Steam Group</h3>
-            <p>Join our group and wait 10 seconds.</p>
+            <p>გადადი ჯგუფის გვერდზე და დაელოდე 10 წამს.</p>
             <div class="price">+20 COINS</div>
-            <button id="btn-group" onclick="doMission('group', links.group, 20)">GET 20 COINS</button>
+            <button id="btn-group" onclick="doMission('group', links.group, 20)">GO TO GROUP (+20)</button>
         </div>
 
         <div class="card">
             <h3>Follow Profile</h3>
-            <p>Follow our Steam profile.</p>
+            <p>გადადი პროფილზე, დააფოლოვე და დაელოდე 10 წამს.</p>
             <div class="price">+20 COINS</div>
-            <button id="btn-profile" onclick="doMission('profile', links.profile, 20)">GET 20 COINS</button>
+            <button id="btn-profile" onclick="doMission('profile', links.profile, 20)">GO TO PROFILE (+20)</button>
         </div>
 
         <div class="card">
             <h3>Add Friend</h3>
-            <p>Add our Steam profile as friend.</p>
+            <p>გადადი პროფილზე, გააგზავნე მეგობრობა და დაელოდე 10 წამს.</p>
             <div class="price">+20 COINS</div>
-            <button id="btn-friend" onclick="doMission('friend', links.friend, 20)">GET 20 COINS</button>
+            <button id="btn-friend" onclick="doMission('friend', links.friend, 20)">ADD FRIEND (+20)</button>
         </div>
     </div>
 
@@ -274,14 +295,14 @@
             <h3>Starter Pack</h3>
             <p>100 Coins via Steam Gift Card.</p>
             <div class="price money">$1.00 USD</div>
-            <button class="buy-btn" onclick="openGiftCardInfo('100 Coins', '$1.00')">BUY 100 COINS</button>
+            <button class="buy-btn" onclick="playAudio('click'); openGiftCardInfo('100 Coins', '$1.00')">BUY 100 COINS</button>
         </div>
 
         <div class="card">
             <h3>Mini Pack</h3>
             <p>500 Coins + 50 Bonus Coins.</p>
             <div class="price money">$5.00 USD</div>
-            <button class="buy-btn" onclick="openGiftCardInfo('550 Coins', '$5.00')">BUY 550 COINS</button>
+            <button class="buy-btn" onclick="playAudio('click'); openGiftCardInfo('550 Coins', '$5.00')">BUY 550 COINS</button>
         </div>
 
         <div class="card tier-ultra">
@@ -289,29 +310,20 @@
             <h3>Medium Pack</h3>
             <p>1,000 Coins + 200 Bonus Coins.</p>
             <div class="price money">$10.00 USD</div>
-            <button class="buy-btn" onclick="openGiftCardInfo('1,200 Coins', '$10.00')">BUY 1,200 COINS</button>
+            <button class="buy-btn" onclick="playAudio('click'); openGiftCardInfo('1,200 Coins', '$10.00')">BUY 1,200 COINS</button>
         </div>
 
         <div class="card">
             <h3>Pro Pack</h3>
             <p>2,500 Coins + 600 Bonus Coins.</p>
             <div class="price money">$25.00 USD</div>
-            <button class="buy-btn" onclick="openGiftCardInfo('3,100 Coins', '$25.00')">BUY 3,100 COINS</button>
-        </div>
-
-        <div class="card tier-ultra">
-            <span class="badge badge-ultra">MEGA PACK</span>
-            <h3>Ultimate Pack</h3>
-            <p>5,000 Coins + 1,500 Bonus Coins.</p>
-            <div class="price money">$50.00 USD</div>
-            <button class="buy-btn" onclick="openGiftCardInfo('6,500 Coins', '$50.00')">BUY 6,500 COINS</button>
+            <button class="buy-btn" onclick="playAudio('click'); openGiftCardInfo('3,100 Coins', '$25.00')">BUY 3,100 COINS</button>
         </div>
     </div>
 
-    <!-- 3. MASSIVE DIGITAL SHOP -->
-    <div class="section-title">🛒 3. Digital Shop & Storefront</div>
+    <!-- 3. DIGITAL SHOP -->
+    <div class="section-title">🛒 3. Steam Digital Shop & Showcase Designs</div>
 
-    <!-- Category Filters -->
     <div class="filter-container">
         <button class="filter-btn active" onclick="filterShop('all', this)">ყველა ნივთი</button>
         <button class="filter-btn" onclick="filterShop('bio', this)">📜 Steam Bio</button>
@@ -320,9 +332,7 @@
         <button class="filter-btn" onclick="filterShop('bundle', this)">👑 VIP Bundles</button>
     </div>
 
-    <div class="grid" id="shop-grid">
-        <!-- JS-ით ჩაიტვირთება -->
-    </div>
+    <div class="grid" id="shop-grid"></div>
 </div>
 
 <!-- Modal Popup -->
@@ -335,196 +345,122 @@
 </div>
 
 <script>
+    // --- AUDIO SYSTEM (Web Audio API - არ სჭირდება გარე ფაილები) ---
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    
+    function playAudio(type) {
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        const now = audioCtx.currentTime;
+
+        if (type === 'click') {
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(600, now);
+            osc.frequency.exponentialRampToValueAtTime(200, now + 0.05);
+            gain.gain.setValueAtTime(0.3, now);
+            gain.gain.linearRampToValueAtTime(0.01, now + 0.05);
+            osc.start(now);
+            osc.stop(now + 0.05);
+        } else if (type === 'success') {
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(440, now);
+            osc.frequency.setValueAtTime(880, now + 0.1);
+            gain.gain.setValueAtTime(0.3, now);
+            gain.gain.linearRampToValueAtTime(0.01, now + 0.25);
+            osc.start(now);
+            osc.stop(now + 0.25);
+        } else if (type === 'buy') {
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(523.25, now); // C5
+            osc.frequency.setValueAtTime(659.25, now + 0.08); // E5
+            osc.frequency.setValueAtTime(783.99, now + 0.16); // G5
+            gain.gain.setValueAtTime(0.3, now);
+            gain.gain.linearRampToValueAtTime(0.01, now + 0.3);
+            osc.start(now);
+            osc.stop(now + 0.3);
+        }
+    }
+
+    // --- PRODUCTS DATA ---
     const products = [
-        // --- 1. BASIC / CHEAP (20 - 50 COINS) ---
         {
             id: "bio_simple",
             cat: "bio",
             tier: "cheap",
-            tierLabel: "Basic",
-            title: "Simple Minimal Bio",
+            tierLabel: "Basic Bio",
+            title: "Clean Minimalist Bio",
             price: 20,
             image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80",
-            desc: "მარტივი და სუფთა ბიო ახალბედა პროფილებისთვის.",
+            desc: "სუფთა და დახვეწილი ბიო თქვენი პროფილისთვის.",
             type: "text",
-            content: "✦ WELCOME TO MY PROFILE ✦\n• Game: CS2\n• Trade: Open\n• Note: Be respectful!"
+            content: "✦ WELCOME TO MY PROFILE ✦\n• Main Game: CS2\n• Trade: Active\n• Status: Do not disturb!"
         },
         {
-            id: "avatar_basic_1",
+            id: "avatar_red_glow",
             cat: "avatar",
             tier: "cheap",
-            tierLabel: "Basic HD",
-            title: "Red Glow Gamer Avatar",
+            tierLabel: "Avatar HD",
+            title: "Red Glow Cyber Avatar",
             price: 30,
             image: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500&q=80",
-            desc: "სტანდარტული წითელი განათების ავატარი.",
+            desc: "წითელი ნეონის განათების ავატარი HD ხარისხში.",
             type: "file",
             fileUrl: "https://i.imgur.com/8N03N6y.jpeg"
         },
-        {
-            id: "bio_social",
-            cat: "bio",
-            tier: "cheap",
-            tierLabel: "Normal",
-            title: "Social Links Bio",
-            price: 40,
-            image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500&q=80",
-            desc: "ბიო სოციალური ქსელებისა და Trade Link-ის სექციით.",
-            type: "text",
-            content: "╔═════════════════════════╗\n  MY SOCIAL LINKS & SPECS\n╚═════════════════════════╝\n▶ Discord: User#0000\n▶ Trade: steamcommunity.com/...\n▶ Twitch: twitch.tv/..."
-        },
-        {
-            id: "avatar_basic_2",
-            cat: "avatar",
-            tier: "cheap",
-            tierLabel: "Normal HD",
-            title: "Blue Cyberpunk Avatar",
-            price: 50,
-            image: "https://images.unsplash.com/photo-1563089145-599997674d42?w=500&q=80",
-            desc: "ლურჯი Cyberpunk სტილის ავატარი.",
-            type: "file",
-            fileUrl: "https://i.imgur.com/8N03N6y.jpeg"
-        },
-
-        // --- 2. MEDIUM (60 - 120 COINS) ---
         {
             id: "bio_pro_cyber",
             cat: "bio",
             tier: "medium",
             tierLabel: "Medium",
-            title: "Cyberpunk Aesthetic Bio",
+            title: "Cyberpunk Status Bio",
             price: 60,
             image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=500&q=80",
-            desc: "სპეციალური სიმბოლოებით აწყობილი Cyberpunk ბიო.",
+            desc: "სპეციალური სიმბოლოებით აწყობილი გეიმერული ბიო.",
             type: "text",
-            content: "░▒▓█ SYSTEM ONLINE █▓▒░\n\n▶ CS2 Supreme / Faceit Lvl 8\n▶ GPU: RTX 3060 / CPU: i5\n\n✖ Don't add if profile is private!"
-        },
-        {
-            id: "avatar_neon_mask",
-            cat: "avatar",
-            tier: "medium",
-            tierLabel: "Medium HD",
-            title: "Neon Mask Special Avatar",
-            price: 80,
-            image: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=500&q=80",
-            desc: "მაღალი რეზოლუციის ნეონის ნიღბიანი ავატარი.",
-            type: "file",
-            fileUrl: "https://i.imgur.com/8N03N6y.jpeg"
+            content: "░▒▓█ SYSTEM ONLINE █▓▒░\n▶ CS2 Rank: Global Elite\n▶ Faceit: Level 10\n✖ Rules: Respect & Fair play."
         },
         {
             id: "art_abstract_red",
             cat: "artwork",
             tier: "medium",
-            tierLabel: "Medium Lvl 10+",
-            title: "Red Lines Artwork Design",
+            tierLabel: "Artwork Lvl 10+",
+            title: "Red Abstract Neon Art",
             price: 100,
             image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500&q=80",
-            desc: "წითელი აბსტრაქტული Artwork Showcase დიზაინის Zip არქივი.",
+            desc: "Steam Artwork Showcase-ის სრული დიზაინი (Zip).",
             type: "file",
             fileUrl: "https://github.com/github/fetch/archive/refs/heads/master.zip"
         },
         {
             id: "art_purple_galaxy",
             cat: "artwork",
-            tier: "medium",
-            tierLabel: "Medium Lvl 10+",
-            title: "Purple Galaxy Artwork",
-            price: 120,
-            image: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=500&q=80",
-            desc: "იასამნისფერი გალაქტიკის დიზაინი Steam Profile-ისთვის.",
-            type: "file",
-            fileUrl: "https://github.com/github/fetch/archive/refs/heads/master.zip"
-        },
-
-        // --- 3. EXPENSIVE / PREMIUM (150 - 250 COINS) ---
-        {
-            id: "bio_vip_ascii",
-            cat: "bio",
             tier: "expensive",
-            tierLabel: "Expensive",
-            title: "ASCII Dragon VIP Bio",
+            tierLabel: "Premium Art",
+            title: "Purple Galaxy Animated",
             price: 150,
-            image: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=500&q=80",
-            desc: "დიდი ASCII დრაკონის დიზაინის ბიო პრემიუმ პროფილებისთვის.",
-            type: "text",
-            content: " 🐲 DRAGON VIP PROFILE 🐲\n═════════════════════════\nRANK: GLOBAL ELITE / FACEIT 10\nTRADING: KNIVES & GLOVES ONLY\n═════════════════════════"
-        },
-        {
-            id: "avatar_animated_style",
-            cat: "avatar",
-            tier: "expensive",
-            tierLabel: "Premium HD",
-            title: "Dark Anime Legend Avatar",
-            price: 180,
-            image: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=500&q=80",
-            desc: "ექსკლუზიური Dark Anime სტილის ავატარი.",
-            type: "file",
-            fileUrl: "https://i.imgur.com/8N03N6y.jpeg"
-        },
-        {
-            id: "art_neon_city_gif",
-            cat: "artwork",
-            tier: "expensive",
-            tierLabel: "Premium Lvl 10+",
-            title: "Neon City Animated Artwork",
-            price: 220,
-            image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500&q=80",
-            desc: "მოძრავი ნეონის ქალაქის დიზაინის სრული Zip პაკეტი.",
-            type: "file",
-            fileUrl: "https://github.com/github/fetch/archive/refs/heads/master.zip"
-        },
-        {
-            id: "art_samurai_gold",
-            cat: "artwork",
-            tier: "expensive",
-            tierLabel: "Premium Lvl 10+",
-            title: "Golden Samurai Artwork",
-            price: 250,
-            image: "https://images.unsplash.com/photo-1563089145-599997674d42?w=500&q=80",
-            desc: "ოქროსფერი სამურაის თემატიკის Artwork Showcase.",
-            type: "file",
-            fileUrl: "https://github.com/github/fetch/archive/refs/heads/master.zip"
-        },
-
-        // --- 4. ULTRA / EXCLUSIVE BUNDLES (300 - 500 COINS) ---
-        {
-            id: "bundle_starter_pack",
-            cat: "bundle",
-            tier: "expensive",
-            tierLabel: "Bundle",
-            title: "Gamer Starter Pack",
-            price: 280,
-            image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500&q=80",
-            desc: "Cyberpunk Bio + Blue Cyber Avatar + Red Lines Artwork!",
-            type: "bundle",
-            fileUrl: "https://github.com/github/fetch/archive/refs/heads/master.zip",
-            content: "✦ GAMER STARTER BIO ✦\nWelcome to my profile!\nAdd me for CS2 / Trading!"
-        },
-        {
-            id: "bundle_neon_vip",
-            cat: "bundle",
-            tier: "ultra",
-            tierLabel: "ULTRA VIP",
-            title: "Neon Cyber VIP Bundle",
-            price: 400,
             image: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=500&q=80",
-            desc: "ASCII Bio + Neon Mask Avatar + Neon City Animated Artwork!",
-            type: "bundle",
-            fileUrl: "https://github.com/github/fetch/archive/refs/heads/master.zip",
-            content: "✦ NEON VIP BIO TEMPLATE ✦\n▶ Level 100+ Collector\n▶ CS2 Pro Player\n▶ High Tier Trader"
+            desc: "გალაქტიკის მოძრავი თემატიკის დიზაინის Zip პაკეტი.",
+            type: "file",
+            fileUrl: "https://github.com/github/fetch/archive/refs/heads/master.zip"
         },
         {
             id: "bundle_god_mode",
             cat: "bundle",
             tier: "ultra",
             tierLabel: "EXCLUSIVE GOD",
-            title: "GOD MODE FULL PROFILE BUNDLE",
-            price: 500,
+            title: "GOD MODE VIP BUNDLE",
+            price: 300,
             image: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=500&q=80",
-            desc: "ყველაზე ექსკლუზიური პაკეტი: Golden Artwork + Legend Avatar + Dragon VIP Bio!",
+            desc: "სრული პაკეტი: VIP Bio + Avatar HD + Galaxy Artwork Design!",
             type: "bundle",
             fileUrl: "https://github.com/github/fetch/archive/refs/heads/master.zip",
-            content: "👑 GOD MODE PROFILE 👑\n═════════════════════════\n• TOP COLLECTOR & TRADER\n• CS2 FACEIT LEVEL 10\n═════════════════════════"
+            content: "👑 GOD MODE PROFILE 👑\n═════════════════════════\n• TOP COLLECTOR & TRADER\n• CS2 PRO PLAYER\n═════════════════════════"
         }
     ];
 
@@ -545,7 +481,7 @@
             card.className = `card tier-${p.tier}`;
             
             let btnHtml = isBought 
-                ? `<button class="download-btn" onclick="openReward('${p.id}')">GET / VIEW REWARD ✓</button>`
+                ? `<button class="download-btn" onclick="playAudio('click'); openReward('${p.id}')">VIEW REWARD ✓</button>`
                 : `<button onclick="buyProduct('${p.id}')">BUY (${p.price} COINS)</button>`;
 
             card.innerHTML = `
@@ -562,6 +498,7 @@
     }
 
     function filterShop(cat, btn) {
+        playAudio('click');
         currentCategory = cat;
         document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
@@ -582,19 +519,20 @@
         renderShop();
     }
 
+    // --- MISSION LOGIC WITH GUARANTEED LINK OPEN & TIMER ---
     function doMission(id, url, amount) {
         if (localStorage.getItem("m_" + id) === "done") return;
 
-        const newWindow = window.open(url, "_blank");
-        if (!newWindow || newWindow.closed || typeof newWindow.closed=='undefined') {
-            alert("⚠️ გთხოვთ გათიშოთ Pop-up Blocker ბრაუზერში!");
-            return;
-        }
+        playAudio('click');
+
+        // 1. გადავიყვანოთ მომხმარებელი Steam-ის გვერდზე
+        window.open(url, "_blank");
 
         const btn = document.getElementById("btn-" + id);
         let sec = 10;
         btn.disabled = true;
 
+        // 2. დავიწყოთ 10 წამიანი ტაიმერი
         const timer = setInterval(() => {
             sec--;
             if (sec > 0) {
@@ -603,12 +541,14 @@
                 clearInterval(timer);
                 coins += amount;
                 localStorage.setItem("m_" + id, "done");
+                playAudio('success');
                 update();
             }
         }, 1000);
     }
 
     function buyProduct(id) {
+        playAudio('click');
         const item = products.find(p => p.id === id);
         if (!item) return;
 
@@ -620,6 +560,7 @@
         if (confirm(`ნამდვილად გსურს "${item.title}"-ის ყიდვა ${item.price} ქოინად?`)) {
             coins -= item.price;
             localStorage.setItem("buy_" + id, "true");
+            playAudio('buy');
             update();
             openReward(id);
         }
@@ -638,9 +579,9 @@
             `;
         } else if (item.type === "file") {
             content += `
-                <p>თქვენი ფაილი მზადაა გადმოსაწერად (Zip/WinRAR/PNG):</p>
+                <p>თქვენი ფაილი მზადაა გადმოსაწერად:</p>
                 <a href="${item.fileUrl}" target="_blank" download>
-                    <button class="download-btn" style="margin-top:15px;">💾 DOWNLOAD FILE (.ZIP)</button>
+                    <button class="download-btn" onclick="playAudio('click')" style="margin-top:15px;">💾 DOWNLOAD FILE (.ZIP)</button>
                 </a>
             `;
         } else if (item.type === "bundle") {
@@ -649,7 +590,7 @@
                 <div class="reward-box">${item.content}</div>
                 <p style="margin-top:15px;"><strong>Artwork & Avatar Files:</strong></p>
                 <a href="${item.fileUrl}" target="_blank" download>
-                    <button class="download-btn">💾 DOWNLOAD FULL BUNDLE (.ZIP)</button>
+                    <button class="download-btn" onclick="playAudio('click')">💾 DOWNLOAD FULL BUNDLE (.ZIP)</button>
                 </a>
             `;
         }
@@ -662,7 +603,7 @@
             <p>To buy <b>${pack}</b> for <b>${price}</b>:</p>
             <p>1. Open Steam Digital Gift Cards.<br>2. Select our Steam Profile and send <b>${price}</b> Gift Card.</p>
             <a href="${links.giftCard}" target="_blank">
-                <button style="margin-top:10px; background:#66c0f4; color:#000;">GOTO STEAM GIFT CARDS</button>
+                <button onclick="playAudio('click')" style="margin-top:10px; background:#66c0f4; color:#000;">GOTO STEAM GIFT CARDS</button>
             </a>
         `;
         showModal("Buy Coins via Steam", content);
@@ -675,6 +616,7 @@
     }
 
     function closeModal() {
+        playAudio('click');
         document.getElementById("modal-title").innerText = "";
         document.getElementById("modal-body").innerHTML = "";
         document.getElementById("modal").style.display = "none";
