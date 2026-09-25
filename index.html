@@ -170,23 +170,32 @@
         .card .cat-tag.dark-tag { color: var(--accent-purple); }
         .card p { color: #9ab1c7; font-size: 12px; margin-bottom: 12px; flex-grow: 1; line-height: 1.4; }
 
-        .price { font-weight: bold; color: var(--accent-gold); margin-bottom: 12px; font-size: 15px; }
+        .price { font-weight: bold; color: var(--accent-gold); margin-bottom: 10px; font-size: 15px; }
+
+        .card-buttons {
+            display: flex;
+            gap: 6px;
+        }
 
         button {
             background: #27ae60;
             color: white;
             border: none;
-            padding: 11px;
+            padding: 10px;
             border-radius: 6px;
             font-weight: bold;
             cursor: pointer;
             width: 100%;
             transition: all 0.2s ease;
+            font-size: 12px;
         }
 
         button:hover { background: #2ecc71; }
         button:active { transform: scale(0.98); }
         button:disabled { background: #2c3e50; color: #7f8c8d; cursor: not-allowed; }
+
+        .preview-btn { background: #2980b9; }
+        .preview-btn:hover { background: #3498db; }
 
         .vip-btn { background: #d35400; }
         .vip-btn:hover { background: #e67e22; }
@@ -241,7 +250,7 @@
             background: #11161f;
             padding: 25px;
             border-radius: 14px;
-            max-width: 550px;
+            max-width: 580px;
             width: 90%;
             border: 1px solid var(--accent-purple);
             text-align: center;
@@ -261,25 +270,23 @@
             font-family: 'Courier New', Courier, monospace;
             text-align: left;
             white-space: pre-wrap;
-            font-size: 14px;
+            font-size: 13px;
             line-height: 1.5;
             box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+            max-height: 250px;
+            overflow-y: auto;
         }
 
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            margin-top: 15px;
+        .guide-box {
+            background: #080b0f;
+            border: 1px solid #f1c40f;
             border-radius: 8px;
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            border: 0;
+            padding: 18px;
+            margin: 15px 0;
+            text-align: left;
+            font-size: 13px;
+            color: #dcdcdc;
+            line-height: 1.6;
         }
     </style>
 </head>
@@ -301,7 +308,7 @@
             <em>შენიშვნა: ჯგუფიდან გამოსვლის ან მეგობრებიდან წაშლის შემთხვევაში თქვენი ბალანსი და ნაყიდი ნივთები სრულად გაუქმდება!</em>
         </div>
 
-        <!-- 1. FREE COINS MISSIONS (შენი ზუსტი ლინკებით) -->
+        <!-- 1. FREE COINS MISSIONS -->
         <div class="section-title">🎯 1. Earn Free Coins (Missions)</div>
         <div class="grid">
             <div class="card">
@@ -329,7 +336,7 @@
             </div>
         </div>
 
-        <!-- 2. DIGITAL STORE & SHOWCASE (ბევრი არტვორკი, ბიო და ბანერი) -->
+        <!-- 2. DIGITAL STORE & SHOWCASE -->
         <div class="section-title">🛒 2. Digital Store & Aesthetics Showcase</div>
 
         <div class="filter-container">
@@ -353,7 +360,7 @@
                 <p>წვდომა ექსკლუზიურ VIP Dark Bio-ებზე და Artwork-ებზე 1 კვირით + Weekly Coins.</p>
                 <div class="price">$3.00 USD</div>
                 <button class="vip-btn" onclick="openVipModal('1 Week VIP', '$3.00')">BUY VIP ($3.00)</button>
-                <button class="guide-btn" onclick="openGuideModal()">❓ HOW TO BUY (VIDEO GUIDE)</button>
+                <button class="guide-btn" onclick="openGuideModal()">📖 HOW TO BUY (INSTRUCTION)</button>
             </div>
 
             <div class="card tier-vip">
@@ -362,7 +369,7 @@
                 <p>წვდომა VIP კატალოგზე + 200 უფასო Bonus Coin + VIP Badge 2 კვირით.</p>
                 <div class="price">$6.00 USD</div>
                 <button class="vip-btn" onclick="openVipModal('2 Weeks VIP', '$6.00')">BUY VIP ($6.00)</button>
-                <button class="guide-btn" onclick="openGuideModal()">❓ HOW TO BUY (VIDEO GUIDE)</button>
+                <button class="guide-btn" onclick="openGuideModal()">📖 HOW TO BUY (INSTRUCTION)</button>
             </div>
 
             <div class="card tier-vip">
@@ -371,7 +378,7 @@
                 <p>სრული VIP პაკეტი + 500 Bonus Coins 3 კვირით.</p>
                 <div class="price">$9.00 USD</div>
                 <button class="vip-btn" onclick="openVipModal('3 Weeks VIP', '$9.00')">BUY VIP ($9.00)</button>
-                <button class="guide-btn" onclick="openGuideModal()">❓ HOW TO BUY (VIDEO GUIDE)</button>
+                <button class="guide-btn" onclick="openGuideModal()">📖 HOW TO BUY (INSTRUCTION)</button>
             </div>
 
             <div class="card tier-vip">
@@ -380,7 +387,7 @@
                 <p>მაქსიმალური VIP სტატუსი 1 თვით + 1000 Bonus Coins + VIP Lounge Badge!</p>
                 <div class="price">$12.00 USD</div>
                 <button class="vip-btn" onclick="openVipModal('1 Month Ultimate VIP', '$12.00')">BUY VIP ($12.00)</button>
-                <button class="guide-btn" onclick="openGuideModal()">❓ HOW TO BUY (VIDEO GUIDE)</button>
+                <button class="guide-btn" onclick="openGuideModal()">📖 HOW TO BUY (INSTRUCTION)</button>
             </div>
         </div>
     </div>
@@ -430,7 +437,7 @@
 <script>
     const STEAM_GIFT_LINK = "https://store.steampowered.com/digitalgiftcards/selectcard";
 
-    // --- SOUND EFFECTS (Web Audio API) ---
+    // --- SOUND EFFECTS ---
     function playSound(type) {
         try {
             const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -457,9 +464,8 @@
         } catch(e){}
     }
 
-    // --- LARGE STORE PRODUCTS CATALOG (ბევრი არტვორკი, ბიო და ბანერი) ---
+    // --- LARGE & HIGH QUALITY STORE CATALOG ---
     const products = [
-        // --- DARK BIOS ---
         {
             id: "dark_bio_gothic",
             cat: "dark_bio",
@@ -468,7 +474,7 @@
             title: "𝕲𝖔𝖙𝖍𝖎𝖈 𝕾𝖔𝖚𝖑 𝕭𝖎𝖔",
             price: 25,
             image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500&q=80",
-            desc: "გოთიკური და ბნელი ესთეტიკის ბიო შენი Steam პროფილისთვის.",
+            desc: "პრემიუმ გოთიკური და ბნელი ესთეტიკის ბიო შენი Steam პროფილისთვის.",
             type: "text",
             content: "𝕎𝕖𝕝𝕔𝕠𝕞𝕖 𝕥𝕠 𝕥𝕙𝕖 𝔸𝕓𝕪𝕤𝕤\n\n† 𝕴𝖓 𝖙𝖍𝖊 𝖘𝖍𝖆𝖉𝖔𝖜𝖘 𝖜𝖊 𝖗𝖎𝖘𝖊\n† 𝕮𝕾𝟤 / 𝕱𝖆𝖈𝖊𝖎𝖙 𝕲𝖗𝖎𝖓𝖉𝖊𝖗\n† 𝕯𝖔 𝖓𝖔𝖙 𝖆𝖉𝖉 𝖜𝖎𝖙𝖍𝖔𝖚𝖙 𝖗𝖊𝖆𝖘𝖔𝖓\n\n𝕾𝖎𝖑𝖊𝖓𝖈𝖊 𝖎𝖘 𝖙𝖍𝖊 𝖑𝖔𝖚𝖉𝖊𝖘 𝖛𝖔𝖎𝖈𝖊."
         },
@@ -480,7 +486,7 @@
             title: "𖤐 𝔙𝔞𝔪𝔭𝔦𝔯𝔢 𝔄𝔢𝔰𝔱𝔥𝔢𝔱𝔦𝔠 𖤐",
             price: 30,
             image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=500&q=80",
-            desc: "ბნელი, ვამპირული დიზაინის ტექსტი.",
+            desc: "ბნელი, ვამპირული დიზაინის ტექსტი ლამაზი სიმბოლოებით.",
             type: "text",
             content: "𖤐 𝔏𝔬𝔯𝔡 𝔬𝔣 𝔱𝔥𝔢 𝔑𝔦𝔤𝔥𝔱 𖤐\n────────────────────\n🩸 𝔅𝔩𝔬𝔬𝔡, 𝔖𝔴𝔢𝔞𝔱 & ℌ𝔢𝔞𝔡𝔰𝔥𝔬𝔱𝔰\n🩸 𝔇𝔬𝔫'𝔱 𝔱𝔬𝔲𝔠𝔥 𝔪𝔶 𝔠𝔦𝔯𝔠𝔩𝔢\n────────────────────\n𝔈𝔱𝔢𝔯𝔫𝔞𝔩 𝔇𝔞𝔯𝔴𝔫𝔢𝔰𝔰."
         },
@@ -492,12 +498,10 @@
             title: "☠ ℂ𝕪𝕓𝕖𝕣 𝔻𝕖𝕞𝕠𝕟 𝔹𝕚𝕠 ☠",
             price: 35,
             image: "https://images.unsplash.com/photo-1563089145-599997674d42?w=500&q=80",
-            desc: "აგრესიული და ბნელი კიბერ-პანკ ბიო.",
+            desc: "აგრესიული და ბნელი კიბერ-პანკ ბიო პროფილისთვის.",
             type: "text",
-            content: "☠ 𝕎𝔼𝕃ℂ𝕆𝕄𝔼 𝕋𝕆 ℍ𝔼𝕃𝕃 ☠\n► 𝕮𝕾𝟤: 𝕲𝖑𝖔𝖇𝖆𝖑 𝕰𝖑𝖎𝖙𝖊\n► 𝕱𝖆𝖈𝖊𝖎𝖙: 𝕷𝖛𝖑 𝟙𝟘\n► 𝕯𝖔𝖓'𝖙 𝖂𝖆𝖘𝖙𝖊 𝕸𝖞 𝕿𝖎𝖒𝖊."
+            content: "☠ 𝕎𝔼𝕃ℂ𝕆𝕄𝔼 𝕋𝕆 ℍ𝔼𝕃𝕃 ☠\n► 𝕮𝕾𝟤: 𝕲𝖑𝖔𝖇𝖆𝖑 𝕰𝖑𝖎𝖙𝖊\n► 𝕱𝖆𝖈𝖊𝖎𝖙: 𝕷𝖛𝖑 𝟙𝟘\n► 𝕯𝖔𝖓'𝖙 𝕸𝖞 𝕿𝖎𝖒𝖊."
         },
-
-        // --- DARK ARTWORKS (ბევრი არტვორკი) ---
         {
             id: "dark_art_skull",
             cat: "dark_art",
@@ -506,7 +510,7 @@
             title: "🔮 Neon Skull Animated Showcase",
             price: 45,
             image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500&q=80",
-            desc: "ბნელი ჩონჩხის HD არტვორკი პროფილისთვის.",
+            desc: "ბნელი ჩონჩხის HD არტვორკი მაღალი ხარისხით.",
             type: "image_download",
             imageUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200",
             fileName: "Neon_Skull_Artwork.jpg"
@@ -519,26 +523,11 @@
             title: "🌌 Void & Abyss Artwork",
             price: 50,
             image: "https://images.unsplash.com/photo-1507499739999-097706ad8914?w=500&q=80",
-            desc: "უფსკრულის თემატიკის გალაქტიკური არტვორკი.",
+            desc: "უფსკრულის თემატიკის გალაქტიკური არტვორკი ლეველ 10+ პროფილებისთვის.",
             type: "image_download",
             imageUrl: "https://images.unsplash.com/photo-1507499739999-097706ad8914?w=1200",
             fileName: "Void_Abyss_Artwork.jpg"
         },
-        {
-            id: "dark_art_samurai",
-            cat: "dark_art",
-            tier: "dark",
-            tierLabel: "Dark Artwork",
-            title: "⚔️ Shadow Samurai Art",
-            price: 55,
-            image: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500&q=80",
-            desc: "ჩრდილოვანი სამურაის დიზაინი Artwork Showcase-ისთვის.",
-            type: "image_download",
-            imageUrl: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=1200",
-            fileName: "Shadow_Samurai_Art.jpg"
-        },
-
-        // --- DARK BANNERS ---
         {
             id: "dark_banner_grim",
             cat: "dark_banner",
@@ -547,26 +536,11 @@
             title: "🖤 Grim Reaper Ultra Banner",
             price: 40,
             image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=500&q=80",
-            desc: "Grim Reaper-ის ბნელი ულტრა HD ბანერი.",
+            desc: "Grim Reaper-ის ულტრა HD ბანერი პროფილის ფონისთვის.",
             type: "image_download",
             imageUrl: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=1920",
             fileName: "Grim_Reaper_Ultra_Banner.jpg"
         },
-        {
-            id: "dark_banner_cyber",
-            cat: "dark_banner",
-            tier: "dark",
-            tierLabel: "Dark Banner",
-            title: "🕷️ Cyber Dark Banner",
-            price: 45,
-            image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80",
-            desc: "მაღალი ხარისხის ბნელი კიბერ-ბანერი პროფილისთვის.",
-            type: "image_download",
-            imageUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1920",
-            fileName: "Cyber_Dark_Banner.jpg"
-        },
-
-        // --- STANDARD BIOS & AVATARS ---
         {
             id: "bio_simple",
             cat: "bio",
@@ -592,8 +566,6 @@
             imageUrl: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800",
             fileName: "Neon_Mask_Avatar.jpg"
         },
-
-        // --- VIP BUNDLE ---
         {
             id: "bundle_dark_god",
             cat: "bundle",
@@ -630,9 +602,17 @@
             const card = document.createElement("div");
             card.className = `card tier-${p.tier}`;
             
-            let btnHtml = isBought 
-                ? `<button class="download-btn" onclick="openReward('${p.id}')">GET ITEM ✓</button>`
-                : `<button onclick="buyProduct('${p.id}')">BUY (${p.price} COINS)</button>`;
+            let btnHtml = "";
+            if (isBought) {
+                btnHtml = `<button class="download-btn" onclick="openReward('${p.id}')">GET ITEM ✓</button>`;
+            } else {
+                btnHtml = `
+                    <div class="card-buttons">
+                        <button class="preview-btn" onclick="previewItem('${p.id}')">🔍 PREVIEW</button>
+                        <button onclick="buyProduct('${p.id}')">BUY (${p.price})</button>
+                    </div>
+                `;
+            }
 
             let isDarkTag = p.cat.startsWith("dark") ? "dark-tag" : "";
 
@@ -657,12 +637,28 @@
         renderShop();
     }
 
-    // --- MISSION LOGIC (Opens exact Steam links & 10s Timer) ---
+    // --- PREVIEW ITEM BEFORE BUYING ---
+    function previewItem(id) {
+        playSound('click');
+        const item = products.find(p => p.id === id);
+        let content = `<p style="color:#aaa; font-size:13px;">წინასწარი ნახვა (Preview):</p>`;
+
+        if (item.type === "text") {
+            content += `<div class="bio-display">${item.content}</div>`;
+        } else {
+            content += `<img src="${item.image}" style="width:100%; border-radius:8px; margin:10px 0; border:1px solid #333;">`;
+        }
+        content += `<button style="margin-top:10px;" onclick="buyProduct('${id}')">BUY NOW (${item.price} COINS)</button>`;
+
+        showModal("Preview: " + item.title, content);
+    }
+
+    // --- MISSIONS ---
     function startMission(id, url, amount) {
         if (localStorage.getItem("m_" + id) === "done") return;
 
         playSound('click');
-        window.open(url, "_blank"); // პირდაპირ ხსნის შენს Steam ლინკს
+        window.open(url, "_blank");
 
         const btn = document.getElementById("btn-" + id);
         let sec = 10;
@@ -755,20 +751,30 @@
         showModal("Buy VIP Membership", content);
     }
 
+    // --- TEXT INSTRUCTION INSTEAD OF BROKEN VIDEO ---
     function openGuideModal() {
         playSound('click');
-        // სწორი ინგლისურენოვანი ტუტორიალი Steam Gift Card-ის შესახებ
         const content = `
-            <p style="font-size:13px; color:#aaa;">How to buy VIP status using Steam Gift Cards (Video Tutorial):</p>
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/5qap5aO4i9A" allowfullscreen></iframe>
+            <div class="guide-box">
+                <h4 style="margin-top:0; color:#f1c40f;">📖 How to Buy VIP / Send Steam Gift Card:</h4>
+                <p><strong>🇬🇪 ქართულად:</strong></p>
+                <ol style="padding-left: 20px; margin-bottom: 15px;">
+                    <li>დააჭირეთ ღილაკს <b>"GO TO STEAM GIFT CARDS"</b>.</li>
+                    <li>აირჩიეთ სასურველი თანხა ($3, $6, $9 ან $12).</li>
+                    <li>გადაიხადეთ ბარათით და გამოუგზავნეთ როგორც საჩუქარი (Gift) ჩვენს Steam პროფილს.</li>
+                    <li>მოგვწერეთ ან დაადასტურეთ და VIP ავტომატურად გაგიაქტიურდებათ!</li>
+                </ol>
+                <p><strong>🇬🇧 In English:</strong></p>
+                <ol style="padding-left: 20px; margin: 0;">
+                    <li>Click the <b>"GO TO STEAM GIFT CARDS"</b> button below.</li>
+                    <li>Select the desired amount ($3, $6, $9, or $12).</li>
+                    <li>Send it as a Digital Gift Card to our Steam profile.</li>
+                    <li>Your VIP status will be activated immediately upon confirmation!</li>
+                </ol>
             </div>
-            <ol style="text-align:left; font-size:12px; color:#ccc; margin-top:15px;">
-                <li>Click the <b>BUY VIP</b> button.</li>
-                <li>Go to Steam Digital Gift Cards page.</li>
-                <li>Select the required amount ($3, $6, $12).</li>
-                <li>Send it as a Gift Card to our Steam profile!</li>
-            </ol>
+            <a href="${STEAM_GIFT_LINK}" target="_blank">
+                <button style="background:#f1c40f; color:#000; font-weight:bold;">🎁 OPEN STEAM GIFT CARDS PAGE</button>
+            </a>
         `;
         showModal("How to Buy Guide", content);
     }
