@@ -1,24 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ka">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steam Rewards Hub</title>
+    <title>Steam Coins & Shop</title>
     
     <script>
         // ==========================================
-        // 1. აქ ჩაწერე შენი STEAM-ის ლინკები:
+        // 1. აქ ჩასვი შენი STEAM-ის ლინკები:
         // ==========================================
         const links = {
             group: "https://steamcommunity.com/groups/3DumbPenguins",
             profile: "https://steamcommunity.com/profiles/76561198708164928/",
             friend: "https://steamcommunity.com/profiles/76561198708164928/",
-            // Steam Gift Card-ის ოფიციალური გვერდი პირდაპირი გადარიცხვისთვის:
             giftCard: "https://store.steampowered.com/digitalgiftcards/selectcard"
         };
 
         // ==========================================
-        // 2. მაღაზიის პროდუქტები (რას მიიღებს მყიდველი):
+        // 2. მაღაზიის საჩუქრები (ყიდვის შემდეგ გამოჩნდება):
         // ==========================================
         const shopRewards = {
             bio: "✦ WORK HARD, PLAY HARD ✦\nWelcome to my profile!\nCS2 Gamer & Trader",
@@ -28,21 +27,10 @@
     </script>
 
     <style>
-        :root {
-            --bg-color: #171a21;
-            --card-bg: #1b2838;
-            --accent-color: #66c0f4;
-            --text-color: #c6d4df;
-            --btn-green: #5c7e10;
-            --btn-green-hover: #7ea61a;
-            --btn-disabled: #415568;
-            --gold-color: #f39c12;
-        }
-
         body {
-            font-family: 'Motiva Sans', sans-serif, Arial;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            background: #0f141d;
+            color: #ffffff;
             margin: 0;
             padding: 20px;
             display: flex;
@@ -51,169 +39,123 @@
         }
 
         .container {
-            max-width: 850px;
+            max-width: 800px;
             width: 100%;
         }
 
         header {
-            background-color: var(--card-bg);
+            background: #17212e;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid #2a3a4e;
         }
 
-        h1 {
-            margin: 0;
-            color: #ffffff;
-            font-size: 24px;
-        }
-
-        .balance-box {
-            font-size: 18px;
+        .balance {
+            font-size: 20px;
             font-weight: bold;
-            background: rgba(0,0,0,0.3);
-            padding: 10px 18px;
+            color: #f1c40f;
+            background: #0a0e14;
+            padding: 8px 16px;
             border-radius: 20px;
-            border: 1px solid var(--accent-color);
-            color: var(--gold-color);
+            border: 1px solid #f1c40f;
         }
 
         .section-title {
-            color: #ffffff;
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 8px;
             margin-top: 30px;
             margin-bottom: 15px;
-            font-size: 20px;
+            font-size: 22px;
+            color: #66c0f4;
+            border-bottom: 2px solid #66c0f4;
+            padding-bottom: 5px;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
             gap: 15px;
         }
 
         .card {
-            background-color: var(--card-bg);
-            padding: 20px;
+            background: #17212e;
+            padding: 18px;
             border-radius: 8px;
+            border: 1px solid #2a3a4e;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: transform 0.2s, border-color 0.2s;
         }
 
-        .card:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent-color);
-        }
+        .card h3 { margin: 0 0 10px 0; font-size: 18px; }
+        .card p { color: #9ab1c7; font-size: 13px; margin-bottom: 15px; }
 
-        .card h3 {
-            margin: 0 0 10px 0;
-            color: #fff;
-            font-size: 17px;
-        }
-
-        .card p {
-            font-size: 13px;
-            margin: 0 0 15px 0;
-            color: #8f98a0;
-            line-height: 1.4;
-        }
-
-        .price-tag {
+        .price {
             font-weight: bold;
-            color: var(--gold-color);
-            margin-bottom: 12px;
-            font-size: 15px;
+            color: #f1c40f;
+            margin-bottom: 10px;
         }
 
-        .price-tag.real-money {
+        .price.money {
             color: #2ecc71;
+            font-size: 16px;
         }
 
         button {
-            background-color: var(--btn-green);
-            color: #ffffff;
+            background: #5c7e10;
+            color: white;
             border: none;
-            padding: 12px 15px;
-            border-radius: 4px;
-            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
             font-weight: bold;
-            transition: background-color 0.2s;
+            cursor: pointer;
             width: 100%;
         }
 
-        button:hover:not(:disabled) {
-            background-color: var(--btn-green-hover);
-        }
+        button:hover { background: #7ea61a; }
+        button:disabled { background: #415568; cursor: not-allowed; }
 
-        button:disabled {
-            background-color: var(--btn-disabled);
-            cursor: not-allowed;
-            color: #8f98a0;
-        }
+        .buy-btn { background: #2980b9; }
+        .buy-btn:hover { background: #3498db; }
 
-        button.checking {
-            background-color: #e67e22;
-            color: #fff;
-            cursor: wait;
-        }
-
-        /* Modal Styles */
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top:0; left:0; width:100%; height:100%;
             background: rgba(0,0,0,0.85);
             justify-content: center;
             align-items: center;
-            z-index: 1000;
         }
 
-        .modal-content {
-            background: var(--card-bg);
+        .modal-box {
+            background: #17212e;
             padding: 25px;
-            border-radius: 8px;
-            max-width: 480px;
+            border-radius: 10px;
+            max-width: 450px;
             width: 90%;
-            border: 1px solid var(--accent-color);
-            color: #fff;
+            border: 1px solid #66c0f4;
+            text-align: center;
             position: relative;
         }
 
         .close-btn {
             position: absolute;
             top: 10px; right: 15px;
-            font-size: 22px;
+            font-size: 24px;
             cursor: pointer;
-            color: #8f98a0;
+            color: #aaa;
         }
 
-        .reward-box {
-            background: #101822;
-            padding: 12px;
+        .reward-code {
+            background: #0a0e14;
+            padding: 10px;
             border-radius: 5px;
+            border: 1px dashed #66c0f4;
             margin-top: 15px;
             font-family: monospace;
             white-space: pre-wrap;
-            word-break: break-all;
-            user-select: all;
-            border: 1px dashed var(--accent-color);
-        }
-
-        footer {
-            margin-top: 50px;
-            color: #56636d;
-            font-size: 14px;
-            text-align: center;
         }
     </style>
 </head>
@@ -221,201 +163,164 @@
 
 <div class="container">
     <header>
-        <h1>🎮 Steam Rewards Hub</h1>
-        <div class="balance-box">🟡 Coins: <span id="coin-balance">0</span></div>
+        <h2>🎮 Steam Coins Hub</h2>
+        <div class="balance">🪙 <span id="coin-count">0</span> COINS</div>
     </header>
 
-    <!-- FREE MISSIONS -->
-    <div class="section-title">🎯 Earn Free Coins</div>
+    <!-- 1. MISSIONS -->
+    <div class="section-title">🎯 1. Earn Free Coins (Missions)</div>
     <div class="grid">
         <div class="card">
-            <div>
-                <h3>Join Steam Group</h3>
-                <p>Join our official Steam community group to earn free coins.</p>
-                <div class="price-tag">+20 COINS</div>
-            </div>
-            <button id="btn-group" onclick="startMission('group', links.group, 20)">CLAIM 20 COINS</button>
+            <h3>Join Steam Group</h3>
+            <p>Join our group and wait 10 seconds.</p>
+            <div class="price">+20 COINS</div>
+            <button id="btn-group" onclick="doMission('group', links.group, 20)">GET 20 COINS</button>
         </div>
 
         <div class="card">
-            <div>
-                <h3>Follow Profile</h3>
-                <p>Follow our Steam profile to stay updated with new rewards.</p>
-                <div class="price-tag">+20 COINS</div>
-            </div>
-            <button id="btn-profile" onclick="startMission('profile', links.profile, 20)">CLAIM 20 COINS</button>
+            <h3>Follow Profile</h3>
+            <p>Follow our Steam profile.</p>
+            <div class="price">+20 COINS</div>
+            <button id="btn-profile" onclick="doMission('profile', links.profile, 20)">GET 20 COINS</button>
         </div>
 
         <div class="card">
-            <div>
-                <h3>Add Friend</h3>
-                <p>Add our Steam account as a friend for bonus coins.</p>
-                <div class="price-tag">+20 COINS</div>
-            </div>
-            <button id="btn-friend" onclick="startMission('friend', links.friend, 20)">CLAIM 20 COINS</button>
+            <h3>Add Friend</h3>
+            <p>Add our Steam profile as friend.</p>
+            <div class="price">+20 COINS</div>
+            <button id="btn-friend" onclick="doMission('friend', links.friend, 20)">GET 20 COINS</button>
         </div>
     </div>
 
-    <!-- BUY COINS WITH REAL MONEY -->
-    <div class="section-title">💳 Buy Coins (Direct Steam Wallet Transfer)</div>
+    <!-- 2. BUY COINS -->
+    <div class="section-title">💳 2. Buy Coins (Real Money / Gift Cards)</div>
     <div class="grid">
         <div class="card">
-            <div>
-                <h3>Starter Coin Pack</h3>
-                <p>Send $1.00 Steam Gift Card directly to receive 100 Coins.</p>
-                <div class="price-tag real-money">$1.00 USD (Steam Balance)</div>
-            </div>
-            <button onclick="buyCoinsWithGiftCard('Starter Pack (100 Coins)', '$1.00')">BUY 100 COINS</button>
+            <h3>Starter Pack</h3>
+            <p>100 Coins via Steam Digital Gift Card.</p>
+            <div class="price money">$1.00 USD</div>
+            <button class="buy-btn" onclick="openGiftCardInfo('100 Coins', '$1.00')">BUY 100 COINS</button>
         </div>
 
         <div class="card">
-            <div>
-                <h3>Pro Coin Pack</h3>
-                <p>Send $2.00 Steam Gift Card directly to receive 250 Coins.</p>
-                <div class="price-tag real-money">$2.00 USD (Steam Balance)</div>
-            </div>
-            <button onclick="buyCoinsWithGiftCard('Pro Pack (250 Coins)', '$2.00')">BUY 250 COINS</button>
+            <h3>Pro Pack</h3>
+            <p>250 Coins via Steam Digital Gift Card.</p>
+            <div class="price money">$2.00 USD</div>
+            <button class="buy-btn" onclick="openGiftCardInfo('250 Coins', '$2.00')">BUY 250 COINS</button>
         </div>
     </div>
 
-    <!-- SHOP -->
-    <div class="section-title">🛒 Rewards Shop</div>
+    <!-- 3. SHOP -->
+    <div class="section-title">🛒 3. Digital Shop</div>
     <div class="grid">
         <div class="card">
-            <div>
-                <h3>Steam Bio</h3>
-                <p>Stylish profile bio template with aesthetic fonts and layout.</p>
-                <div class="price-tag">50 COINS</div>
-            </div>
-            <button id="buy-bio" onclick="buyItem('bio', 50)">BUY</button>
+            <h3>Steam Bio</h3>
+            <p>Stylish profile bio template.</p>
+            <div class="price">50 COINS</div>
+            <button id="shop-bio" onclick="buyProduct('bio', 50)">BUY (50 COINS)</button>
         </div>
 
         <div class="card">
-            <div>
-                <h3>Profile Avatar</h3>
-                <p>Special high-resolution profile avatar for Steam.</p>
-                <div class="price-tag">100 COINS</div>
-            </div>
-            <button id="buy-avatar" onclick="buyItem('avatar', 100)">BUY</button>
+            <h3>Profile Avatar</h3>
+            <p>Special HD avatar image.</p>
+            <div class="price">100 COINS</div>
+            <button id="shop-avatar" onclick="buyProduct('avatar', 100)">BUY (100 COINS)</button>
         </div>
 
         <div class="card">
-            <div>
-                <h3>Premium Design</h3>
-                <p>Exclusive Steam profile artwork & background design set.</p>
-                <div class="price-tag">200 COINS</div>
-            </div>
-            <button id="buy-design" onclick="buyItem('design', 200)">BUY</button>
+            <h3>Premium Design</h3>
+            <p>Exclusive profile artwork design.</p>
+            <div class="price">200 COINS</div>
+            <button id="shop-design" onclick="buyProduct('design', 200)">BUY (200 COINS)</button>
         </div>
     </div>
-
-    <footer>Steam Rewards © 2026</footer>
 </div>
 
 <!-- Modal Popup -->
 <div id="modal" class="modal">
-    <div class="modal-content">
+    <div class="modal-box">
         <span class="close-btn" onclick="closeModal()">&times;</span>
-        <h2 id="modal-title">Notification</h2>
-        <p id="modal-desc"></p>
+        <h3 id="modal-title">Info</h3>
         <div id="modal-body"></div>
     </div>
 </div>
 
 <script>
-    let coins = parseInt(localStorage.getItem("userCoins")) || 0;
+    let coins = parseInt(localStorage.getItem("coins")) || 0;
 
-    function updateUI() {
-        document.getElementById("coin-balance").textContent = coins;
-        localStorage.setItem("userCoins", coins);
+    function update() {
+        document.getElementById("coin-count").innerText = coins;
+        localStorage.setItem("coins", coins);
 
         ["group", "profile", "friend"].forEach(id => {
-            if (localStorage.getItem("mission_" + id) === "done") {
+            if (localStorage.getItem("m_" + id) === "done") {
                 const btn = document.getElementById("btn-" + id);
-                if (btn) {
-                    btn.textContent = "COMPLETED ✓";
-                    btn.disabled = true;
-                }
+                if (btn) { btn.innerText = "COMPLETED ✓"; btn.disabled = true; }
             }
         });
 
-        ["bio", "avatar", "design"].forEach(itemId => {
-            if (localStorage.getItem("shop_" + itemId) === "bought") {
-                const btn = document.getElementById("buy-" + itemId);
-                if (btn) {
-                    btn.textContent = "VIEW CONTENT";
-                    btn.style.backgroundColor = "#2980b9";
-                }
+        ["bio", "avatar", "design"].forEach(id => {
+            if (localStorage.getItem("s_" + id) === "bought") {
+                const btn = document.getElementById("shop-" + id);
+                if (btn) { btn.innerText = "VIEW REWARD"; btn.style.background = "#2980b9"; }
             }
         });
     }
 
-    function startMission(id, url, reward) {
-        if (localStorage.getItem("mission_" + id) === "done") return;
-
-        if (url) {
-            window.open(url, "_blank");
-        }
+    function doMission(id, url, amount) {
+        if (localStorage.getItem("m_" + id) === "done") return;
+        if (url) window.open(url, "_blank");
 
         const btn = document.getElementById("btn-" + id);
-        let timeLeft = 10;
+        let sec = 10;
         btn.disabled = true;
-        btn.classList.add("checking");
-        btn.textContent = `CHECKING... (${timeLeft}s)`;
 
         const timer = setInterval(() => {
-            timeLeft--;
-            if (timeLeft > 0) {
-                btn.textContent = `CHECKING... (${timeLeft}s)`;
+            sec--;
+            if (sec > 0) {
+                btn.innerText = `WAIT (${sec}s)...`;
             } else {
                 clearInterval(timer);
-                coins += reward;
-                localStorage.setItem("mission_" + id, "done");
-                btn.classList.remove("checking");
-                updateUI();
+                coins += amount;
+                localStorage.setItem("m_" + id, "done");
+                update();
             }
         }, 1000);
     }
 
-    function buyItem(itemId, cost) {
-        if (localStorage.getItem("shop_" + itemId) === "bought") {
-            showModal("Unlocked Item", "Here is your item content:", `<div class="reward-box">${shopRewards[itemId]}</div>`);
+    function buyProduct(id, price) {
+        if (localStorage.getItem("s_" + id) === "bought") {
+            showModal("Your Reward", `<div class="reward-code">${shopRewards[id]}</div>`);
             return;
         }
 
-        if (coins < cost) {
-            alert(`❌ Not enough coins! You need ${cost} Coins.`);
+        if (coins < price) {
+            alert(`❌ You need ${price} Coins. You have ${coins} Coins.`);
             return;
         }
 
-        if (confirm(`Do you want to buy this item for ${cost} Coins?`)) {
-            coins -= cost;
-            localStorage.setItem("shop_" + itemId, "bought");
-            updateUI();
-            showModal("🎉 Purchase Successful!", "You unlocked this item:", `<div class="reward-box">${shopRewards[itemId]}</div>`);
+        if (confirm(`Buy this for ${price} Coins?`)) {
+            coins -= price;
+            localStorage.setItem("s_" + id, "bought");
+            update();
+            showModal("🎉 Item Bought!", `<div class="reward-code">${shopRewards[id]}</div>`);
         }
     }
 
-    function buyCoinsWithGiftCard(packName, price) {
-        const title = `Buy ${packName}`;
-        const desc = `Direct Steam Wallet Transfer (${price}):`;
-        const bodyHTML = `
-            <p style="font-size: 14px; line-height: 1.5; color: #c6d4df;">
-                1. Click the button below to open <b>Steam Digital Gift Cards</b>.<br>
-                2. Choose our Steam profile and send <b>${price}</b> Gift Card.<br>
-                3. Your Coins will be added as soon as the gift card is accepted on Steam!
-            </p>
-            <a href="${links.giftCard}" target="_blank" style="text-decoration: none;">
-                <button style="margin-top: 10px; background-color: #66c0f4; color: #111;">SEND GIFT CARD ON STEAM</button>
+    function openGiftCardInfo(pack, price) {
+        const content = `
+            <p>To buy <b>${pack}</b> for <b>${price}</b>:</p>
+            <p>1. Open Steam Digital Gift Cards.<br>2. Select our Steam Profile and send ${price}.</p>
+            <a href="${links.giftCard}" target="_blank">
+                <button style="margin-top:10px; background:#66c0f4; color:#000;">GOTO STEAM GIFT CARDS</button>
             </a>
         `;
-        showModal(title, desc, bodyHTML);
+        showModal("Buy Coins via Steam", content);
     }
 
-    function showModal(title, desc, body) {
+    function showModal(title, html) {
         document.getElementById("modal-title").innerText = title;
-        document.getElementById("modal-desc").innerText = desc;
-        document.getElementById("modal-body").innerHTML = body;
+        document.getElementById("modal-body").innerHTML = html;
         document.getElementById("modal").style.display = "flex";
     }
 
@@ -423,7 +328,7 @@
         document.getElementById("modal").style.display = "none";
     }
 
-    updateUI();
+    update();
 </script>
 
 </body>
