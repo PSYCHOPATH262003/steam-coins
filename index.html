@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Steam Coins</title>
 
     <style>
@@ -88,6 +87,9 @@
             border: 1px solid #1c2b34;
             border-radius: 12px;
             padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .mission:hover,
@@ -122,13 +124,15 @@
             color: #061014;
             font-weight: bold;
             cursor: pointer;
+            transition: 0.2s;
         }
 
         button:hover {
             background: #67efff;
         }
 
-        button.completed {
+        button.completed,
+        button.purchased {
             background: #26343c;
             color: #7f8c94;
             cursor: not-allowed;
@@ -181,7 +185,7 @@
             <p>Join our official Steam group.</p>
             <div class="reward">+20 COINS</div>
             <button id="group-button" onclick="completeMission('group')">
-                COMPLETE
+                COMPLETE & OPEN LINK
             </button>
         </div>
 
@@ -190,7 +194,7 @@
             <p>Follow our Steam profile.</p>
             <div class="reward">+20 COINS</div>
             <button id="profile-button" onclick="completeMission('profile')">
-                COMPLETE
+                COMPLETE & OPEN LINK
             </button>
         </div>
 
@@ -199,7 +203,7 @@
             <p>Add our Steam account as a friend.</p>
             <div class="reward">+20 COINS</div>
             <button id="friend-button" onclick="completeMission('friend')">
-                COMPLETE
+                COMPLETE & OPEN LINK
             </button>
         </div>
 
@@ -213,21 +217,21 @@
             <h3>Steam Bio</h3>
             <p>Stylish profile bio.</p>
             <div class="price">50 COINS</div>
-            <button>BUY</button>
+            <button id="bio-item-button" onclick="buyItem('bio', 50)">BUY</button>
         </div>
 
         <div class="item">
             <h3>Profile Avatar</h3>
             <p>Special profile avatar.</p>
             <div class="price">100 COINS</div>
-            <button>BUY</button>
+            <button id="avatar-item-button" onclick="buyItem('avatar', 100)">BUY</button>
         </div>
 
         <div class="item">
             <h3>Premium Design</h3>
             <p>Exclusive Steam profile design.</p>
             <div class="price">200 COINS</div>
-            <button>BUY</button>
+            <button id="design-item-button" onclick="buyItem('design', 200)">BUY</button>
         </div>
 
     </section>
@@ -241,48 +245,104 @@
 <script>
 let coins = Number(localStorage.getItem("steamCoins")) || 0;
 
+// ⚠️ აქ ჩასვი შენი რეალური STEAM-ის ლინკები:
+const links = {
+    group: "https://steamcommunity.com/groups/YOUR_GROUP_HERE",    // შენი გრუპის ლინკი
+    profile: "https://steamcommunity.com/id/YOUR_PROFILE_HERE",   // შენი პროფილის ლინკი
+    friend: "https://steamcommunity.com/id/YOUR_PROFILE_HERE"    // შენი მეგობრობის ლინკი
+};
+
+// ⚠️ აქ ჩასვი პროდუქტების შინაარსი/ლინკები (რასაც ყიდულობს მომხმარებელი):
+const shopRewards = {
+    bio: "✦ WORK HARD, PLAY HARD ✦\nWelcome to my Steam profile!\nTrader & Gamer",
+    avatar: "https://i.imgur.com/YOUR_AVATAR_IMAGE.png",
+    design: "https://pastebin.com/raw/YOUR_DESIGN_CODE"
+};
+
 function updateCoins() {
     document.getElementById("coin-count").textContent = coins;
     localStorage.setItem("steamCoins", coins);
 }
 
 function completeMission(id) {
-
     if (localStorage.getItem("mission_" + id) === "done") {
         return;
     }
 
+    // 1. გადავიყვანოთ მომხმარებელი Steam-ის შესაბამის ლინკზე
+    if (links[id]) {
+        window.open(links[id], "_blank");
+    }
+
+    // 2. დავუმატოთ ქოინები
     coins += 20;
-
     localStorage.setItem("mission_" + id, "done");
-
     updateCoins();
 
+    // 3. შევცვალოთ ღილაკის სტატუსი
     const button = document.getElementById(id + "-button");
-
     button.textContent = "COMPLETED ✓";
     button.classList.add("completed");
     button.disabled = true;
 }
 
-function loadMissions() {
+function buyItem(itemId, cost) {
+    // თუ უკვე ნაყიდი აქვს
+    if (localStorage.getItem("shop_" + itemId) === "bought") {
+        alert("You already own this item!\n\nYour item: " + shopRewards[itemId]);
+        return;
+    }
 
+    // თუ არ ყოფნის ქოინები
+    if (coins < cost) {
+        alert("Not enough coins! You need " + cost + " coins.");
+        return;
+    }
+
+    // ქოინების ჩამოჭრა
+    coins -= cost;
+    localStorage.setItem("shop_" + itemId, "bought");
+    updateCoins();
+
+    // ღილაკის განახლება
+    setPurchasedState(itemId);
+
+    // პროდუქტის მიცემა/ჩვენება
+    alert("Congratulations! You bought this item.\n\nHere is your reward/link:\n" + shopRewards[itemId]);
+}
+
+function setPurchasedState(itemId) {
+    const button = document.getElementById(itemId + "-item-button");
+    if (button) {
+        button.textContent = "PURCHASED ✓";
+        button.classList.add("purchased");
+    }
+}
+
+function loadData() {
+    // მისიების შემოწმება
     ["group", "profile", "friend"].forEach(function(id) {
-
         if (localStorage.getItem("mission_" + id) === "done") {
-
             const button = document.getElementById(id + "-button");
+            if (button) {
+                button.textContent = "COMPLETED ✓";
+                button.classList.add("completed");
+                button.disabled = true;
+            }
+        }
+    });
 
-            button.textContent = "COMPLETED ✓";
-            button.classList.add("completed");
-            button.disabled = true;
+    // მაღაზიის ნივთების შემოწმება
+    ["bio", "avatar", "design"].forEach(function(itemId) {
+        if (localStorage.getItem("shop_" + itemId) === "bought") {
+            setPurchasedState(itemId);
         }
     });
 
     updateCoins();
 }
 
-loadMissions();
+loadData();
 </script>
 
 </body>
