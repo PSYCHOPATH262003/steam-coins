@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steam Coins & Digital Shop</title>
+    <title>Steam Coins & Massive Digital Shop</title>
     
     <script>
         // ==========================================
-        // 1. STEAM LIKNS (ჩასვი შენი ლინკები)
+        // 1. STEAM LINKS (შენი ლინკები უკვე ჩასმულია!)
         // ==========================================
         const links = {
-            group: "https://steamcommunity.com/groups/3DumbPenguins",
+            group: "https://steamcommunity.com/profiles/76561198708164928/groups/",
             profile: "https://steamcommunity.com/profiles/76561198708164928/",
             friend: "https://steamcommunity.com/profiles/76561198708164928/",
             giftCard: "https://store.steampowered.com/digitalgiftcards/selectcard"
@@ -30,7 +30,7 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             width: 100%;
         }
 
@@ -65,12 +65,10 @@
             line-height: 1.5;
         }
 
-        .notice-banner strong {
-            color: #66c0f4;
-        }
+        .notice-banner strong { color: #66c0f4; }
 
         .section-title {
-            margin-top: 30px;
+            margin-top: 35px;
             margin-bottom: 15px;
             font-size: 22px;
             color: #66c0f4;
@@ -78,15 +76,42 @@
             padding-bottom: 5px;
         }
 
+        /* Filter Controls */
+        .filter-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .filter-btn {
+            background: #17212e;
+            border: 1px solid #2a3a4e;
+            color: #c6d4df;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            transition: 0.2s;
+            width: auto;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: #66c0f4;
+            color: #000;
+            border-color: #66c0f4;
+        }
+
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 20px;
         }
 
         .card {
             background: #17212e;
-            padding: 18px;
+            padding: 16px;
             border-radius: 8px;
             border: 1px solid #2a3a4e;
             display: flex;
@@ -96,51 +121,53 @@
             overflow: hidden;
         }
 
-        .card.popular {
-            border-color: #f1c40f;
-        }
+        .card.tier-medium { border-color: #3498db; }
+        .card.tier-expensive { border-color: #e67e22; }
+        .card.tier-ultra { border-color: #f1c40f; box-shadow: 0 0 10px rgba(241, 196, 15, 0.2); }
 
         .badge {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #f1c40f;
-            color: #000;
-            font-size: 11px;
+            top: 10px; right: 10px;
+            font-size: 10px;
             font-weight: bold;
             padding: 3px 8px;
             border-radius: 10px;
+            text-transform: uppercase;
         }
+
+        .badge-cheap { background: #2ecc71; color: #000; }
+        .badge-medium { background: #3498db; color: #fff; }
+        .badge-expensive { background: #e67e22; color: #fff; }
+        .badge-ultra { background: #f1c40f; color: #000; }
 
         .item-preview {
             width: 100%;
-            height: 140px;
+            height: 130px;
             background-size: cover;
             background-position: center;
             border-radius: 6px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             border: 1px solid #2a3a4e;
         }
 
-        .card h3 { margin: 0 0 6px 0; font-size: 18px; }
-        .card p { color: #9ab1c7; font-size: 13px; margin-bottom: 12px; }
+        .card h3 { margin: 0 0 4px 0; font-size: 16px; }
+        .card .cat-tag { font-size: 11px; color: #66c0f4; margin-bottom: 8px; font-weight: bold; }
+        .card p { color: #9ab1c7; font-size: 12px; margin-bottom: 12px; flex-grow: 1; }
 
         .price {
             font-weight: bold;
             color: #f1c40f;
             margin-bottom: 10px;
+            font-size: 15px;
         }
 
-        .price.money {
-            color: #2ecc71;
-            font-size: 16px;
-        }
+        .price.money { color: #2ecc71; }
 
         button {
             background: #5c7e10;
             color: white;
             border: none;
-            padding: 10px;
+            padding: 9px;
             border-radius: 5px;
             font-weight: bold;
             cursor: pointer;
@@ -257,8 +284,8 @@
             <button class="buy-btn" onclick="openGiftCardInfo('550 Coins', '$5.00')">BUY 550 COINS</button>
         </div>
 
-        <div class="card popular">
-            <span class="badge">BEST VALUE</span>
+        <div class="card tier-ultra">
+            <span class="badge badge-ultra">BEST VALUE</span>
             <h3>Medium Pack</h3>
             <p>1,000 Coins + 200 Bonus Coins.</p>
             <div class="price money">$10.00 USD</div>
@@ -272,8 +299,8 @@
             <button class="buy-btn" onclick="openGiftCardInfo('3,100 Coins', '$25.00')">BUY 3,100 COINS</button>
         </div>
 
-        <div class="card popular">
-            <span class="badge">MEGA PACK</span>
+        <div class="card tier-ultra">
+            <span class="badge badge-ultra">MEGA PACK</span>
             <h3>Ultimate Pack</h3>
             <p>5,000 Coins + 1,500 Bonus Coins.</p>
             <div class="price money">$50.00 USD</div>
@@ -281,10 +308,20 @@
         </div>
     </div>
 
-    <!-- 3. DIGITAL SHOP -->
-    <div class="section-title">🛒 3. Digital Shop & Designs</div>
+    <!-- 3. MASSIVE DIGITAL SHOP -->
+    <div class="section-title">🛒 3. Digital Shop & Storefront</div>
+
+    <!-- Category Filters -->
+    <div class="filter-container">
+        <button class="filter-btn active" onclick="filterShop('all', this)">ყველა ნივთი</button>
+        <button class="filter-btn" onclick="filterShop('bio', this)">📜 Steam Bio</button>
+        <button class="filter-btn" onclick="filterShop('avatar', this)">🖼️ Avatars</button>
+        <button class="filter-btn" onclick="filterShop('artwork', this)">🎨 Artworks (Lvl 10+)</button>
+        <button class="filter-btn" onclick="filterShop('bundle', this)">👑 VIP Bundles</button>
+    </div>
+
     <div class="grid" id="shop-grid">
-        <!-- Shop Items JS-ით ჩაიტვირთება -->
+        <!-- JS-ით ჩაიტვირთება -->
     </div>
 </div>
 
@@ -298,107 +335,223 @@
 </div>
 
 <script>
-    // ==========================================
-    // მაღაზიის პროდუქტების კატალოგი
-    // ==========================================
     const products = [
+        // --- 1. BASIC / CHEAP (20 - 50 COINS) ---
         {
-            id: "bio_basic",
-            title: "Minimalist Steam Bio",
-            category: "Steam Bio",
+            id: "bio_simple",
+            cat: "bio",
+            tier: "cheap",
+            tierLabel: "Basic",
+            title: "Simple Minimal Bio",
+            price: 20,
+            image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80",
+            desc: "მარტივი და სუფთა ბიო ახალბედა პროფილებისთვის.",
+            type: "text",
+            content: "✦ WELCOME TO MY PROFILE ✦\n• Game: CS2\n• Trade: Open\n• Note: Be respectful!"
+        },
+        {
+            id: "avatar_basic_1",
+            cat: "avatar",
+            tier: "cheap",
+            tierLabel: "Basic HD",
+            title: "Red Glow Gamer Avatar",
             price: 30,
-            image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80",
-            desc: "სუფთა და მინიმალისტური ბიო ტექსტი სოციალური ბმულებით.",
-            type: "text",
-            content: "✦ WELCOME TO MY PROFILE ✦\n\n01. Age: 20\n02. Favorite Game: CS2 / Dota 2\n03. Rank: Global Elite\n\n[ Discord: Username#0000 ]\n[ Trade Link: steamcommunity.com/... ]"
-        },
-        {
-            id: "bio_pro",
-            title: "Cyberpunk Gamer Bio",
-            category: "Steam Bio",
-            price: 50,
-            image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500&q=80",
-            desc: "სტაილიზებული Cyberpunk სტილის ბიო სიმბოლოებით.",
-            type: "text",
-            content: "╔════════════════════════════════════════╗\n   ░▒▓█ SYSTEM ONLINE: GAMER PROFILE █▓▒░\n╚════════════════════════════════════════╝\n\n▶ CS2 Player & Trader\n▶ Rank: Supreme / Faceit Level 10\n▶ PC Specs: RTX 3060 / i5-12400f\n\n don't accept private profiles!"
-        },
-        {
-            id: "avatar_neon",
-            title: "Neon Samurai Avatar (HD)",
-            category: "Profile Avatar",
-            price: 60,
             image: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500&q=80",
-            desc: "მაღალი ხარისხის ნეონის სტილის ავატარი Steam-ისთვის.",
+            desc: "სტანდარტული წითელი განათების ავატარი.",
             type: "file",
             fileUrl: "https://i.imgur.com/8N03N6y.jpeg"
         },
         {
-            id: "avatar_anime",
-            title: "Dark Cyber Anime Avatar",
-            category: "Profile Avatar",
-            price: 100,
+            id: "bio_social",
+            cat: "bio",
+            tier: "cheap",
+            tierLabel: "Normal",
+            title: "Social Links Bio",
+            price: 40,
+            image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500&q=80",
+            desc: "ბიო სოციალური ქსელებისა და Trade Link-ის სექციით.",
+            type: "text",
+            content: "╔═════════════════════════╗\n  MY SOCIAL LINKS & SPECS\n╚═════════════════════════╝\n▶ Discord: User#0000\n▶ Trade: steamcommunity.com/...\n▶ Twitch: twitch.tv/..."
+        },
+        {
+            id: "avatar_basic_2",
+            cat: "avatar",
+            tier: "cheap",
+            tierLabel: "Normal HD",
+            title: "Blue Cyberpunk Avatar",
+            price: 50,
             image: "https://images.unsplash.com/photo-1563089145-599997674d42?w=500&q=80",
-            desc: "ექსკლუზიური Dark Cyberpunk სტილის ავატარი.",
+            desc: "ლურჯი Cyberpunk სტილის ავატარი.",
+            type: "file",
+            fileUrl: "https://i.imgur.com/8N03N6y.jpeg"
+        },
+
+        // --- 2. MEDIUM (60 - 120 COINS) ---
+        {
+            id: "bio_pro_cyber",
+            cat: "bio",
+            tier: "medium",
+            tierLabel: "Medium",
+            title: "Cyberpunk Aesthetic Bio",
+            price: 60,
+            image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=500&q=80",
+            desc: "სპეციალური სიმბოლოებით აწყობილი Cyberpunk ბიო.",
+            type: "text",
+            content: "░▒▓█ SYSTEM ONLINE █▓▒░\n\n▶ CS2 Supreme / Faceit Lvl 8\n▶ GPU: RTX 3060 / CPU: i5\n\n✖ Don't add if profile is private!"
+        },
+        {
+            id: "avatar_neon_mask",
+            cat: "avatar",
+            tier: "medium",
+            tierLabel: "Medium HD",
+            title: "Neon Mask Special Avatar",
+            price: 80,
+            image: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=500&q=80",
+            desc: "მაღალი რეზოლუციის ნეონის ნიღბიანი ავატარი.",
             type: "file",
             fileUrl: "https://i.imgur.com/8N03N6y.jpeg"
         },
         {
-            id: "art_red",
-            title: "Red Cyber Artwork Design",
-            category: "Artwork Design (Level 10+)",
-            price: 150,
+            id: "art_abstract_red",
+            cat: "artwork",
+            tier: "medium",
+            tierLabel: "Medium Lvl 10+",
+            title: "Red Lines Artwork Design",
+            price: 100,
             image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500&q=80",
-            desc: "წითელი აბსტრაქტული Artwork Showcase-ის დიზაინის Zip/WinRAR ფაილი.",
+            desc: "წითელი აბსტრაქტული Artwork Showcase დიზაინის Zip არქივი.",
             type: "file",
             fileUrl: "https://github.com/github/fetch/archive/refs/heads/master.zip"
         },
         {
-            id: "art_purple",
-            title: "Neon City Animated Artwork",
-            category: "Artwork Design (Level 10+)",
-            price: 200,
+            id: "art_purple_galaxy",
+            cat: "artwork",
+            tier: "medium",
+            tierLabel: "Medium Lvl 10+",
+            title: "Purple Galaxy Artwork",
+            price: 120,
             image: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=500&q=80",
-            desc: "პრემიუმ Neon City დიზაინის სრული არქივი (GIF/PNG).",
+            desc: "იასამნისფერი გალაქტიკის დიზაინი Steam Profile-ისთვის.",
+            type: "file",
+            fileUrl: "https://github.com/github/fetch/archive/refs/heads/master.zip"
+        },
+
+        // --- 3. EXPENSIVE / PREMIUM (150 - 250 COINS) ---
+        {
+            id: "bio_vip_ascii",
+            cat: "bio",
+            tier: "expensive",
+            tierLabel: "Expensive",
+            title: "ASCII Dragon VIP Bio",
+            price: 150,
+            image: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=500&q=80",
+            desc: "დიდი ASCII დრაკონის დიზაინის ბიო პრემიუმ პროფილებისთვის.",
+            type: "text",
+            content: " 🐲 DRAGON VIP PROFILE 🐲\n═════════════════════════\nRANK: GLOBAL ELITE / FACEIT 10\nTRADING: KNIVES & GLOVES ONLY\n═════════════════════════"
+        },
+        {
+            id: "avatar_animated_style",
+            cat: "avatar",
+            tier: "expensive",
+            tierLabel: "Premium HD",
+            title: "Dark Anime Legend Avatar",
+            price: 180,
+            image: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=500&q=80",
+            desc: "ექსკლუზიური Dark Anime სტილის ავატარი.",
+            type: "file",
+            fileUrl: "https://i.imgur.com/8N03N6y.jpeg"
+        },
+        {
+            id: "art_neon_city_gif",
+            cat: "artwork",
+            tier: "expensive",
+            tierLabel: "Premium Lvl 10+",
+            title: "Neon City Animated Artwork",
+            price: 220,
+            image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500&q=80",
+            desc: "მოძრავი ნეონის ქალაქის დიზაინის სრული Zip პაკეტი.",
             type: "file",
             fileUrl: "https://github.com/github/fetch/archive/refs/heads/master.zip"
         },
         {
-            id: "bundle_ultimate",
-            title: "VIP FULL STREAM BUNDLE",
-            category: "Full Bundle (Bio + Avatar + Art)",
-            price: 350,
-            image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80",
-            desc: "სრული პაკეტი: Cyberpunk Bio + HD Avatar + Premium Artwork Design!",
+            id: "art_samurai_gold",
+            cat: "artwork",
+            tier: "expensive",
+            tierLabel: "Premium Lvl 10+",
+            title: "Golden Samurai Artwork",
+            price: 250,
+            image: "https://images.unsplash.com/photo-1563089145-599997674d42?w=500&q=80",
+            desc: "ოქროსფერი სამურაის თემატიკის Artwork Showcase.",
+            type: "file",
+            fileUrl: "https://github.com/github/fetch/archive/refs/heads/master.zip"
+        },
+
+        // --- 4. ULTRA / EXCLUSIVE BUNDLES (300 - 500 COINS) ---
+        {
+            id: "bundle_starter_pack",
+            cat: "bundle",
+            tier: "expensive",
+            tierLabel: "Bundle",
+            title: "Gamer Starter Pack",
+            price: 280,
+            image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500&q=80",
+            desc: "Cyberpunk Bio + Blue Cyber Avatar + Red Lines Artwork!",
             type: "bundle",
             fileUrl: "https://github.com/github/fetch/archive/refs/heads/master.zip",
-            content: "✦ VIP BIO TEMPLATE ✦\nWelcome to VIP Profile!\nCS2 / Trader / Collector\n\n(Artwork ფაილები გადმოიწერება ღილაკით!)"
+            content: "✦ GAMER STARTER BIO ✦\nWelcome to my profile!\nAdd me for CS2 / Trading!"
+        },
+        {
+            id: "bundle_neon_vip",
+            cat: "bundle",
+            tier: "ultra",
+            tierLabel: "ULTRA VIP",
+            title: "Neon Cyber VIP Bundle",
+            price: 400,
+            image: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=500&q=80",
+            desc: "ASCII Bio + Neon Mask Avatar + Neon City Animated Artwork!",
+            type: "bundle",
+            fileUrl: "https://github.com/github/fetch/archive/refs/heads/master.zip",
+            content: "✦ NEON VIP BIO TEMPLATE ✦\n▶ Level 100+ Collector\n▶ CS2 Pro Player\n▶ High Tier Trader"
+        },
+        {
+            id: "bundle_god_mode",
+            cat: "bundle",
+            tier: "ultra",
+            tierLabel: "EXCLUSIVE GOD",
+            title: "GOD MODE FULL PROFILE BUNDLE",
+            price: 500,
+            image: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=500&q=80",
+            desc: "ყველაზე ექსკლუზიური პაკეტი: Golden Artwork + Legend Avatar + Dragon VIP Bio!",
+            type: "bundle",
+            fileUrl: "https://github.com/github/fetch/archive/refs/heads/master.zip",
+            content: "👑 GOD MODE PROFILE 👑\n═════════════════════════\n• TOP COLLECTOR & TRADER\n• CS2 FACEIT LEVEL 10\n═════════════════════════"
         }
     ];
 
+    let currentCategory = "all";
     let coins = parseInt(localStorage.getItem("coins")) || 0;
 
     function renderShop() {
         const grid = document.getElementById("shop-grid");
+        if (!grid) return;
         grid.innerHTML = "";
 
-        products.forEach(p => {
+        const filtered = products.filter(p => currentCategory === "all" || p.cat === currentCategory);
+
+        filtered.forEach(p => {
             const isBought = localStorage.getItem("buy_" + p.id) === "true";
             
             const card = document.createElement("div");
-            card.className = "card" + (p.price >= 200 ? " popular" : "");
+            card.className = `card tier-${p.tier}`;
             
-            let badgeHtml = p.price >= 200 ? `<span class="badge">PREMIUM</span>` : "";
-
-            let btnHtml = "";
-            if (isBought) {
-                btnHtml = `<button class="download-btn" onclick="openReward('${p.id}')">GET / VIEW REWARD ✓</button>`;
-            } else {
-                btnHtml = `<button onclick="buyProduct('${p.id}')">BUY (${p.price} COINS)</button>`;
-            }
+            let btnHtml = isBought 
+                ? `<button class="download-btn" onclick="openReward('${p.id}')">GET / VIEW REWARD ✓</button>`
+                : `<button onclick="buyProduct('${p.id}')">BUY (${p.price} COINS)</button>`;
 
             card.innerHTML = `
-                ${badgeHtml}
+                <span class="badge badge-${p.tier}">${p.tierLabel}</span>
                 <div class="item-preview" style="background-image: url('${p.image}');"></div>
+                <div class="cat-tag">${p.cat.toUpperCase()}</div>
                 <h3>${p.title}</h3>
                 <p>${p.desc}</p>
                 <div class="price">🪙 ${p.price} COINS</div>
@@ -406,6 +559,13 @@
             `;
             grid.appendChild(card);
         });
+    }
+
+    function filterShop(cat, btn) {
+        currentCategory = cat;
+        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderShop();
     }
 
     function update() {
@@ -424,7 +584,12 @@
 
     function doMission(id, url, amount) {
         if (localStorage.getItem("m_" + id) === "done") return;
-        if (url) window.open(url, "_blank");
+
+        const newWindow = window.open(url, "_blank");
+        if (!newWindow || newWindow.closed || typeof newWindow.closed=='undefined') {
+            alert("⚠️ გთხოვთ გათიშოთ Pop-up Blocker ბრაუზერში!");
+            return;
+        }
 
         const btn = document.getElementById("btn-" + id);
         let sec = 10;
