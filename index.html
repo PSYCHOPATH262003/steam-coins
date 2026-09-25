@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steam Coins & Shop</title>
+    <title>Steam Coins & Digital Shop</title>
     
     <script>
         // ==========================================
-        // 1. აქ ჩასვი შენი STEAM-ის ლინკები:
+        // 1. STEAM LIKNS (ჩასვი შენი ლინკები)
         // ==========================================
         const links = {
             group: "https://steamcommunity.com/groups/3DumbPenguins",
@@ -15,20 +15,11 @@
             friend: "https://steamcommunity.com/profiles/76561198708164928/",
             giftCard: "https://store.steampowered.com/digitalgiftcards/selectcard"
         };
-
-        // ==========================================
-        // 2. მაღაზიის საჩუქრები (ყიდვის შემდეგ გამოჩნდება):
-        // ==========================================
-        const shopRewards = {
-            bio: "✦ WORK HARD, PLAY HARD ✦\nWelcome to my profile!\nCS2 Gamer & Trader",
-            avatar: "https://i.imgur.com/YOUR_AVATAR_IMAGE.png",
-            design: "https://pastebin.com/raw/YOUR_DESIGN_CODE"
-        };
     </script>
 
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #0f141d;
             color: #ffffff;
             margin: 0;
@@ -39,7 +30,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             width: 100%;
         }
 
@@ -63,6 +54,21 @@
             border: 1px solid #f1c40f;
         }
 
+        .notice-banner {
+            background: rgba(102, 192, 244, 0.1);
+            border: 1px solid #66c0f4;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #c6d4df;
+            line-height: 1.5;
+        }
+
+        .notice-banner strong {
+            color: #66c0f4;
+        }
+
         .section-title {
             margin-top: 30px;
             margin-bottom: 15px;
@@ -74,8 +80,8 @@
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
         }
 
         .card {
@@ -87,6 +93,7 @@
             flex-direction: column;
             justify-content: space-between;
             position: relative;
+            overflow: hidden;
         }
 
         .card.popular {
@@ -95,7 +102,7 @@
 
         .badge {
             position: absolute;
-            top: -10px;
+            top: 10px;
             right: 10px;
             background: #f1c40f;
             color: #000;
@@ -105,8 +112,18 @@
             border-radius: 10px;
         }
 
-        .card h3 { margin: 0 0 10px 0; font-size: 18px; }
-        .card p { color: #9ab1c7; font-size: 13px; margin-bottom: 15px; }
+        .item-preview {
+            width: 100%;
+            height: 140px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            border: 1px solid #2a3a4e;
+        }
+
+        .card h3 { margin: 0 0 6px 0; font-size: 18px; }
+        .card p { color: #9ab1c7; font-size: 13px; margin-bottom: 12px; }
 
         .price {
             font-weight: bold;
@@ -128,6 +145,7 @@
             font-weight: bold;
             cursor: pointer;
             width: 100%;
+            transition: 0.2s;
         }
 
         button:hover { background: #7ea61a; }
@@ -135,6 +153,9 @@
 
         .buy-btn { background: #2980b9; }
         .buy-btn:hover { background: #3498db; }
+
+        .download-btn { background: #27ae60; }
+        .download-btn:hover { background: #2ecc71; }
 
         /* Modal */
         .modal {
@@ -151,7 +172,7 @@
             background: #17212e;
             padding: 25px;
             border-radius: 10px;
-            max-width: 450px;
+            max-width: 500px;
             width: 90%;
             border: 1px solid #66c0f4;
             text-align: center;
@@ -166,14 +187,18 @@
             color: #aaa;
         }
 
-        .reward-code {
+        .reward-box {
             background: #0a0e14;
-            padding: 10px;
+            padding: 12px;
             border-radius: 5px;
             border: 1px dashed #66c0f4;
             margin-top: 15px;
             font-family: monospace;
+            text-align: left;
+            max-height: 200px;
+            overflow-y: auto;
             white-space: pre-wrap;
+            color: #a3d0f0;
         }
     </style>
 </head>
@@ -184,6 +209,11 @@
         <h2>🎮 Steam Coins Hub</h2>
         <div class="balance">🪙 <span id="coin-count">0</span> COINS</div>
     </header>
+
+    <div class="notice-banner">
+        <strong>ℹ️ მნიშვნელოვანი ინფორმაცია:</strong><br>
+        Steam Profile Artwork Showcase-ის დაყენება შესაძლებელია <strong>Steam Level 10-დან</strong>. თუ ჯერ არ ხარ Level 10, შეგიძლია გამოიყენო Steam Bio და Avatar დიზაინები!
+    </div>
 
     <!-- 1. MISSIONS -->
     <div class="section-title">🎯 1. Earn Free Coins (Missions)</div>
@@ -211,7 +241,7 @@
     </div>
 
     <!-- 2. BUY COINS PACKAGES -->
-    <div class="section-title">💳 2. Buy Coins (Steam Gift Cards)</div>
+    <div class="section-title">💳 2. Buy Coins Packages</div>
     <div class="grid">
         <div class="card">
             <h3>Starter Pack</h3>
@@ -251,29 +281,10 @@
         </div>
     </div>
 
-    <!-- 3. SHOP -->
-    <div class="section-title">🛒 3. Digital Shop</div>
-    <div class="grid">
-        <div class="card">
-            <h3>Steam Bio</h3>
-            <p>Stylish profile bio template.</p>
-            <div class="price">50 COINS</div>
-            <button id="shop-bio" onclick="buyProduct('bio', 50)">BUY (50 COINS)</button>
-        </div>
-
-        <div class="card">
-            <h3>Profile Avatar</h3>
-            <p>Special HD avatar image.</p>
-            <div class="price">100 COINS</div>
-            <button id="shop-avatar" onclick="buyProduct('avatar', 100)">BUY (100 COINS)</button>
-        </div>
-
-        <div class="card">
-            <h3>Premium Design</h3>
-            <p>Exclusive profile artwork design.</p>
-            <div class="price">200 COINS</div>
-            <button id="shop-design" onclick="buyProduct('design', 200)">BUY (200 COINS)</button>
-        </div>
+    <!-- 3. DIGITAL SHOP -->
+    <div class="section-title">🛒 3. Digital Shop & Designs</div>
+    <div class="grid" id="shop-grid">
+        <!-- Shop Items JS-ით ჩაიტვირთება -->
     </div>
 </div>
 
@@ -287,7 +298,115 @@
 </div>
 
 <script>
+    // ==========================================
+    // მაღაზიის პროდუქტების კატალოგი
+    // ==========================================
+    const products = [
+        {
+            id: "bio_basic",
+            title: "Minimalist Steam Bio",
+            category: "Steam Bio",
+            price: 30,
+            image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80",
+            desc: "სუფთა და მინიმალისტური ბიო ტექსტი სოციალური ბმულებით.",
+            type: "text",
+            content: "✦ WELCOME TO MY PROFILE ✦\n\n01. Age: 20\n02. Favorite Game: CS2 / Dota 2\n03. Rank: Global Elite\n\n[ Discord: Username#0000 ]\n[ Trade Link: steamcommunity.com/... ]"
+        },
+        {
+            id: "bio_pro",
+            title: "Cyberpunk Gamer Bio",
+            category: "Steam Bio",
+            price: 50,
+            image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500&q=80",
+            desc: "სტაილიზებული Cyberpunk სტილის ბიო სიმბოლოებით.",
+            type: "text",
+            content: "╔════════════════════════════════════════╗\n   ░▒▓█ SYSTEM ONLINE: GAMER PROFILE █▓▒░\n╚════════════════════════════════════════╝\n\n▶ CS2 Player & Trader\n▶ Rank: Supreme / Faceit Level 10\n▶ PC Specs: RTX 3060 / i5-12400f\n\n don't accept private profiles!"
+        },
+        {
+            id: "avatar_neon",
+            title: "Neon Samurai Avatar (HD)",
+            category: "Profile Avatar",
+            price: 60,
+            image: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500&q=80",
+            desc: "მაღალი ხარისხის ნეონის სტილის ავატარი Steam-ისთვის.",
+            type: "file",
+            fileUrl: "https://i.imgur.com/8N03N6y.jpeg"
+        },
+        {
+            id: "avatar_anime",
+            title: "Dark Cyber Anime Avatar",
+            category: "Profile Avatar",
+            price: 100,
+            image: "https://images.unsplash.com/photo-1563089145-599997674d42?w=500&q=80",
+            desc: "ექსკლუზიური Dark Cyberpunk სტილის ავატარი.",
+            type: "file",
+            fileUrl: "https://i.imgur.com/8N03N6y.jpeg"
+        },
+        {
+            id: "art_red",
+            title: "Red Cyber Artwork Design",
+            category: "Artwork Design (Level 10+)",
+            price: 150,
+            image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500&q=80",
+            desc: "წითელი აბსტრაქტული Artwork Showcase-ის დიზაინის Zip/WinRAR ფაილი.",
+            type: "file",
+            fileUrl: "https://github.com/github/fetch/archive/refs/heads/master.zip"
+        },
+        {
+            id: "art_purple",
+            title: "Neon City Animated Artwork",
+            category: "Artwork Design (Level 10+)",
+            price: 200,
+            image: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=500&q=80",
+            desc: "პრემიუმ Neon City დიზაინის სრული არქივი (GIF/PNG).",
+            type: "file",
+            fileUrl: "https://github.com/github/fetch/archive/refs/heads/master.zip"
+        },
+        {
+            id: "bundle_ultimate",
+            title: "VIP FULL STREAM BUNDLE",
+            category: "Full Bundle (Bio + Avatar + Art)",
+            price: 350,
+            image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80",
+            desc: "სრული პაკეტი: Cyberpunk Bio + HD Avatar + Premium Artwork Design!",
+            type: "bundle",
+            fileUrl: "https://github.com/github/fetch/archive/refs/heads/master.zip",
+            content: "✦ VIP BIO TEMPLATE ✦\nWelcome to VIP Profile!\nCS2 / Trader / Collector\n\n(Artwork ფაილები გადმოიწერება ღილაკით!)"
+        }
+    ];
+
     let coins = parseInt(localStorage.getItem("coins")) || 0;
+
+    function renderShop() {
+        const grid = document.getElementById("shop-grid");
+        grid.innerHTML = "";
+
+        products.forEach(p => {
+            const isBought = localStorage.getItem("buy_" + p.id) === "true";
+            
+            const card = document.createElement("div");
+            card.className = "card" + (p.price >= 200 ? " popular" : "");
+            
+            let badgeHtml = p.price >= 200 ? `<span class="badge">PREMIUM</span>` : "";
+
+            let btnHtml = "";
+            if (isBought) {
+                btnHtml = `<button class="download-btn" onclick="openReward('${p.id}')">GET / VIEW REWARD ✓</button>`;
+            } else {
+                btnHtml = `<button onclick="buyProduct('${p.id}')">BUY (${p.price} COINS)</button>`;
+            }
+
+            card.innerHTML = `
+                ${badgeHtml}
+                <div class="item-preview" style="background-image: url('${p.image}');"></div>
+                <h3>${p.title}</h3>
+                <p>${p.desc}</p>
+                <div class="price">🪙 ${p.price} COINS</div>
+                ${btnHtml}
+            `;
+            grid.appendChild(card);
+        });
+    }
 
     function update() {
         document.getElementById("coin-count").innerText = coins;
@@ -300,12 +419,7 @@
             }
         });
 
-        ["bio", "avatar", "design"].forEach(id => {
-            if (localStorage.getItem("s_" + id) === "bought") {
-                const btn = document.getElementById("shop-" + id);
-                if (btn) { btn.innerText = "VIEW REWARD"; btn.style.background = "#2980b9"; }
-            }
-        });
+        renderShop();
     }
 
     function doMission(id, url, amount) {
@@ -329,23 +443,53 @@
         }, 1000);
     }
 
-    function buyProduct(id, price) {
-        if (localStorage.getItem("s_" + id) === "bought") {
-            showModal("Your Reward", `<div class="reward-code">${shopRewards[id]}</div>`);
+    function buyProduct(id) {
+        const item = products.find(p => p.id === id);
+        if (!item) return;
+
+        if (coins < item.price) {
+            alert(`❌ არ გაქვს საკმარისი ქოინები! გჭირდება ${item.price} COINS. შენ გაქვს: ${coins} COINS.`);
             return;
         }
 
-        if (coins < price) {
-            alert(`❌ You need ${price} Coins. You have ${coins} Coins.`);
-            return;
-        }
-
-        if (confirm(`Buy this for ${price} Coins?`)) {
-            coins -= price;
-            localStorage.setItem("s_" + id, "bought");
+        if (confirm(`ნამდვილად გსურს "${item.title}"-ის ყიდვა ${item.price} ქოინად?`)) {
+            coins -= item.price;
+            localStorage.setItem("buy_" + id, "true");
             update();
-            showModal("🎉 Item Bought!", `<div class="reward-code">${shopRewards[id]}</div>`);
+            openReward(id);
         }
+    }
+
+    function openReward(id) {
+        const item = products.find(p => p.id === id);
+        if (!item) return;
+
+        let content = `<h4>🎉 ნაყიდია: ${item.title}</h4>`;
+
+        if (item.type === "text") {
+            content += `
+                <p>დააკოპირე ეს ტექსტი და ჩასვი შენს Steam Bio-ში:</p>
+                <div class="reward-box">${item.content}</div>
+            `;
+        } else if (item.type === "file") {
+            content += `
+                <p>თქვენი ფაილი მზადაა გადმოსაწერად (Zip/WinRAR/PNG):</p>
+                <a href="${item.fileUrl}" target="_blank" download>
+                    <button class="download-btn" style="margin-top:15px;">💾 DOWNLOAD FILE (.ZIP)</button>
+                </a>
+            `;
+        } else if (item.type === "bundle") {
+            content += `
+                <p><strong>Steam Bio Template:</strong></p>
+                <div class="reward-box">${item.content}</div>
+                <p style="margin-top:15px;"><strong>Artwork & Avatar Files:</strong></p>
+                <a href="${item.fileUrl}" target="_blank" download>
+                    <button class="download-btn">💾 DOWNLOAD FULL BUNDLE (.ZIP)</button>
+                </a>
+            `;
+        }
+
+        showModal("Your Reward", content);
     }
 
     function openGiftCardInfo(pack, price) {
@@ -366,6 +510,8 @@
     }
 
     function closeModal() {
+        document.getElementById("modal-title").innerText = "";
+        document.getElementById("modal-body").innerHTML = "";
         document.getElementById("modal").style.display = "none";
     }
 
