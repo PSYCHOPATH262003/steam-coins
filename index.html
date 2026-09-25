@@ -5,6 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Steam Coins</title>
 
+    <script>
+        // ==========================================
+        // 1. აქ ჩაწერე შენი STEAM-ის ლინკები:
+        // ==========================================
+        const links = {
+            group: "https://steamcommunity.com/groups/3DumbPenguins",
+            profile: "https://steamcommunity.com/profiles/76561198708164928/",
+            friend: "https://steamcommunity.com/profiles/76561198708164928/"
+        };
+
+        // ==========================================
+        // 2. აქ ჩაწერე რა მიიღოს მყიდველმა (BIO / AVATAR / DESIGN):
+        // ==========================================
+        const shopRewards = {
+            bio: "✦ WORK HARD, PLAY HARD ✦\nWelcome to my profile!",
+            avatar: "https://i.imgur.com/YOUR_AVATAR_IMAGE.png",
+            design: "https://pastebin.com/raw/YOUR_DESIGN_CODE"
+        };
+    </script>
+
     <style>
         * {
             box-sizing: border-box;
@@ -245,20 +265,6 @@
 <script>
 let coins = Number(localStorage.getItem("steamCoins")) || 0;
 
-// ⚠️ აქ ჩასვი შენი რეალური STEAM-ის ლინკები:
-const links = {
-    group: "https://steamcommunity.com/groups/YOUR_GROUP_HERE",    // შენი გრუპის ლინკი
-    profile: "https://steamcommunity.com/id/YOUR_PROFILE_HERE",   // შენი პროფილის ლინკი
-    friend: "https://steamcommunity.com/id/YOUR_PROFILE_HERE"    // შენი მეგობრობის ლინკი
-};
-
-// ⚠️ აქ ჩასვი პროდუქტების შინაარსი/ლინკები (რასაც ყიდულობს მომხმარებელი):
-const shopRewards = {
-    bio: "✦ WORK HARD, PLAY HARD ✦\nWelcome to my Steam profile!\nTrader & Gamer",
-    avatar: "https://i.imgur.com/YOUR_AVATAR_IMAGE.png",
-    design: "https://pastebin.com/raw/YOUR_DESIGN_CODE"
-};
-
 function updateCoins() {
     document.getElementById("coin-count").textContent = coins;
     localStorage.setItem("steamCoins", coins);
@@ -269,45 +275,39 @@ function completeMission(id) {
         return;
     }
 
-    // 1. გადავიყვანოთ მომხმარებელი Steam-ის შესაბამის ლინკზე
     if (links[id]) {
         window.open(links[id], "_blank");
     }
 
-    // 2. დავუმატოთ ქოინები
     coins += 20;
     localStorage.setItem("mission_" + id, "done");
     updateCoins();
 
-    // 3. შევცვალოთ ღილაკის სტატუსი
     const button = document.getElementById(id + "-button");
-    button.textContent = "COMPLETED ✓";
-    button.classList.add("completed");
-    button.disabled = true;
+    if (button) {
+        button.textContent = "COMPLETED ✓";
+        button.classList.add("completed");
+        button.disabled = true;
+    }
 }
 
 function buyItem(itemId, cost) {
-    // თუ უკვე ნაყიდი აქვს
     if (localStorage.getItem("shop_" + itemId) === "bought") {
         alert("You already own this item!\n\nYour item: " + shopRewards[itemId]);
         return;
     }
 
-    // თუ არ ყოფნის ქოინები
     if (coins < cost) {
         alert("Not enough coins! You need " + cost + " coins.");
         return;
     }
 
-    // ქოინების ჩამოჭრა
     coins -= cost;
     localStorage.setItem("shop_" + itemId, "bought");
     updateCoins();
 
-    // ღილაკის განახლება
     setPurchasedState(itemId);
 
-    // პროდუქტის მიცემა/ჩვენება
     alert("Congratulations! You bought this item.\n\nHere is your reward/link:\n" + shopRewards[itemId]);
 }
 
@@ -320,7 +320,6 @@ function setPurchasedState(itemId) {
 }
 
 function loadData() {
-    // მისიების შემოწმება
     ["group", "profile", "friend"].forEach(function(id) {
         if (localStorage.getItem("mission_" + id) === "done") {
             const button = document.getElementById(id + "-button");
@@ -332,7 +331,6 @@ function loadData() {
         }
     });
 
-    // მაღაზიის ნივთების შემოწმება
     ["bio", "avatar", "design"].forEach(function(itemId) {
         if (localStorage.getItem("shop_" + itemId) === "bought") {
             setPurchasedState(itemId);
