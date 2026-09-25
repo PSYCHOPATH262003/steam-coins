@@ -172,8 +172,6 @@
 
         .price { font-weight: bold; color: var(--accent-gold); margin-bottom: 12px; font-size: 15px; }
 
-        .mission-link { display: block; width: 100%; text-decoration: none; }
-
         button {
             background: #27ae60;
             color: white;
@@ -303,41 +301,35 @@
             <em>შენიშვნა: ჯგუფიდან გამოსვლის ან მეგობრებიდან წაშლის შემთხვევაში თქვენი ბალანსი და ნაყიდი ნივთები სრულად გაუქმდება!</em>
         </div>
 
-        <!-- 1. FREE COINS MISSIONS -->
+        <!-- 1. FREE COINS MISSIONS (შენი ზუსტი ლინკებით) -->
         <div class="section-title">🎯 1. Earn Free Coins (Missions)</div>
         <div class="grid">
             <div class="card">
                 <span class="badge badge-free">FREE</span>
                 <h3>Join Official Group</h3>
-                <p>გადადი ჯგუფის გვერდზე, გაწევრიანდი და დაელოდე 10 წამს.</p>
+                <p>გადადი ჯგუფში (3DumbPenguins), გაწევრიანდი და დაელოდე 10 წამს.</p>
                 <div class="price">+20 COINS</div>
-                <a href="https://steamcommunity.com/groups/steam" target="_blank" class="mission-link" onclick="startMission('group', 20)">
-                    <button id="btn-group">GO TO GROUP (+20)</button>
-                </a>
+                <button id="btn-group" onclick="startMission('group', 'https://steamcommunity.com/groups/3DumbPenguins', 20)">GO TO GROUP (+20)</button>
             </div>
 
             <div class="card">
                 <span class="badge badge-free">FREE</span>
                 <h3>Follow Steam Profile</h3>
-                <p>გადადი პროფილზე, დააფოლოვე და დაელოდე 10 წამს.</p>
+                <p>გადადი შენს პროფილზე, დააფოლოვე და დაელოდე 10 წამს.</p>
                 <div class="price">+20 COINS</div>
-                <a href="https://steamcommunity.com/" target="_blank" class="mission-link" onclick="startMission('profile', 20)">
-                    <button id="btn-profile">GO TO PROFILE (+20)</button>
-                </a>
+                <button id="btn-profile" onclick="startMission('profile', 'https://steamcommunity.com/profiles/76561198708164928/', 20)">GO TO PROFILE (+20)</button>
             </div>
 
             <div class="card">
                 <span class="badge badge-free">FREE</span>
                 <h3>Add Friend</h3>
-                <p>გადადი პროფილზე, გააგზავნე მეგობრობა და დაელოდე 10 წამს.</p>
+                <p>გადადი შენს პროფილზე, გააგზავნე მეგობრობა და დაელოდე 10 წამს.</p>
                 <div class="price">+20 COINS</div>
-                <a href="https://steamcommunity.com/" target="_blank" class="mission-link" onclick="startMission('friend', 20)">
-                    <button id="btn-friend">ADD FRIEND (+20)</button>
-                </a>
+                <button id="btn-friend" onclick="startMission('friend', 'https://steamcommunity.com/profiles/76561198708164928/', 20)">ADD FRIEND (+20)</button>
             </div>
         </div>
 
-        <!-- 2. STORE & DESIGNS -->
+        <!-- 2. DIGITAL STORE & SHOWCASE (ბევრი არტვორკი, ბიო და ბანერი) -->
         <div class="section-title">🛒 2. Digital Store & Aesthetics Showcase</div>
 
         <div class="filter-container">
@@ -465,8 +457,9 @@
         } catch(e){}
     }
 
-    // --- STORE DATA ---
+    // --- LARGE STORE PRODUCTS CATALOG (ბევრი არტვორკი, ბიო და ბანერი) ---
     const products = [
+        // --- DARK BIOS ---
         {
             id: "dark_bio_gothic",
             cat: "dark_bio",
@@ -489,55 +482,127 @@
             image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=500&q=80",
             desc: "ბნელი, ვამპირული დიზაინის ტექსტი.",
             type: "text",
-            content: "𖤐 𝔏𝔬𝔰𝔱 𝔦𝔫 𝔱𝔥𝔢 𝔇𝔞𝔯𝔨𝔫𝔢𝔰𝔰 𖤐\n───▄█▀█▄───\n──▐█████▌──\n───▀███▀───\n• 𝕬𝖈𝖙𝖎𝖛𝖊 𝕿𝖗𝖆𝖉𝖊𝖗 & 𝕮𝖔𝖑𝖑𝖊𝖈𝖙𝖔𝖗\n• 𝕹𝖔 𝕽𝖆𝖓𝖉𝖔𝖒 𝕴𝖓𝖛𝖎𝖙𝖊𝖘"
+            content: "𖤐 𝔏𝔬𝔯𝔡 𝔬𝔣 𝔱𝔥𝔢 𝔑𝔦𝔤𝔥𝔱 𖤐\n────────────────────\n🩸 𝔅𝔩𝔬𝔬𝔡, 𝔖𝔴𝔢𝔞𝔱 & ℌ𝔢𝔞𝔡𝔰𝔥𝔬𝔱𝔰\n🩸 𝔇𝔬𝔫'𝔱 𝔱𝔬𝔲𝔠𝔥 𝔪𝔶 𝔠𝔦𝔯𝔠𝔩𝔢\n────────────────────\n𝔈𝔱𝔢𝔯𝔫𝔞𝔩 𝔇𝔞𝔯𝔴𝔫𝔢𝔰𝔰."
         },
         {
-            id: "dark_banner_grim",
-            cat: "dark_banner",
+            id: "dark_bio_cyber",
+            cat: "dark_bio",
             tier: "dark",
-            tierLabel: "Ultra Banner",
-            title: "Grim Reaper Ultra Banner",
-            price: 50,
-            image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=500&q=80",
-            desc: "Grim Reaper-ის ბნელი ულტრა HD ბანერის პირდაპირი გადმოწერა.",
-            type: "image_download",
-            imageUrl: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=1920",
-            fileName: "Grim_Reaper_Ultra_Banner.jpg"
+            tierLabel: "Cyber Demon",
+            title: "☠ ℂ𝕪𝕓𝕖𝕣 𝔻𝕖𝕞𝕠𝕟 𝔹𝕚𝕠 ☠",
+            price: 35,
+            image: "https://images.unsplash.com/photo-1563089145-599997674d42?w=500&q=80",
+            desc: "აგრესიული და ბნელი კიბერ-პანკ ბიო.",
+            type: "text",
+            content: "☠ 𝕎𝔼𝕃ℂ𝕆𝕄𝔼 𝕋𝕆 ℍ𝔼𝕃𝕃 ☠\n► 𝕮𝕾𝟤: 𝕲𝖑𝖔𝖇𝖆𝖑 𝕰𝖑𝖎𝖙𝖊\n► 𝕱𝖆𝖈𝖊𝖎𝖙: 𝕷𝖛𝖑 𝟙𝟘\n► 𝕯𝖔𝖓'𝖙 𝖂𝖆𝖘𝖙𝖊 𝕸𝖞 𝕿𝖎𝖒𝖊."
         },
+
+        // --- DARK ARTWORKS (ბევრი არტვორკი) ---
         {
             id: "dark_art_skull",
             cat: "dark_art",
             tier: "dark",
-            tierLabel: "Dark Art Showcase",
-            title: "Neon Skull Animated Showcase",
-            price: 80,
+            tierLabel: "Dark Artwork",
+            title: "🔮 Neon Skull Animated Showcase",
+            price: 45,
             image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500&q=80",
-            desc: "ბნელი ჩონჩხის HD სურათის პირდაპირი გადმოწერა.",
+            desc: "ბნელი ჩონჩხის HD არტვორკი პროფილისთვის.",
             type: "image_download",
             imageUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200",
             fileName: "Neon_Skull_Artwork.jpg"
         },
         {
+            id: "dark_art_abyss",
+            cat: "dark_art",
+            tier: "dark",
+            tierLabel: "Dark Artwork",
+            title: "🌌 Void & Abyss Artwork",
+            price: 50,
+            image: "https://images.unsplash.com/photo-1507499739999-097706ad8914?w=500&q=80",
+            desc: "უფსკრულის თემატიკის გალაქტიკური არტვორკი.",
+            type: "image_download",
+            imageUrl: "https://images.unsplash.com/photo-1507499739999-097706ad8914?w=1200",
+            fileName: "Void_Abyss_Artwork.jpg"
+        },
+        {
+            id: "dark_art_samurai",
+            cat: "dark_art",
+            tier: "dark",
+            tierLabel: "Dark Artwork",
+            title: "⚔️ Shadow Samurai Art",
+            price: 55,
+            image: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500&q=80",
+            desc: "ჩრდილოვანი სამურაის დიზაინი Artwork Showcase-ისთვის.",
+            type: "image_download",
+            imageUrl: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=1200",
+            fileName: "Shadow_Samurai_Art.jpg"
+        },
+
+        // --- DARK BANNERS ---
+        {
+            id: "dark_banner_grim",
+            cat: "dark_banner",
+            tier: "dark",
+            tierLabel: "Dark Banner",
+            title: "🖤 Grim Reaper Ultra Banner",
+            price: 40,
+            image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=500&q=80",
+            desc: "Grim Reaper-ის ბნელი ულტრა HD ბანერი.",
+            type: "image_download",
+            imageUrl: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=1920",
+            fileName: "Grim_Reaper_Ultra_Banner.jpg"
+        },
+        {
+            id: "dark_banner_cyber",
+            cat: "dark_banner",
+            tier: "dark",
+            tierLabel: "Dark Banner",
+            title: "🕷️ Cyber Dark Banner",
+            price: 45,
+            image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80",
+            desc: "მაღალი ხარისხის ბნელი კიბერ-ბანერი პროფილისთვის.",
+            type: "image_download",
+            imageUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1920",
+            fileName: "Cyber_Dark_Banner.jpg"
+        },
+
+        // --- STANDARD BIOS & AVATARS ---
+        {
             id: "bio_simple",
             cat: "bio",
             tier: "free",
             tierLabel: "Clean Bio",
-            title: "Minimalist Gamer Bio",
+            title: "⚡ Minimalist Gamer Bio",
             price: 15,
-            image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80",
+            image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&q=80",
             desc: "სუფთა და დახვეწილი მინიმალისტური ბიო.",
             type: "text",
-            content: "✦ WELCOME ✦\n• Main Game: CS2\n• Trade Status: Active\n• Feel free to add!"
+            content: "• Name: Anonymous\n• Game: Counter-Strike 2\n• Level: 100+\n• Trade: Open"
         },
+        {
+            id: "avatar_neon",
+            cat: "avatar",
+            tier: "free",
+            tierLabel: "Avatar",
+            title: "🔮 Neon Mask Avatar",
+            price: 20,
+            image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500&q=80",
+            desc: "ნეონის ილუსტრაცია Steam ავატარისთვის.",
+            type: "image_download",
+            imageUrl: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800",
+            fileName: "Neon_Mask_Avatar.jpg"
+        },
+
+        // --- VIP BUNDLE ---
         {
             id: "bundle_dark_god",
             cat: "bundle",
             tier: "vip",
             tierLabel: "VIP DARK GOD",
-            title: "🖤 DARK LORD VIP BUNDLE 🖤",
-            price: 150,
+            title: "👑 Dark Master Full Bundle",
+            price: 100,
             image: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=500&q=80",
-            desc: "სრული Dark პაკეტი: Bio + HD Banner + Artwork Showcase!",
+            desc: "სრული Dark პაკეტი: Bio + HD Banner + Artwork Showcase ერთად!",
             type: "bundle",
             content: "𝕯𝕬𝕽𝕶 𝕷𝕺𝕽𝕯 𝕻𝕽𝕺𝕱𝕴𝕷𝕰\n═════════════════════════\n† 𝕿𝕺𝕻 𝕮𝕺𝕷𝕷𝕰𝕮𝕿𝕺𝕽\n† 𝕮𝕾𝟤 𝕻𝕽𝕺\n═════════════════════════",
             imageUrl: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=1920",
@@ -547,6 +612,11 @@
 
     let currentCategory = "all";
     let coins = parseInt(localStorage.getItem("coins")) || 0;
+    let isVip = localStorage.getItem("steam_is_vip") === "true";
+
+    if(isVip) {
+        document.getElementById("current-user-vip").style.display = "flex";
+    }
 
     function renderShop() {
         const grid = document.getElementById("shop-grid");
@@ -587,10 +657,13 @@
         renderShop();
     }
 
-    function startMission(id, amount) {
+    // --- MISSION LOGIC (Opens exact Steam links & 10s Timer) ---
+    function startMission(id, url, amount) {
         if (localStorage.getItem("m_" + id) === "done") return;
 
         playSound('click');
+        window.open(url, "_blank"); // პირდაპირ ხსნის შენს Steam ლინკს
+
         const btn = document.getElementById("btn-" + id);
         let sec = 10;
         btn.disabled = true;
@@ -640,7 +713,7 @@
             content = `
                 <img src="${item.imageUrl}" style="width:100%; border-radius:8px; margin:10px 0; border:1px solid #333;">
                 <a href="${item.imageUrl}" download="${item.fileName}" target="_blank">
-                    <button class="download-btn" onclick="playSound('buy')">💾 DOWNLOAD HD IMAGE / BANNER NOW</button>
+                    <button class="download-btn" onclick="playSound('buy')">💾 DOWNLOAD HD IMAGE NOW</button>
                 </a>
             `;
         } else if (item.type === "bundle") {
@@ -676,7 +749,7 @@
                 • გამოჩენა VIP Lounge-ის ექსკლუზიურ სიაში.
             </p>
             <a href="${STEAM_GIFT_LINK}" target="_blank">
-                <button style="margin-top:10px; background:#f1c40f; color:#000; font-weight:bold;">GO TO STEAM GIFT CARDS</button>
+                <button style="margin-top:10px; background:#f1c40f; color:#000; font-weight:bold;">🎁 GO TO STEAM GIFT CARDS / ADD FUNDS</button>
             </a>
         `;
         showModal("Buy VIP Membership", content);
@@ -684,10 +757,11 @@
 
     function openGuideModal() {
         playSound('click');
+        // სწორი ინგლისურენოვანი ტუტორიალი Steam Gift Card-ის შესახებ
         const content = `
             <p style="font-size:13px; color:#aaa;">How to buy VIP status using Steam Gift Cards (Video Tutorial):</p>
             <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/5qap5aO4i9A" allowfullscreen></iframe>
             </div>
             <ol style="text-align:left; font-size:12px; color:#ccc; margin-top:15px;">
                 <li>Click the <b>BUY VIP</b> button.</li>
@@ -701,6 +775,10 @@
 
     function claimWeeklyCoins() {
         playSound('click');
+        if(!isVip) {
+            alert("❌ Weekly Coins ხელმისაწვდომია მხოლოდ VIP წევრებისთვის!");
+            return;
+        }
         coins += 30;
         alert("🎉 გილოცავთ! თქვენ დაგერიცხათ VIP Weekly Bonus +30 Coins!");
         update();
