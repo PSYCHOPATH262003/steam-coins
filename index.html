@@ -151,6 +151,12 @@
             background: #67efff;
         }
 
+        button.checking {
+            background: #ff9800;
+            color: #000;
+            cursor: wait;
+        }
+
         button.completed,
         button.purchased {
             background: #26343c;
@@ -205,7 +211,7 @@
             <p>Join our official Steam group.</p>
             <div class="reward">+20 COINS</div>
             <button id="group-button" onclick="completeMission('group')">
-                COMPLETE & OPEN LINK
+                COMPLETE MISSION
             </button>
         </div>
 
@@ -214,7 +220,7 @@
             <p>Follow our Steam profile.</p>
             <div class="reward">+20 COINS</div>
             <button id="profile-button" onclick="completeMission('profile')">
-                COMPLETE & OPEN LINK
+                COMPLETE MISSION
             </button>
         </div>
 
@@ -223,7 +229,7 @@
             <p>Add our Steam account as a friend.</p>
             <div class="reward">+20 COINS</div>
             <button id="friend-button" onclick="completeMission('friend')">
-                COMPLETE & OPEN LINK
+                COMPLETE MISSION
             </button>
         </div>
 
@@ -275,25 +281,46 @@ function completeMission(id) {
         return;
     }
 
+    const button = document.getElementById(id + "-button");
+
+    // თუ უკვე შემოწმების პროცესშია, მეორედ დაჭერა დაიბლოკოს
+    if (button.classList.contains("checking")) {
+        return;
+    }
+
+    // 1. გახსნას Steam-ის ლინკი
     if (links[id]) {
         window.open(links[id], "_blank");
     }
 
-    coins += 20;
-    localStorage.setItem("mission_" + id, "done");
-    updateCoins();
+    // 2. დაიწყოს 10-წამიანი ტაიმერი
+    let timeLeft = 10;
+    button.disabled = true;
+    button.classList.add("checking");
+    button.textContent = `CHECKING... (${timeLeft}s)`;
 
-    const button = document.getElementById(id + "-button");
-    if (button) {
-        button.textContent = "COMPLETED ✓";
-        button.classList.add("completed");
-        button.disabled = true;
-    }
+    const timer = setInterval(() => {
+        timeLeft--;
+        if (timeLeft > 0) {
+            button.textContent = `CHECKING... (${timeLeft}s)`;
+        } else {
+            clearInterval(timer);
+
+            // 3. ტაიმერის დასრულების შემდეგ ქოინების მიცემა
+            coins += 20;
+            localStorage.setItem("mission_" + id, "done");
+            updateCoins();
+
+            button.textContent = "COMPLETED ✓";
+            button.classList.remove("checking");
+            button.classList.add("completed");
+        }
+    }, 1000);
 }
 
 function buyItem(itemId, cost) {
     if (localStorage.getItem("shop_" + itemId) === "bought") {
-        alert("You already own this item!\n\nYour item: " + shopRewards[itemId]);
+        alert("You already own this item!\n\nYour item:\n" + shopRewards[itemId]);
         return;
     }
 
